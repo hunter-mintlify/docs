@@ -1,0 +1,103 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "hunterchen7",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "pages": [
+      "neha-test-deactivate",
+      "paowejfpoiwafj",
+      {
+        "group": "folder",
+        "pages": [
+          "wow-new-page",
+          "making-a-new-page",
+          "a-nwe-page"
+        ]
+      },
+      {
+        "group": "Samples",
+        "pages": [
+          "samples/components-showcase",
+          "samples/guide-with-steps-2",
+          "samples/components-showcase-2",
+          "mermaid-stuff",
+          "samples/components-showcase-2-2",
+          "samples/guide-with-steps",
+          "samples/api-endpoint",
+          "samples/concept-overview",
+          "samples/oranges",
+          "joij",
+          "title-workspace-landing-description-a-slash-docs-style-landing-page-built-with-custom-css-react-components-and-a-custom-layout-mode-custom-export-const-sd-css-import-url-https-fonts-googleapis-com",
+          "doom",
+          "hihoi"
+        ]
+      },
+      {
+        "group": "Fun",
+        "pages": [
+          "fun/dice-roller",
+          "fun/docs-trivia",
+          "fun/coffee-calculator"
+        ]
+      },
+      {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "https://mintlify.com/docs",
+          "icon": "book-open-cover"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hi@mintlify.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://app.mintlify.com"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  }
+}

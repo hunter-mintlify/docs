@@ -1,0 +1,77 @@
+---
+title: "Sample Concept Overview: Widgets, Sprockets, and Gadgets"
+sidebarTitle: "Concept Overview"
+description: "Longer-form filler concept page with prose, tables, code blocks with diff markers, and nested callouts for layout testing."
+---
+
+This sample concept page uses longer prose blocks, a comparison table, and code with diff markers so you can see how dense conceptual content flows.
+
+## What is a widget?
+
+A widget is the fundamental unit in the Acme placeholder platform. Every widget belongs to exactly one workspace and has a stable identifier, a display color, and an optional metadata bag. Widgets are cheap to create and expensive to lose, which is why the imaginary Acme team recommends tagging them liberally.
+
+Widgets compose into sprockets, and sprockets combine into gadgets. This mirrors how many real products layer primitives into higher-level abstractions, but every specific detail on this page is fabricated.
+
+## Widgets, sprockets, and gadgets
+
+| Concept  | Cardinality        | Owns          | Typical use                    |
+| -------- | ------------------ | ------------- | ------------------------------ |
+| Widget   | One per record     | Metadata      | Smallest building block        |
+| Sprocket | Many widgets       | Configuration | Groups related widgets         |
+| Gadget   | Many sprockets     | Permissions   | Ships to end users             |
+
+<Note>Cardinalities above are illustrative. A real product would enforce these with schema constraints.</Note>
+
+## Lifecycle
+
+Every widget moves through four states. The transitions are one-way except for `archived → active`, which requires an admin action.
+
+<Steps>
+  <Step title="draft">Created but not yet visible to collaborators.</Step>
+  <Step title="active">Available to sprockets and gadgets in the same workspace.</Step>
+  <Step title="paused">Temporarily hidden without deleting attachments.</Step>
+  <Step title="archived">Retained for audit but excluded from queries by default.</Step>
+</Steps>
+
+## Migration example
+
+The imaginary v2 client renamed `label` to `name` and dropped the `legacy_id` field. Here is what the diff looks like in a consumer:
+
+```ts migrate.ts lines
+const widget = await acme.widgets.create({
+  label: "Sprocket",           // [!code --]
+  name: "Sprocket",            // [!code ++]
+  legacy_id: "old_123",        // [!code --]
+  color: "emerald",
+});
+```
+
+<Tip>When you migrate, run both clients side by side for one release and diff the responses.</Tip>
+
+## Frequently asked questions
+
+<AccordionGroup>
+  <Accordion title="Are widgets real?">
+    Not in this workspace. They are placeholders for demonstrating concept pages.
+  </Accordion>
+  <Accordion title="Can a widget belong to two workspaces?">
+    No. Every widget is scoped to a single workspace and cannot be transferred.
+  </Accordion>
+  <Accordion title="What happens when a workspace is deleted?">
+    All widgets, sprockets, and gadgets in the workspace are archived and purged after 30 days.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Setup guide" icon="rocket" href="/samples/guide-with-steps">
+    Walk through the fabricated onboarding flow.
+  </Card>
+  <Card title="API reference" icon="code" href="/samples/api-endpoint">
+    See how endpoints are documented.
+  </Card>
+  <Card title="title of card" icon="lightbulb" href="/samples/api-endpoint">
+    card content
+  </Card>
+</CardGroup>

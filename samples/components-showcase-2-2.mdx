@@ -1,0 +1,87 @@
+---
+title: "Components Showcase: Callouts, Cards, and Tabs (copy) (copy)"
+description: "Sample page demonstrating callouts, card groups, tabs, and accordions with filler content for layout and styling tests."
+---
+
+This sample page shows a mixture of Mintlify components with placeholder copy so you can preview spacing, hierarchy, and dark mode without touching real docs.
+
+another change at 21:38 and something else 22:07
+
+change here.
+
+## Callouts
+
+<Note>
+  Notes surface neutral context that supports the surrounding paragraph.
+</Note>
+
+<Tip>
+  Tips highlight a best practice or shortcut worth remembering.
+</Tip>
+
+<Warning>
+  Warnings flag breaking changes, data loss, or irreversible actions.
+</Warning>
+
+<Info>
+  Info callouts add background detail without demanding user action.
+</Info>
+
+## Card group
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/samples/guide-with-steps">
+    Walk through a fabricated setup flow rendered with the Steps component.
+  </Card>
+
+  <Card title="API Reference" icon="code" href="/samples/api-endpoint">
+    Explore a mock endpoint page with ParamField and ResponseField.
+  </Card>
+
+  <Card title="Concepts" icon="lightbulb" href="/samples/concept-overview">
+    Read a longer prose page with tables, images, and code blocks.
+  </Card>
+
+  <Card title="Components" icon="puzzle" href="/samples/components-showcase">
+    You are here. Reference for every callout, tab, and accordion style.
+  </Card>
+</CardGroup>
+
+## Tabs
+
+<Tabs>
+  <Tab title="TypeScript">
+    ```ts
+    const sample = { id: "abc_123", active: true };
+    console.log(sample);
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    sample = {"id": "abc_123", "active": True}
+    print(sample)
+    ```
+  </Tab>
+  <Tab title="Go">
+    ```go
+    sample := map[string]any{"id": "abc_123", "active": true}
+    fmt.Println(sample)
+    ```
+  </Tab>
+</Tabs>
+
+## Accordions
+
+<AccordionGroup>
+  <Accordion title="Does this content mean anything?">
+    No. Every sentence here is filler for layout testing.
+  </Accordion>
+
+  <Accordion title="Can I delete this page?">
+    Yes, delete `samples/components-showcase.mdx` and remove it from `docs.json`.
+  </Accordion>
+
+  <Accordion title="Where do I add more samples?">
+    Drop new files under the `samples/` directory and list them in the Samples group.
+  </Accordion>
+</AccordionGroup>

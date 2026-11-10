@@ -1,0 +1,103 @@
+---
+title: "Sample API Endpoint Reference for Widgets"
+sidebarTitle: "API Endpoint"
+description: "Filler API reference page demonstrating ParamField, ResponseField, Expandable, and request and response code samples."
+---
+
+This sample endpoint page shows how to structure a REST reference entry with parameter tables, response schemas, and language-specific request examples.
+
+## Create a widget
+
+`POST /v1/widgets`
+
+Creates a new widget in the fictional Acme workspace and returns the persisted record. feawefwaef
+
+### Request
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token used to authenticate the request. Example: `Bearer sk_test_placeholder_123`. awefawefawef
+</ParamField>
+
+<ParamField body="name" type="string" required>
+  Human-readable label for the widget. Must be between 1 and 64 characters.
+</ParamField>
+
+<ParamField body="color" type="string" default="slate">
+  Display color. One of `slate`, `emerald`, `amber`, or `rose`.
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Arbitrary key-value pairs attached to the widget. Values must be strings.
+</ParamField>
+
+### Example request
+
+<CodeGroup>
+```bash cURL
+curl https://api.acme.example/v1/widgets \
+  -H "Authorization: Bearer sk_test_placeholder_123" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Sprocket","color":"emerald"}'
+```
+
+```ts TypeScript
+const widget = await acme.widgets.create({
+  name: "Sprocket",
+  color: "emerald",
+});
+```
+
+```python Python
+widget = acme.widgets.create(name="Sprocket", color="emerald")
+```
+</CodeGroup>
+
+### Response
+
+<ResponseField name="id" type="string">
+  Unique identifier for the widget, prefixed with `wid_`.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The label supplied at creation time.
+</ResponseField>
+
+<ResponseField name="color" type="string">
+  Resolved display color.
+</ResponseField>
+
+<ResponseField name="metadata" type="object">
+  <Expandable title="properties">
+    <ResponseField name="key" type="string">
+      Arbitrary metadata key.
+    </ResponseField>
+    <ResponseField name="value" type="string">
+      Value associated with the key.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the widget was created.
+</ResponseField>
+
+```json Example response
+{
+  "id": "wid_01H8XYZ",
+  "name": "Sprocket",
+  "color": "emerald",
+  "metadata": {},
+  "created_at": "2026-09-04T12:00:00Z"
+}
+```
+
+## Errors
+
+| Status | Code                | Meaning                                      |
+| ------ | ------------------- | -------------------------------------------- |
+| 400    | `invalid_request`   | The payload failed schema validation.        |
+| 401    | `unauthorized`      | Missing or invalid bearer token.             |
+| 409    | `widget_exists`     | A widget with the same name already exists. |
+| 429    | `rate_limited`      | You exceeded the placeholder rate limit.     |
+
+<Warning>These error codes are fabricated for demo purposes and do not map to a real service.</Warning>

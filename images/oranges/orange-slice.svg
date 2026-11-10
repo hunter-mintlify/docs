@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <circle cx="120" cy="120" r="100" fill="#F57C00"/>
+  <circle cx="120" cy="120" r="90" fill="#FFF3E0"/>
+  <circle cx="120" cy="120" r="82" fill="#FFA726"/>
+  <g fill="#FFB74D" stroke="#FFF3E0" stroke-width="4" stroke-linejoin="round">
+    <path d="M120 120 L120 44 A76 76 0 0 1 174 66 Z"/>
+    <path d="M120 120 L174 66 A76 76 0 0 1 196 120 Z"/>
+    <path d="M120 120 L196 120 A76 76 0 0 1 174 174 Z"/>
+    <path d="M120 120 L174 174 A76 76 0 0 1 120 196 Z"/>
+    <path d="M120 120 L120 196 A76 76 0 0 1 66 174 Z"/>
+    <path d="M120 120 L66 174 A76 76 0 0 1 44 120 Z"/>
+    <path d="M120 120 L44 120 A76 76 0 0 1 66 66 Z"/>
+    <path d="M120 120 L66 66 A76 76 0 0 1 120 44 Z"/>
+  </g>
+  <circle cx="120" cy="120" r="7" fill="#FFF3E0"/>
+  <g fill="#FFF8E1">
+    <ellipse cx="150" cy="80" rx="4" ry="7" transform="rotate(30 150 80)"/>
+    <ellipse cx="86" cy="160" rx="4" ry="7" transform="rotate(30 86 160)"/>
+  </g>
+</svg>

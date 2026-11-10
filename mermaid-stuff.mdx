@@ -1,0 +1,272 @@
+---
+title: "mermaid stuff"
+---
+
+This page walks through how an order moves through a sample checkout service. It mixes several Mermaid diagram types with regular documentation content so you can see how diagrams render alongside text, callouts, tables, and code.
+
+## Overview aefjaewf
+
+The checkout service accepts orders from the web app, validates payment, and hands fulfilled orders to the warehouse. At a high level, the flow looks like this:
+
+```mermaid
+flowchart LR
+  A[Customer] --> B[Web App]
+  B --> C{Payment valid?}
+  C -->|Yes| D[Create order]
+  C -->|No| E[Show error]
+  D --> F[Warehouse]
+  F --> G[Ship package]
+```
+
+<Note>
+  All services communicate over HTTPS. Internal calls use short-lived service tokens.
+</Note>
+
+## Request lifecycle
+
+When a customer clicks **Place order**, the web app sends a request to the API gateway. The gateway authenticates the request and forwards it to the checkout service, which calls the payment provider before confirming.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant U as User
+  participant W as Web App
+  participant G as API Gateway
+  participant C as Checkout Service
+  participant P as Payment Provider
+
+  U->>W: Click "Place order"
+  W->>G: POST /orders
+  G->>C: Forward request
+  C->>P: Authorize payment
+  alt Payment approved
+    P-->>C: 200 OK
+    C-->>G: Order created
+    G-->>W: 201 Created
+    W-->>U: Show confirmation
+  else Payment declined
+    P-->>C: 402 Declined
+    C-->>W: Error response
+    W-->>U: Show payment error
+  end
+```
+
+A typical request body looks like this:
+
+```json POST /orders
+{
+  "customer_id": "cus_8421",
+  "items": [
+    { "sku": "TSHIRT-BLK-M", "quantity": 2 },
+    { "sku": "MUG-WHT", "quantity": 1 }
+  ],
+  "payment_method": "pm_card_visa"
+}
+```
+
+## Order states
+
+Every order moves through a fixed set of states. Transitions are triggered by events from the payment provider and the warehouse.
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending
+  Pending --> Paid: payment.succeeded
+  Pending --> Cancelled: payment.failed
+  Paid --> Packing: warehouse.accepted
+  Packing --> Shipped: label.created
+  Shipped --> Delivered: carrier.delivered
+  Paid --> Refunded: refund.issued
+  Delivered --> [*]
+  Cancelled --> [*]
+  Refunded --> [*]
+```
+
+| State | Description | Customer visible |
+| --- | --- | --- |
+| `Pending` | Order created, waiting on payment | Yes |
+| `Paid` | Payment captured | Yes |
+| `Packing` | Warehouse is preparing items | Yes |
+| `Shipped` | Package handed to carrier | Yes |
+| `Delivered` | Carrier confirmed delivery | Yes |
+| `Cancelled` | Payment failed or customer cancelled | Yes |
+| `Refunded` | Funds returned to customer | Yes |
+
+<Tip>
+  Subscribe to the `order.updated` webhook to react to state changes instead of polling.
+</Tip>
+
+## Data model
+
+Orders, customers, and line items are stored in a relational database. The diagram below shows how they relate.
+
+```mermaid
+erDiagram
+  CUSTOMER ||--o{ ORDER : places
+  ORDER ||--|{ LINE_ITEM : contains
+  PRODUCT ||--o{ LINE_ITEM : "is referenced by"
+  ORDER ||--o| SHIPMENT : "ships as"
+
+  CUSTOMER {
+    string id PK
+    string email
+    string name
+  }
+  ORDER {
+    string id PK
+    string customer_id FK
+    string status
+    int total_cents
+  }
+  LINE_ITEM {
+    string id PK
+    string order_id FK
+    string sku FK
+    int quantity
+  }
+  PRODUCT {
+    string sku PK
+    string name
+    int price_cents
+  }
+  SHIPMENT {
+    string id PK
+    string order_id FK
+    string tracking_number
+  }
+```
+
+## Service classes
+
+The checkout service is organized into a few core classes. Each class owns a single responsibility.
+
+```mermaid
+classDiagram
+  class OrderService {
+    +createOrder(request) Order
+    +cancelOrder(id) void
+    -validate(request) bool
+  }
+  class PaymentClient {
+    +authorize(amount, method) Result
+    +refund(paymentId) Result
+  }
+  class Order {
+    +String id
+    +String status
+    +int totalCents
+    +markPaid()
+    +markShipped()
+  }
+  class WarehouseClient {
+    +submit(order) void
+  }
+
+  OrderService --> PaymentClient
+  OrderService --> WarehouseClient
+  OrderService --> Order
+```
+
+<Accordion title="Why separate the payment client?">
+  Keeping payment logic in its own client makes it easy to swap providers or add a second provider for failover without touching order logic.
+</Accordion>
+
+## Rollout plan
+
+The new checkout flow ships in phases over the next quarter.
+
+```mermaid
+gantt
+  title Checkout v2 rollout
+  dateFormat YYYY-MM-DD
+  section Build
+  API changes           :done,    a1, 2026-09-01, 14d
+  Payment integration   :active,  a2, 2026-09-15, 21d
+  section Test
+  Internal beta         :         b1, after a2, 10d
+  Load testing          :         b2, after a2, 7d
+  section Launch
+  10% rollout           :         c1, after b1, 5d
+  Full rollout          :         c2, after c1, 7d
+```
+
+<Steps>
+  <Step title="Enable the feature flag">
+    Turn on `checkout_v2` for internal accounts in the admin panel.
+  </Step>
+  <Step title="Monitor error rates">
+    Watch the checkout dashboard for payment and order errors during beta.
+  </Step>
+  <Step title="Expand rollout">
+    Increase traffic to 10%, then 100% once error rates stay below 0.1%.
+  </Step>
+</Steps>
+
+## Traffic breakdown
+
+Most orders come from the web app today, but mobile usage is growing quickly.
+
+```mermaid
+pie title Orders by channel
+  "Web" : 58
+  "iOS" : 24
+  "Android" : 15
+  "Partner API" : 3
+```
+
+## Release history
+
+```mermaid
+gitGraph
+  commit id: "init"
+  branch feature/checkout-v2
+  checkout feature/checkout-v2
+  commit id: "add order service"
+  commit id: "payment client"
+  checkout main
+  commit id: "hotfix: tax rounding"
+  merge feature/checkout-v2
+  commit id: "release 2.0"
+```
+
+## Customer journey
+
+```mermaid
+journey
+  title Buying a t-shirt
+  section Browse
+    Find product: 5: Customer
+    Read reviews: 4: Customer
+  section Checkout
+    Add to cart: 5: Customer
+    Enter payment: 2: Customer
+    Confirm order: 4: Customer
+  section After purchase
+    Receive tracking email: 4: Customer
+    Receive package: 5: Customer
+```
+
+<Warning>
+  The payment step has the lowest satisfaction score. Saved payment methods are planned for Q1 to reduce friction.
+</Warning>
+
+## End-to-end pipeline
+
+The full pipeline from cart to delivery spans many services. This diagram is intentionally wide so you can see how long horizontal flows render.
+
+```mermaid
+flowchart LR
+  A[Cart updated by customer in the web or mobile app] ----> B[API gateway authenticates and rate limits the request] ----> C[Checkout service validates inventory, pricing, and tax] ----> D[Payment provider authorizes and captures the full amount] ----> E[Order service persists the order and emits order.created] ----> F[Warehouse service reserves stock and schedules packing] ----> G[Shipping service purchases a label from the carrier] ----> H[Notification service emails tracking details to the customer] ----> I[Carrier delivers the package and confirms delivery]
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/getting-started/quickstart">
+    Set up your environment and place a test order.
+  </Card>
+
+  <Card title="Home" icon="house" href="/">
+    Return to the documentation home page.
+  </Card>
+</CardGroup>

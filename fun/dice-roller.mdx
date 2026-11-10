@@ -1,0 +1,143 @@
+---
+title: "Dice roller"
+description: "Roll a handful of 3D dice right in the docs."
+---
+
+Can't decide what to work on next? Let the dice choose.
+
+<DiceRoller />
+
+## How to use it
+
+1. Pick how many dice to roll.
+2. Click **Roll** and watch them tumble.
+3. Read the total once they land.
+
+<Tip>
+Roll before every deploy. Snake eyes means you should probably wait until Monday.
+</Tip>
+
+export const DiceRoller = () => {
+  const SIZE = 64;
+  const HALF = SIZE / 2;
+  const PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
+  const TARGET = { 1: [0, 0], 2: [-90, 0], 3: [0, -90], 4: [0, 90], 5: [90, 0], 6: [0, 180] };
+  const FACES = [
+    { value: 1, transform: "rotateY(0deg)" },
+    { value: 6, transform: "rotateY(180deg)" },
+    { value: 3, transform: "rotateY(90deg)" },
+    { value: 4, transform: "rotateY(-90deg)" },
+    { value: 2, transform: "rotateX(90deg)" },
+    { value: 5, transform: "rotateX(-90deg)" }
+  ];
+  const makeDie = () => ({ value: 1 + Math.floor(Math.random() * 6), turnsX: 0, turnsY: 0 });
+
+  const [count, setCount] = useState(2);
+  const [dice, setDice] = useState(() => [makeDie(), makeDie()]);
+  const [rollId, setRollId] = useState(0);
+  const [rolling, setRolling] = useState(false);
+  const timer = useRef(null);
+
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const changeCount = (n) => {
+    setCount(n);
+    setDice((prev) => {
+      const next = prev.slice(0, n);
+      while (next.length < n) next.push(makeDie());
+      return next;
+    });
+  };
+
+  const roll = () => {
+    setDice((prev) =>
+      prev.map((d) => ({
+        value: 1 + Math.floor(Math.random() * 6),
+        turnsX: d.turnsX + 2 + Math.floor(Math.random() * 2),
+        turnsY: d.turnsY + 2 + Math.floor(Math.random() * 2)
+      }))
+    );
+    setRollId((r) => r + 1);
+    setRolling(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setRolling(false), 1500);
+  };
+
+  const total = dice.reduce((sum, d) => sum + d.value, 0);
+  const bounce = rollId === 0 ? "none" : rollId % 2 ? "drBounceA" : "drBounceB";
+
+  return (
+    <div className="not-prose" style={{ border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 20, margin: "16px 0" }}>
+      <style>{`
+        @keyframes drBounceA { 0% { transform: translateY(0) } 25% { transform: translateY(-46px) } 50% { transform: translateY(0) } 65% { transform: translateY(-14px) } 80% { transform: translateY(0) } 90% { transform: translateY(-4px) } 100% { transform: translateY(0) } }
+        @keyframes drBounceB { 0% { transform: translateY(0) } 25% { transform: translateY(-46px) } 50% { transform: translateY(0) } 65% { transform: translateY(-14px) } 80% { transform: translateY(0) } 90% { transform: translateY(-4px) } 100% { transform: translateY(0) } }
+        @keyframes drShadowA { 0%,50%,80%,100% { transform: scale(1); opacity: .35 } 25% { transform: scale(.55); opacity: .15 } 65% { transform: scale(.8); opacity: .25 } }
+        @keyframes drShadowB { 0%,50%,80%,100% { transform: scale(1); opacity: .35 } 25% { transform: scale(.55); opacity: .15 } 65% { transform: scale(.8); opacity: .25 } }
+        .dr-face { position: absolute; inset: 0; border-radius: 12px; background: radial-gradient(circle at 30% 25%, #ffffff, #e8e8e8 70%, #d4d4d4); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), inset 0 -6px 12px rgba(0,0,0,.08); display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 9px; backface-visibility: hidden; }
+        .dr-pip { width: 11px; height: 11px; border-radius: 50%; margin: auto; background: radial-gradient(circle at 35% 35%, #444, #111); box-shadow: inset 0 1px 2px rgba(0,0,0,.6); }
+        .dr-pip-red { width: 15px; height: 15px; background: radial-gradient(circle at 35% 35%, #ef4444, #991b1b); }
+      `}</style>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "flex-end" }}>
+        <label style={{ fontSize: 14, display: "grid", gap: 4 }}>
+          <span style={{ opacity: 0.7 }}>Dice: {count}</span>
+          <input type="range" min={1} max={6} value={count} onChange={(e) => changeCount(Number(e.target.value))} style={{ accentColor: "#16A34A" }} />
+        </label>
+        <button type="button" onClick={roll} style={{ background: "#16A34A", color: "white", border: "none", borderRadius: 8, padding: "8px 20px", fontWeight: 600, fontSize: 14, cursor: "pointer" }}>
+          Roll
+        </button>
+      </div>
+
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 28, padding: "64px 8px 16px", perspective: 700 }}>
+        {dice.map((d, i) => {
+          const [tx, ty] = TARGET[d.value];
+          const rx = tx + 360 * d.turnsX;
+          const ry = ty + 360 * d.turnsY;
+          const delay = i * 0.06;
+          return (
+            <div key={i} style={{ position: "relative", width: SIZE, height: SIZE + 18 }}>
+              <div style={{ position: "absolute", left: 6, right: 6, bottom: 0, height: 10, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(0,0,0,.6), transparent 70%)", opacity: 0.35, animation: bounce === "none" ? "none" : (bounce === "drBounceA" ? "drShadowA" : "drShadowB") + " 1.3s ease-out " + delay + "s both" }} />
+              <div style={{ width: SIZE, height: SIZE, animation: bounce === "none" ? "none" : bounce + " 1.3s ease-out " + delay + "s both" }}>
+                <div
+                  style={{
+                    position: "relative",
+                    width: SIZE,
+                    height: SIZE,
+                    transformStyle: "preserve-3d",
+                    transform: "rotateX(" + (rx - 18) + "deg) rotateY(" + (ry + 22) + "deg)",
+                    transition: "transform 1.3s cubic-bezier(.2,.8,.25,1) " + delay + "s"
+                  }}
+                >
+                  {FACES.map((f) => (
+                    <div key={f.value} className="dr-face" style={{ transform: f.transform + " translateZ(" + HALF + "px)" }}>
+                      {Array.from({ length: 9 }).map((_, cell) =>
+                        PIPS[f.value].includes(cell) ? (
+                          <span key={cell} className={f.value === 1 ? "dr-pip dr-pip-red" : "dr-pip"} />
+                        ) : (
+                          <span key={cell} />
+                        )
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{ textAlign: "center", fontSize: 14, minHeight: 22 }} aria-live="polite">
+        {rolling ? (
+          <span style={{ opacity: 0.6 }}>Rolling...</span>
+        ) : rollId === 0 ? (
+          <span style={{ opacity: 0.6 }}>Hit Roll to throw the dice</span>
+        ) : (
+          <span>
+            <span style={{ opacity: 0.7 }}>{dice.map((d) => d.value).join(" + ")} = </span>
+            <span style={{ fontWeight: 700, fontSize: 18 }}>{total}</span>
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};

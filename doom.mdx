@@ -1,0 +1,78 @@
+---
+title: "DOOM"
+sidebarTitle: "DOOM"
+description: "Custom-mode page that runs DOOM edge to edge, scaled to fit the viewport."
+mode: "custom"
+icon: "😈"
+---
+
+export const DoomFull = () => {
+  const wrapRef = useRef(null)
+  const cropRef = useRef(null)
+  const frameRef = useRef(null)
+  const [scale, setScale] = useState(1)
+  const cropW = 640
+  const cropH = 404
+  const offX = 8
+  const offY = 201
+  useEffect(() => {
+    const fit = () => {
+      if (!wrapRef.current) return
+      const w = wrapRef.current.clientWidth - 48
+      const inFrame = window.top !== window
+      let vh = window.innerHeight
+      if (inFrame) {
+        vh = 0
+        try {
+          vh = window.top.innerHeight - 60
+        } catch (e) {}
+        if (!vh && window.screen) vh = window.screen.availHeight - 220
+      }
+      const chrome = 24 + 48 + 48
+      const h = Math.max(200, vh - chrome)
+      setScale(Math.max(0.3, Math.min(w / cropW, h / cropH)))
+    }
+    fit()
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(fit) : null
+    if (ro && wrapRef.current) ro.observe(wrapRef.current)
+    window.addEventListener("resize", fit)
+    return () => {
+      window.removeEventListener("resize", fit)
+      if (ro) ro.disconnect()
+    }
+  }, [])
+  const resetScroll = () => {
+    const c = cropRef.current
+    if (c && (c.scrollLeft !== 0 || c.scrollTop !== 0)) {
+      c.scrollLeft = 0
+      c.scrollTop = 0
+    }
+  }
+  const focusGame = () => {
+    if (frameRef.current) {
+      try {
+        frameRef.current.focus({ preventScroll: true })
+      } catch (e) {
+        frameRef.current.focus()
+      }
+    }
+    resetScroll()
+  }
+  const kbd = { background: "#450a0a", border: "1px solid #7f1d1d", borderRadius: "4px", padding: "1px 6px", fontSize: "12px" }
+  return (
+    <section className="not-prose" style={{ width: "100%", minHeight: "calc(100vh - 64px)", background: "radial-gradient(ellipse at top, #3b0a0a 0%, #0a0000 55%, #000 100%)", color: "#fca5a5", padding: "24px 0 48px" }}>
+      <div ref={wrapRef} style={{ width: "100%", padding: "0 24px", boxSizing: "border-box" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
+          <div onMouseEnter={focusGame} onClick={focusGame} style={{ position: "relative", overflow: "hidden", background: "#000", borderRadius: "12px", boxShadow: "0 0 0 1px rgba(239,68,68,.45), 0 30px 120px rgba(220,38,38,.35)", width: cropW * scale + "px", height: cropH * scale + "px" }}>
+            <div ref={cropRef} onScroll={resetScroll} style={{ position: "absolute", top: 0, left: 0, width: cropW + "px", height: cropH + "px", overflow: "hidden", transformOrigin: "top left", transform: "scale(" + scale + ")" }}>
+              <iframe ref={frameRef} width="1300" height="900" src="https://diekmann.github.io/wasm-fizzbuzz/doom/" title="DOOM" scrolling="no" allow="fullscreen; autoplay; gamepad" onLoad={focusGame} style={{ position: "absolute", top: -offY + "px", left: -offX + "px", width: "1300px", minWidth: "1300px", maxWidth: "none", height: "900px", maxHeight: "none", margin: 0, border: 0, aspectRatio: "auto" }} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style={{ marginTop: "16px", textAlign: "center", fontSize: "13px", opacity: 0.75 }}>Click the game, then press <kbd style={kbd}>Enter</kbd>. <kbd style={kbd}>Arrows</kbd> move, <kbd style={kbd}>Ctrl</kbd> shoots, <kbd style={kbd}>Space</kbd> opens doors.</p>
+    </section>
+  )
+}
+
+<DoomFull />

@@ -1,0 +1,2094 @@
+---
+title: "Workspace landing"
+description: "A SlashDocs-style landing page built with custom CSS, React components and a custom layout."
+mode: "custom"
+---
+
+export const SD_CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&family=TASA+Orbiter:wght@400..800&display=swap');
+.sd{--blue:#0039FF;--ink:#0b0b0d;--ease:cubic-bezier(.22,1,.36,1);--soft:cubic-bezier(.2,.8,.2,1);container-type:inline-size;position:relative;overflow:clip;font-family:'Inter Tight',Inter,system-ui,sans-serif;color:var(--ink);background:#ecedf6;border-radius:12px;isolation:isolate;-webkit-font-smoothing:antialiased;line-height:1.3;text-align:left}
+.sd *,.sd *::before,.sd *::after{box-sizing:border-box}
+.sd p,.sd h1,.sd h2,.sd h3{margin:0;font-weight:inherit}
+.sd a{text-decoration:none;color:inherit;border:0;cursor:pointer}
+.sd button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+.sd svg{display:block}
+.sd .tasa{font-family:'TASA Orbiter','Inter Tight',sans-serif;font-weight:400;letter-spacing:-0.045em}
+.sd .mono{font-family:'Roboto Mono',ui-monospace,Menlo,monospace}
+.sd .inter{font-family:Inter,'Inter Tight',sans-serif}
+.sd-u{--u:calc(100cqw / 1440)}
+.sd-rise .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.sd-rise .ln>span{display:inline-block;opacity:0;transform:translateY(112%)}
+.in .sd-rise .ln>span,.sd-rise.in .ln>span{animation:sdLineUp 1s var(--ease) both;animation-delay:var(--d,0s)}
+@keyframes sdLineUp{from{transform:translateY(112%);opacity:0}to{transform:none;opacity:1}}
+.sd-rv{opacity:0}
+.in .sd-rv,.sd-rv.in{animation:sdFadeUp .9s var(--ease) both;animation-delay:var(--d,0s)}
+@keyframes sdFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sd-loader{position:absolute;left:0;right:0;top:0;height:max(100vh,calc(776 * var(--u)));z-index:80;overflow:hidden;cursor:pointer}
+.sd-loader canvas{position:absolute;inset:0;width:100%;height:100%}
+.sd-loader .cap{position:absolute;left:calc(33 * var(--u));top:calc(26 * var(--u));color:#fff;font-size:calc(15 * var(--u));letter-spacing:.14em;text-shadow:0 0 10px rgba(255,255,255,.85);transition:opacity 1s,filter 1s}
+.sd-loader .cap i{font-style:normal;animation:sdDots 1.2s steps(1) infinite}
+.sd-loader .cap i:nth-child(2){animation-delay:.2s}
+.sd-loader .cap i:nth-child(3){animation-delay:.4s}
+@keyframes sdDots{0%,100%{opacity:0}30%,80%{opacity:1}}
+.sd-loader .line{position:absolute;left:calc(33 * var(--u));bottom:calc(46 * var(--u));color:#fff;font-size:calc(132 * var(--u));line-height:1;white-space:nowrap;text-shadow:0 0 calc(10 * var(--u)) rgba(255,255,255,.9),0 0 calc(34 * var(--u)) rgba(200,215,255,.9),0 0 calc(80 * var(--u)) rgba(120,150,255,.6);transition:opacity 1s cubic-bezier(.45,0,.25,1),filter 1s cubic-bezier(.45,0,.25,1)}
+.sd-loader.out .cap,.sd-loader.out .line{opacity:0;filter:blur(8px)}
+.sd-loader.gone{transition:opacity .6s;opacity:0;pointer-events:none}
+.sd-nav{position:sticky;top:calc(16 * var(--u));z-index:60;margin:calc(16 * var(--u)) calc(24 * var(--u)) calc(-70 * var(--u));height:calc(54 * var(--u));display:flex;align-items:center;justify-content:space-between;padding:0 calc(20 * var(--u));border-radius:10px;color:#fff;background:linear-gradient(90deg,rgba(28,60,230,.78),rgba(40,80,255,.62) 50%,rgba(90,120,255,.55));backdrop-filter:blur(40px) saturate(1.25);-webkit-backdrop-filter:blur(40px) saturate(1.25);border:1px solid rgba(255,255,255,.28);opacity:0;overflow:hidden}
+.sd-nav::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.09) 16%,rgba(255,255,255,0) 36%,rgba(255,255,255,0) 64%,rgba(255,255,255,.07) 84%,rgba(255,255,255,.2))}
+.sd.live .sd-nav{animation:sdNavIn .9s var(--ease) .15s both}
+@keyframes sdNavIn{from{opacity:0;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0)}}
+.sd-brand{position:relative;display:flex;align-items:baseline;gap:calc(7 * var(--u));font-size:calc(23 * var(--u));letter-spacing:-.03em;font-weight:500}
+.sd-brand small{font-size:calc(10 * var(--u));font-weight:600;letter-spacing:.02em;opacity:.9}
+.sd-brand small b{font-size:calc(15 * var(--u));font-style:italic;font-weight:700;letter-spacing:-.02em;margin-left:2px}
+.sd-links{position:relative;display:flex;align-items:center;height:100%;gap:calc(4 * var(--u))}
+.sd-links a{display:flex;align-items:center;height:100%;padding:0 calc(28 * var(--u));font-size:calc(17 * var(--u));opacity:.92;transition:opacity .2s}
+.sd-links a:hover{opacity:1}
+.sd-links a.cta{text-decoration:underline;text-underline-offset:3px;padding-right:calc(26 * var(--u))}
+.sd-ind{position:absolute;bottom:0;left:0;height:calc(3 * var(--u));width:var(--w,0);transform:translateX(var(--x,0));background:#fff;opacity:0;transition:transform .5s var(--ease),width .5s var(--ease),opacity .3s}
+.sd-ind.on{opacity:1}
+.sd-light{position:relative;z-index:1}
+.sd-sky{position:absolute;inset:0;z-index:-1;overflow:hidden;background:#eceef6}
+.sd-sky canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+.sd-sky .fb i{position:absolute;border-radius:50%;filter:blur(60px);background:#9aa8ff;opacity:.7;animation:sdDrift 18s ease-in-out infinite alternate}
+@keyframes sdDrift{0%{transform:translate(0,0)}50%{transform:translate(60px,-40px) scale(1.1)}100%{transform:translate(-40px,50px) scale(.95)}}
+.sd-hero{position:relative;height:calc(776 * var(--u))}
+.sd-h1{position:absolute;left:calc(33 * var(--u));top:calc(92 * var(--u));font-size:calc(78 * var(--u));line-height:.88}
+.sd-dek{position:absolute;left:calc(938 * var(--u));top:calc(106 * var(--u));width:calc(440 * var(--u));font-size:calc(20 * var(--u));line-height:1.2;font-family:Inter,sans-serif;color:#111}
+.sd-dek b{font-weight:600}
+.sd-btns{position:absolute;left:calc(938 * var(--u));top:calc(195 * var(--u));display:flex;gap:calc(6 * var(--u))}
+.sd-btn{display:inline-flex;align-items:center;justify-content:center;gap:calc(6 * var(--u));height:calc(44 * var(--u));padding:0 calc(36 * var(--u));border-radius:calc(6 * var(--u));font-size:calc(14 * var(--u));font-family:Inter,sans-serif;transition:transform .25s var(--soft),box-shadow .25s,background .25s}
+.sd-btn:hover{transform:translateY(-1px)}
+.sd-btn svg{width:calc(20 * var(--u));height:calc(20 * var(--u))}
+.sd-btn.dark{background:#000;color:#fff}
+.sd-btn.dark:hover{box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}
+.sd-btn.line{background:#fff;color:#000;border:1px solid #000;padding:0 calc(24 * var(--u));font-weight:600}
+.sd-btn.blue{background:var(--blue);color:#fff}
+.sd-btn.blue:hover{box-shadow:0 10px 26px -8px rgba(0,57,255,.85);background:#1e4dff}
+.sd-phases{position:absolute;left:calc(33 * var(--u));top:calc(557 * var(--u));width:calc(217 * var(--u))}
+.sd .sd-phase{display:block;width:100%;height:calc(52 * var(--u));border-top:1px solid rgba(0,0,0,.25);font-size:calc(40 * var(--u));letter-spacing:-.04em;line-height:calc(52 * var(--u));color:rgba(0,0,0,.33);transition:color .5s var(--soft)}
+.sd-phase.on{color:#000}
+.sd-phase:hover{color:rgba(0,0,0,.6)}
+.sd-phase.on:hover{color:#000}
+.sd-win{position:absolute;left:calc(469 * var(--u));top:calc(276 * var(--u));width:calc(824 * var(--u));height:calc(477 * var(--u));border-radius:calc(8 * var(--u));background:rgba(244,245,250,.6);border:1px solid rgba(255,255,255,.8);box-shadow:0 calc(30 * var(--u)) calc(70 * var(--u)) calc(-30 * var(--u)) rgba(30,40,120,.25);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;perspective:1600px}
+.sd.live .sd-win{animation:sdWinIn .85s var(--ease) .3s both}
+@keyframes sdWinIn{from{opacity:0;transform:translateY(calc(26 * var(--u))) scale(.986)}to{opacity:1;transform:none}}
+.sd-ttl{position:absolute;left:calc(18 * var(--u));top:calc(17 * var(--u));font-size:calc(19 * var(--u));letter-spacing:-.03em;color:#333;white-space:nowrap}
+.sd-ttl b{font-weight:400;color:#000}
+.sd-ttl i{display:inline-block;width:1px;height:1em;background:#000;vertical-align:-.15em;margin-left:1px;opacity:0}
+.sd-ttl.typing i{animation:sdBlink .9s steps(1) infinite}
+@keyframes sdBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.sd-tools{position:absolute;right:calc(26 * var(--u));top:calc(20 * var(--u));display:flex;gap:calc(30 * var(--u));color:#9a9aa6}
+.sd-tools svg{width:calc(19 * var(--u));height:calc(19 * var(--u));fill:none;stroke:currentColor;stroke-width:1.6}
+.sd-card{position:absolute;left:calc(15 * var(--u));right:calc(10 * var(--u));top:calc(56 * var(--u));bottom:calc(10 * var(--u));transform-style:preserve-3d}
+.sb{--s:calc(100cqw / 1486);position:absolute;inset:0;container-type:inline-size;background:#fff;overflow:hidden;font-family:Inter,sans-serif}
+.sb>*{position:absolute}
+.sb .k{position:absolute}
+.sb .asm{opacity:0}
+.sb.ready .asm{animation:sdAsm .8s var(--ease) both;animation-delay:var(--d,0ms)}
+@keyframes sdAsm{from{opacity:0;transform:translateY(14px) scale(.982);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)}}
+.sb-skel{inset:0;z-index:4;background:#fff;transition:opacity .35s,visibility .35s}
+.sb.ready .sb-skel{opacity:0;visibility:hidden}
+.sb-skel i{position:absolute;background:linear-gradient(90deg,#efefef 0%,#efefef 40%,#f8f8f8 50%,#efefef 60%,#efefef 100%);background-size:300% 100%;animation:sdShimmer 1.4s linear infinite}
+@keyframes sdShimmer{from{background-position:100% 0}to{background-position:0% 0}}
+.sb .rail{left:0;top:0;width:calc(70 * var(--s));height:100%;box-shadow:1px 0 0 #f0f0f0}
+.sb .ric{position:absolute;left:calc(16 * var(--s));width:calc(37 * var(--s));height:calc(37 * var(--s));border-radius:calc(12 * var(--s));display:grid;place-items:center;color:#555}
+.sb .ric.on{background:#0d0d0d;color:#fff}
+.sb .ric svg{width:calc(17 * var(--s));height:calc(17 * var(--s));fill:none;stroke:currentColor;stroke-width:1.8}
+.sb .pill{border-radius:999px;background:#efefef;display:flex;align-items:center;gap:calc(8 * var(--s));padding:0 calc(6 * var(--s));font-size:calc(13 * var(--s));color:#555}
+.sb .pill .kn{width:calc(34 * var(--s));height:calc(34 * var(--s));border-radius:50%;background:#fff;display:grid;place-items:center}
+.sb .pill .kn svg{width:calc(15 * var(--s));height:calc(15 * var(--s));fill:none;stroke:#111;stroke-width:1.8}
+.sb .h{font-size:calc(40 * var(--s));letter-spacing:-.03em;color:#111}
+.sb .kpi{border-radius:calc(27 * var(--s));background:#f2f2f2}
+.sb .kpi .l{position:absolute;left:calc(20 * var(--s));top:calc(22 * var(--s));font-size:calc(15 * var(--s));color:#111}
+.sb .kpi .v{position:absolute;left:calc(20 * var(--s));top:calc(58 * var(--s));font-size:calc(38 * var(--s));font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sb .kpi .f{position:absolute;right:calc(20 * var(--s));bottom:calc(14 * var(--s));font-size:calc(11 * var(--s));color:#333}
+.sb .kpi .ar{position:absolute;right:calc(18 * var(--s));top:calc(18 * var(--s));width:calc(28 * var(--s));height:calc(28 * var(--s));border-radius:50%;background:#ddd;display:grid;place-items:center;font-size:calc(14 * var(--s))}
+.sb .kpi .ar.on{background:#111;color:#fff}
+.sb .panel{border-radius:calc(40 * var(--s));background:#efefef}
+.sb .panel .t{position:absolute;left:calc(32 * var(--s));top:calc(30 * var(--s));font-size:calc(24 * var(--s));color:#111}
+.sb .panel .st{position:absolute;left:calc(32 * var(--s));top:calc(64 * var(--s));font-size:calc(14 * var(--s));color:#777}
+.sb .panel .dd{position:absolute;right:calc(80 * var(--s));top:calc(30 * var(--s));height:calc(40 * var(--s));padding:0 calc(16 * var(--s));border-radius:999px;background:#fff;display:flex;align-items:center;font-size:calc(13 * var(--s))}
+.sb .panel .fl{position:absolute;right:calc(30 * var(--s));top:calc(30 * var(--s));width:calc(40 * var(--s));height:calc(40 * var(--s));border-radius:50%;background:#fff}
+.sb .bar{bottom:calc(56 * var(--s));width:calc(76 * var(--s));border-radius:calc(38 * var(--s));background:#dcdcdc;height:0;transition:height 1s var(--ease);transition-delay:var(--rd,0ms)}
+.sb .bar.hot{background:#1f4bff}
+.sb .bar.live,.sb .seg.live{transition:height .12s linear}
+.sb .day{bottom:calc(20 * var(--s));width:calc(76 * var(--s));text-align:center;font-size:calc(14 * var(--s));color:#444}
+.sb .tip{width:calc(86 * var(--s));height:calc(46 * var(--s));border-radius:999px;background:#111;color:#fff;display:grid;place-items:center;font-size:calc(16 * var(--s));font-weight:600;transition:bottom 1s var(--ease)}
+.sb .seg{width:calc(110 * var(--s));border-radius:calc(12 * var(--s));height:0;transition:height 1s var(--ease);transition-delay:var(--rd,0ms)}
+.sb .canvas-area{left:0;top:0;width:calc(1040 * var(--s));height:100%;background:#1554ff}
+.sb .canvas-area canvas{width:100%;height:100%}
+.sb .ctl{font-size:calc(14 * var(--s));color:#111}
+.sb .ctl.g{color:#666}
+.sb .preset{border-radius:calc(10 * var(--s));background:#f6f6f6}
+.sb .preset.on{background:#e7e7e7}
+.sb .preset b{position:absolute;left:calc(14 * var(--s));top:calc(12 * var(--s));font-size:calc(14 * var(--s));font-weight:500}
+.sb .preset span{position:absolute;left:calc(14 * var(--s));top:calc(36 * var(--s));font-size:calc(12 * var(--s));color:#999;font-family:'Roboto Mono',monospace}
+.sb .track{border-radius:calc(9 * var(--s));background:#f1f1ef;overflow:hidden}
+.sb .track i{position:absolute;left:0;top:0;bottom:0;background:#141414;border-radius:calc(9 * var(--s))}
+.sb .track span{position:absolute;left:calc(110 * var(--s));top:calc(12 * var(--s));font-size:calc(14 * var(--s))}
+.sb .tog{border-radius:999px}
+.sb .tog i{position:absolute;top:calc(3.5 * var(--s));width:calc(20 * var(--s));height:calc(20 * var(--s));border-radius:50%;background:#fff}
+.sb .kick{font-size:calc(13 * var(--s));color:#2a50ff;letter-spacing:.06em}
+.sb .ptitle{font-size:calc(62 * var(--s));white-space:nowrap;color:#111}
+.sb .ptitle .sp{position:relative;display:inline-block;padding:0 calc(4 * var(--s));border-radius:calc(4 * var(--s));transition:background .45s}
+.sb .ptitle .sp.hl{background:#cfdcff}
+.sb .ptitle .sp.ok{background:#e4ebff}
+.sb .pbody{font-size:calc(22 * var(--s));color:#555;font-family:'Inter Tight',sans-serif}
+.sb .rule{background:#e6e6e6}
+.sb .mk{font-size:calc(11 * var(--s));color:#999;letter-spacing:.06em}
+.sb .mv{font-size:calc(18 * var(--s));color:#111}
+.sb .chart{border-radius:calc(12 * var(--s));background:#f6f7fb}
+.sb .chart b{position:absolute;left:calc(48 * var(--s));top:calc(30 * var(--s));font-size:calc(16 * var(--s));font-weight:500}
+.sb .chip{right:calc(48 * var(--s));top:calc(28 * var(--s));padding:calc(5 * var(--s)) calc(14 * var(--s));border-radius:calc(6 * var(--s));background:#eef1ff;color:#3a5bff;font-size:calc(11 * var(--s))}
+.sb .chart svg{position:absolute;inset:0;width:100%;height:100%}
+.flip{position:absolute;inset:0;transform-style:preserve-3d;backface-visibility:hidden}
+.flip.out{animation:sdFlipOut .42s cubic-bezier(.55,0,1,.45) both}
+.flip.in{animation:sdFlipIn .52s cubic-bezier(0,.55,.45,1) both}
+.flip.out.rev{animation-name:sdFlipOutR}
+.flip.in.rev{animation-name:sdFlipInR}
+@keyframes sdFlipOut{from{transform:rotateY(0)}to{transform:rotateY(-90deg)}}
+@keyframes sdFlipIn{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
+@keyframes sdFlipOutR{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
+@keyframes sdFlipInR{from{transform:rotateY(-90deg)}to{transform:rotateY(0)}}
+.sd-dock{position:absolute;left:calc(285 * var(--u));top:calc(477 * var(--u));width:calc(334 * var(--u));height:calc(239 * var(--u));perspective:1200px;opacity:0;z-index:3}
+.sd-dock.in{animation:sdDockIn .8s var(--ease) both}
+@keyframes sdDockIn{from{opacity:0;transform:translateY(calc(12 * var(--u))) scale(.985)}to{opacity:1;transform:none}}
+.dk{position:absolute;inset:0;border-radius:calc(9 * var(--u));overflow:hidden;box-shadow:0 calc(24 * var(--u)) calc(50 * var(--u)) calc(-18 * var(--u)) rgba(0,0,30,.45)}
+.dk.dark{background:#1e1e20;color:#e7e7ea}
+.dk.white{background:#f6f8fc;color:#111}
+.dk .bar3{display:flex;align-items:center;height:calc(24 * var(--u));padding:0 calc(10 * var(--u));gap:calc(5 * var(--u));background:#111113}
+.dk .bar3 i{width:calc(8 * var(--u));height:calc(8 * var(--u));border-radius:50%}
+.dk .bar3 span{flex:1;text-align:center;font-size:calc(7.5 * var(--u));color:#777;margin-right:calc(30 * var(--u))}
+.dk .log{padding:calc(12 * var(--u)) calc(12 * var(--u)) 0;font-size:calc(9.2 * var(--u));line-height:1.5;white-space:pre;color:#d9d9de;height:calc(170 * var(--u));overflow:hidden}
+.dk .log em{font-style:normal;color:#45d483}
+.dk .task{position:absolute;left:calc(5 * var(--u));right:calc(5 * var(--u));bottom:calc(6 * var(--u));border-top:1px solid #4a4a4e;padding:calc(10 * var(--u)) calc(8 * var(--u)) 0;height:calc(34 * var(--u));font-size:calc(9.2 * var(--u));color:#fff;white-space:nowrap;overflow:hidden}
+.caret{display:inline-block;width:.55em;height:1.05em;background:currentColor;vertical-align:-.18em;margin-left:1px;animation:sdBlink .9s steps(1) infinite}
+.dk .sh{padding:calc(22 * var(--u)) calc(24 * var(--u))}
+.dk .sh h4{margin:0 0 calc(14 * var(--u));font-size:calc(20 * var(--u));font-weight:400;letter-spacing:-.02em;font-family:Inter,sans-serif}
+.dk .fld{position:relative;height:calc(40 * var(--u));border:1px solid #d6d9e2;border-radius:calc(6 * var(--u));background:#fff;display:flex;align-items:center;padding:0 calc(12 * var(--u));font-size:calc(12 * var(--u));color:#111;font-family:Inter,sans-serif;margin-bottom:calc(16 * var(--u));white-space:nowrap}
+.dk .fld.ph{color:#999}
+.dk .fld .chev{position:absolute;right:calc(12 * var(--u));font-size:calc(10 * var(--u))}
+.dk .go{position:relative;height:calc(38 * var(--u));border-radius:calc(6 * var(--u));background:var(--blue);color:#fff;display:grid;place-items:center;font-size:calc(12 * var(--u));font-family:Inter,sans-serif}
+.dk .comp{position:absolute;inset:calc(14 * var(--u));font-size:calc(14 * var(--u));line-height:1.35;color:#fff;font-family:Inter,sans-serif}
+.dk .comp .ph{color:#77777d}
+.dk .send{position:absolute;right:calc(14 * var(--u));bottom:calc(14 * var(--u));width:calc(30 * var(--u));height:calc(30 * var(--u));border-radius:calc(6 * var(--u));background:var(--blue);display:grid;place-items:center;transition:transform .18s}
+.dk .send.hit{transform:scale(.86);background:#3a66ff}
+.dk .send svg{width:calc(13 * var(--u));height:calc(13 * var(--u));fill:#fff}
+.dk .x{position:absolute;right:calc(56 * var(--u));bottom:calc(20 * var(--u));font-size:calc(14 * var(--u));color:#777}
+.dk .thr{position:absolute;left:0;right:0;top:0;padding:calc(10 * var(--u)) calc(24 * var(--u));transition:transform .6s var(--ease);font-family:Inter,sans-serif}
+.dk .thr.scrolled{transform:translateY(calc(-54 * var(--u)))}
+.dk .m{display:flex;gap:calc(14 * var(--u));margin-top:calc(16 * var(--u));opacity:0;transform:translateY(calc(10 * var(--u)));transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.dk .m.in{opacity:1;transform:none}
+.dk .m.q{border-left:2px solid #555;padding-left:calc(16 * var(--u));margin-left:calc(4 * var(--u));margin-top:calc(4 * var(--u))}
+.dk .m .w{font-size:calc(13 * var(--u));font-weight:600;color:#bbb}
+.dk .m .w time{font-weight:400;color:#888;margin-left:calc(6 * var(--u))}
+.dk .m p{font-size:calc(13 * var(--u));color:#ddd;margin-top:calc(3 * var(--u))}
+.dk .av{flex:none;width:calc(28 * var(--u));height:calc(28 * var(--u));border-radius:50%;background:var(--blue);display:grid;place-items:center}
+.dk .av svg{width:calc(14 * var(--u));height:calc(14 * var(--u));fill:#fff}
+.dk .chipw{display:inline-flex;align-items:center;gap:calc(6 * var(--u));margin:calc(12 * var(--u)) 0 0 calc(42 * var(--u));padding:calc(5 * var(--u)) calc(10 * var(--u));border-radius:999px;background:#2b2b30;font-size:calc(11 * var(--u));color:#aaa;opacity:0;transition:opacity .3s,transform .3s}
+.dk .chipw.in{opacity:1;animation:sdPulseChip 1.6s ease-in-out infinite}
+.dk .chipw.out{opacity:0;transform:translateY(-4px);animation:none}
+@keyframes sdPulseChip{0%,100%{opacity:.55}50%{opacity:1}}
+.sd-pill{position:absolute;left:calc(625 * var(--u));top:calc(477 * var(--u));width:calc(116 * var(--u));height:calc(60 * var(--u));border-radius:calc(12 * var(--u));background:#000;display:flex;align-items:center;justify-content:center;gap:calc(22 * var(--u));z-index:4;opacity:0;transform:translateY(calc(8 * var(--u))) scale(.96);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none}
+.sd-pill.in{opacity:1;transform:none}
+.sd-pill svg{width:calc(22 * var(--u));height:calc(22 * var(--u));fill:none;stroke:#fff;stroke-width:1.6}
+.sb-px{animation:sdPx .72s ease both}
+@keyframes sdPx{0%{filter:none}30%{filter:blur(1.4px) drop-shadow(0 0 5px rgba(0,57,255,.7));opacity:.72}55%{filter:blur(.7px) drop-shadow(0 0 9px rgba(0,57,255,.55));opacity:.86}100%{filter:none;opacity:1}}
+.sb-dust{position:absolute;inset:0;pointer-events:none;z-index:5;mix-blend-mode:screen;opacity:0;animation:sdDust .72s ease both;background-image:repeating-conic-gradient(rgba(0,57,255,.6) 0 25%,transparent 0 50%);background-size:6px 6px}
+.sb-dust.txt{color:transparent;-webkit-background-clip:text;background-clip:text;white-space:nowrap;mix-blend-mode:normal}
+@keyframes sdDust{0%{opacity:0}30%{opacity:.75}70%{opacity:.35}100%{opacity:0}}
+.dustwrap{position:relative;display:inline-block}
+.sd-fold{position:relative;height:calc(820 * var(--u))}
+.sd-torus{position:absolute;left:calc(-10 * var(--u));top:calc(40 * var(--u));width:calc(420 * var(--u));height:calc(344 * var(--u))}
+.sd-scrub{position:absolute;left:calc(388 * var(--u));top:calc(110 * var(--u));width:calc(720 * var(--u));font-size:calc(52 * var(--u));line-height:1}
+.sd-scrub.b{left:calc(73 * var(--u));top:calc(520 * var(--u));width:calc(760 * var(--u));font-size:calc(42 * var(--u))}
+.sd-scrub .w{color:rgba(0,0,0,.28);transition:color .35s}
+.sd-scrub .w.en{color:#000}
+.sd-scrub .w.hi{color:rgba(0,57,255,.32)}
+.sd-scrub .w.hi.en{color:var(--blue)}
+.sd-scrub .w.bd{font-weight:600}
+.sd-wire{position:absolute;overflow:visible;fill:none;stroke:#111;stroke-width:1}
+.sd-wire .ln{stroke-dasharray:var(--len);stroke-dashoffset:calc(var(--len) * (1 - var(--p,0)))}
+.sd-wire circle{fill:#fff;stroke:#111;opacity:calc(var(--p,0) * 2 - 1)}
+.sd-agent{position:absolute;left:calc(570 * var(--u));top:calc(580 * var(--u));width:calc(500 * var(--u));height:calc(88 * var(--u));display:flex;background:#fff;border:1px solid #d9dce8;clip-path:polygon(0 0,0 0,0 70%,0 100%,0 100%);opacity:0;transition:clip-path 1.1s var(--ease),opacity .3s}
+.sd-agent.in{opacity:1;clip-path:polygon(0 0,100% 0,100% 56%,92% 100%,0 100%)}
+.sd-agent .art{width:calc(140 * var(--u));flex:none;background:#1554ff;position:relative;overflow:hidden}
+.sd-agent .art canvas{position:absolute;inset:0;width:100%;height:100%}
+.sd-agent .bd{padding:calc(9 * var(--u)) calc(14 * var(--u));font-size:calc(9.5 * var(--u))}
+.sd-agent .ch{display:inline-block;background:var(--blue);color:#fff;font-size:calc(8 * var(--u));letter-spacing:.08em;padding:calc(2 * var(--u)) calc(6 * var(--u))}
+.sd-agent .tx{margin-top:calc(9 * var(--u));color:#111}
+.sd-agent .stt{margin-top:calc(4 * var(--u));color:#777;animation:sdStt 2.4s ease-in-out infinite}
+@keyframes sdStt{0%,100%{opacity:.45}50%{opacity:1}}
+.sd-values{position:relative;height:calc(517 * var(--u));background:#232325;color:#fff;overflow:hidden}
+.sd-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.075) 1px,transparent 1.3px);background-size:calc(6 * var(--u)) calc(6 * var(--u));pointer-events:none}
+.sd-vlead{position:absolute;left:calc(66 * var(--u));top:calc(56 * var(--u));font-size:calc(46 * var(--u));line-height:.92}
+.sd-vlead b{font-weight:600}
+.sd-tick{position:absolute;width:1px;height:calc(12 * var(--u));background:rgba(255,255,255,.4)}
+.sd-plus{position:absolute;width:calc(11 * var(--u));height:calc(11 * var(--u))}
+.sd-plus::before,.sd-plus::after{content:'';position:absolute;background:rgba(255,255,255,.45)}
+.sd-plus::before{left:50%;top:0;bottom:0;width:1px}
+.sd-plus::after{top:50%;left:0;right:0;height:1px}
+.sd-pillar{position:absolute;top:calc(258 * var(--u));cursor:default}
+.sd-pillar svg{width:calc(40 * var(--u));height:calc(40 * var(--u));fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.sd-pillar .pt{margin-top:calc(14 * var(--u));font-size:calc(32 * var(--u));line-height:1.12;letter-spacing:-.03em;text-transform:uppercase}
+.ic-bot .ant,.ic-bot .head,.ic-bot .look,.ic-bot .eye{transform-box:fill-box;transform-origin:center}
+.ic-bot .ant{transform-origin:center bottom}
+.ic-bot.play .head{animation:slashDocsBotTilt 1.95s ease-in-out}
+.ic-bot.play .look{animation:slashDocsBotLook 1.95s ease-in-out}
+.ic-bot.play .eye{animation:slashDocsBotBlink 1.95s ease-in-out}
+.ic-bot.play .ant{animation:slashDocsBotAnt 1.95s ease-in-out}
+@keyframes slashDocsBotLook{0%,12%{transform:none}24%,44%{transform:translateX(-2.1px)}58%,78%{transform:translateX(2.1px) translateY(-.4px)}92%,100%{transform:none}}
+@keyframes slashDocsBotBlink{0%,4%{transform:none}8%{transform:scaleY(.1)}12%,82%{transform:none}86%{transform:scaleY(.1)}90%,100%{transform:none}}
+@keyframes slashDocsBotTilt{0%,12%{transform:none}26%,44%{transform:rotate(-5deg)}60%,78%{transform:rotate(5deg)}94%,100%{transform:none}}
+@keyframes slashDocsBotAnt{0%,15%{transform:none}30%,46%{transform:rotate(-9deg)}64%,80%{transform:rotate(9deg)}90%{transform:rotate(-2deg)}100%{transform:none}}
+.ic-mit .ln{stroke-dasharray:1;stroke-dashoffset:0}
+.ic-mit .seal{transform-box:fill-box;transform-origin:center}
+.ic-mit.play .ln{animation:slashDocsMitLine .5s ease both}
+.ic-mit.play .ln2{animation-delay:.18s}
+.ic-mit.play .ln3{animation-delay:.36s}
+.ic-mit.play .seal{animation:slashDocsMitSeal .6s var(--ease) .7s both}
+@keyframes slashDocsMitLine{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+@keyframes slashDocsMitSeal{0%{transform:scale(0);opacity:0}55%{transform:scale(1.25);opacity:1}100%{transform:scale(1)}}
+.sd-impact{position:relative;background:#101012;color:#fff;padding:calc(96 * var(--u)) calc(48 * var(--u)) calc(140 * var(--u));overflow:hidden}
+.sd-impact::after{content:'';position:absolute;left:0;right:0;bottom:0;height:calc(200 * var(--u));background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.3px);background-size:calc(6 * var(--u)) calc(6 * var(--u));pointer-events:none;-webkit-mask-image:linear-gradient(transparent,#000);mask-image:linear-gradient(transparent,#000)}
+.sd-impact h3{font-size:calc(46 * var(--u));margin-bottom:calc(46 * var(--u));color:#e8e8ea}
+.sd-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(28 * var(--u))}
+.sd-stat{position:relative;height:calc(336 * var(--u));background:#1f1f21;padding:calc(20 * var(--u)) calc(20 * var(--u)) calc(24 * var(--u));display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;opacity:0;transform:translateY(calc(26 * var(--u)))}
+.in .sd-stat{animation:sdFadeUp .9s var(--ease) both;animation-delay:var(--d)}
+.sd-stat .blobs{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s var(--ease)}
+.sd-stat:hover .blobs{opacity:1}
+.sd-stat .blob{position:absolute;left:0;top:0;width:var(--w);height:var(--h);margin:calc(var(--h) / -2) 0 0 calc(var(--w) / -2);will-change:transform}
+.sd-stat .blob i{display:block;width:100%;height:100%;background:rgba(255,255,255,var(--a));border-radius:58% 42% 55% 45% / 48% 60% 40% 52%;filter:blur(calc(30 * var(--u)));animation:sdMorph var(--t) ease-in-out infinite alternate}
+@keyframes sdMorph{0%{border-radius:58% 42% 55% 45% / 48% 60% 40% 52%;transform:rotate(0) scale(1)}50%{border-radius:42% 58% 38% 62% / 60% 44% 56% 40%;transform:rotate(14deg) scale(1.06)}100%{border-radius:55% 45% 62% 38% / 42% 55% 45% 58%;transform:rotate(-10deg) scale(.97)}}
+.sd-num{position:relative;z-index:1;font-size:calc(100 * var(--u));line-height:.9;letter-spacing:-.04em;white-space:nowrap;font-variant-numeric:tabular-nums;color:#6f6f6f;transition:color .5s var(--ease)}
+.sd-num.small{font-size:calc(80 * var(--u))}
+.sd-num .hot{position:absolute;inset:0 0 -.25em;opacity:0;background-image:linear-gradient(160.69deg,#fff 20.17%,#484848 89.36%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;transition:opacity .5s var(--ease)}
+.sd-stat:hover .sd-num .hot{opacity:1}
+.sd-num .dg{display:inline-block;vertical-align:top;height:.9em;overflow:hidden}
+.sd-num .strip{display:block;transform:translateY(0);transition:transform 1.9s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--cd) + var(--i) * 90ms)}
+.sd-num .strip span{display:block;height:.9em}
+.in .sd-num .strip{transform:translateY(calc(var(--steps) * -.9em))}
+.sd-lab{position:relative;z-index:1;font-size:calc(34 * var(--u));letter-spacing:-.03em;color:#6f6f6f;transition:color .5s var(--ease)}
+.sd-lab b{font-weight:600}
+.sd-stat:hover .sd-lab{color:#fff}
+.sd-feat{position:relative;background:#111114;color:#fff;height:calc(836 * var(--u));overflow:hidden}
+.sd-feat .sd-dots{opacity:.6}
+.sd-ftitle{position:absolute;left:calc(47 * var(--u));top:calc(82 * var(--u));font-size:calc(50 * var(--u));line-height:.98}
+.sd-feat .sd-btn.blue{position:absolute;left:calc(47 * var(--u));top:calc(202 * var(--u));height:calc(44 * var(--u));padding:0 calc(36 * var(--u));border-radius:calc(8 * var(--u))}
+.sd-steps{position:absolute;left:calc(47 * var(--u));top:calc(380 * var(--u));width:calc(472 * var(--u))}
+.sd-step{border-bottom:1px solid rgba(255,255,255,.2);padding:calc(16 * var(--u)) 0}
+.sd-step button{display:block;width:100%;font-size:calc(32 * var(--u));letter-spacing:-.04em;color:rgba(255,255,255,.4);transition:color .4s}
+.sd-step.on button{color:#fff}
+.sd-step button:hover{color:rgba(255,255,255,.75)}
+.sd-step .bdy{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease),opacity .4s;opacity:0}
+.sd-step.on .bdy{grid-template-rows:1fr;opacity:1}
+.sd-step .bdy>div{overflow:hidden}
+.sd-step .bdy p{padding-top:calc(12 * var(--u));font-size:calc(19 * var(--u));line-height:1.4;color:rgba(255,255,255,.85);font-family:Inter,sans-serif;max-width:calc(440 * var(--u))}
+.sd-step .pl{position:relative;height:1px;margin-top:calc(20 * var(--u));background:transparent}
+.sd-step.on .pl{background:rgba(255,255,255,.1)}
+.sd-step .pl i{position:absolute;left:0;top:0;bottom:0;width:calc(var(--p,0) * 100%);background:#fff}
+.sd-fpanel{position:absolute;left:calc(670 * var(--u));top:calc(82 * var(--u));width:calc(790 * var(--u));height:calc(672 * var(--u));border-radius:calc(10 * var(--u));overflow:hidden;background:radial-gradient(110% 90% at 80% 15%,#f2f4ff 0%,#b4c2ff 28%,#5b7cff 58%,#1d46f5 85%,#1438e0 100%)}
+.sd-fpanel::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.4px);background-size:calc(8 * var(--u)) calc(8 * var(--u));-webkit-mask-image:linear-gradient(100deg,#000 0%,transparent 55%);mask-image:linear-gradient(100deg,#000 0%,transparent 55%);opacity:.55;pointer-events:none;z-index:2}
+.fl{position:absolute;inset:0;transition:opacity .45s}
+.fl.off{opacity:0;pointer-events:none}
+.fx{position:absolute;transition:opacity .5s var(--ease),transform .7s var(--ease)}
+.fterm{left:calc(160 * var(--u));width:calc(445 * var(--u));height:calc(205 * var(--u));border-radius:calc(10 * var(--u));background:#1d1d20;box-shadow:0 calc(30 * var(--u)) calc(60 * var(--u)) calc(-20 * var(--u)) rgba(0,0,50,.5);overflow:hidden;font-family:'Roboto Mono',monospace;color:#d9d9de}
+.fterm .bar3{display:flex;align-items:center;height:calc(30 * var(--u));padding:0 calc(14 * var(--u));gap:calc(7 * var(--u))}
+.fterm .bar3 i{width:calc(9 * var(--u));height:calc(9 * var(--u));border-radius:50%}
+.fterm .bar3 span{flex:1;text-align:center;font-size:calc(8 * var(--u));color:#777;margin-right:calc(40 * var(--u))}
+.fterm .body{padding:calc(8 * var(--u)) calc(16 * var(--u));font-size:calc(10 * var(--u));line-height:1.6;white-space:pre;height:calc(130 * var(--u));overflow:hidden}
+.fterm .body em{font-style:normal;color:#45d483}
+.fterm .in{position:absolute;left:calc(8 * var(--u));right:calc(8 * var(--u));bottom:calc(8 * var(--u));border-top:1px solid #444;padding:calc(10 * var(--u)) calc(8 * var(--u)) 0;height:calc(34 * var(--u));font-size:calc(10 * var(--u));color:#fff;white-space:nowrap;overflow:hidden}
+.fdoc{left:calc(86 * var(--u));top:calc(40 * var(--u));width:calc(600 * var(--u));height:calc(700 * var(--u));border-radius:calc(16 * var(--u));background:rgba(255,255,255,.3);padding:calc(10 * var(--u));transform-origin:50% 10%}
+.fdoc .url{height:calc(30 * var(--u));border-radius:999px;background:rgba(255,255,255,.5);font-size:calc(10 * var(--u));color:rgba(30,40,90,.5);display:flex;align-items:center;padding:0 calc(16 * var(--u))}
+.fdoc .pg{position:absolute;left:calc(24 * var(--u));right:calc(24 * var(--u));top:calc(58 * var(--u));bottom:0;background:#fff;border-radius:calc(4 * var(--u)) calc(4 * var(--u)) 0 0;padding:calc(26 * var(--u)) calc(20 * var(--u));font-family:Inter,sans-serif}
+.fdoc .kk{font-size:calc(7 * var(--u));letter-spacing:.12em;color:#8a96c8;font-family:'Roboto Mono',monospace}
+.fdoc .tt{margin-top:calc(14 * var(--u));font-size:calc(28 * var(--u));letter-spacing:-.03em;color:#1b2140;font-weight:600;font-family:'Inter Tight',sans-serif;white-space:nowrap}
+.fdoc .tt span{position:relative;transition:background .5s;border-radius:3px}
+.fdoc .tt span.sel{background:#cfdcff}
+.fdoc .sub{margin-top:calc(8 * var(--u));font-size:calc(10.5 * var(--u));color:#6b7290;line-height:1.5;max-width:calc(420 * var(--u))}
+.fdoc .meta{margin-top:calc(16 * var(--u));display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #eceef5;border-radius:calc(6 * var(--u))}
+.fdoc .meta div{padding:calc(8 * var(--u)) calc(10 * var(--u));border-left:1px solid #eceef5;font-size:calc(8.5 * var(--u))}
+.fdoc .meta div:first-child{border-left:0}
+.fdoc .meta span{display:block;font-size:calc(6.5 * var(--u));color:#9aa;letter-spacing:.1em;margin-bottom:calc(3 * var(--u));font-family:'Roboto Mono',monospace}
+.fdoc .ch{position:relative;margin-top:calc(16 * var(--u));border:1px solid #eceef5;border-radius:calc(8 * var(--u));height:calc(230 * var(--u))}
+.fdoc .ch b{position:absolute;left:calc(14 * var(--u));top:calc(12 * var(--u));font-size:calc(9 * var(--u));font-weight:600;color:#1b2140}
+.fdoc .ch svg{position:absolute;left:calc(14 * var(--u));right:calc(14 * var(--u));top:calc(36 * var(--u));width:calc(100% - 28 * var(--u));height:calc(170 * var(--u));overflow:visible}
+.fdoc .sm{margin-top:calc(18 * var(--u));border-top:1px solid #eceef5;padding-top:calc(14 * var(--u));font-size:calc(12 * var(--u));font-weight:600;color:#1b2140}
+.fdoc .sm p{font-size:calc(9.5 * var(--u));font-weight:400;color:#6b7290;margin-top:calc(6 * var(--u));line-height:1.5}
+.fgrid{left:calc(110 * var(--u));top:calc(150 * var(--u));width:calc(560 * var(--u));height:calc(300 * var(--u));border-radius:calc(10 * var(--u));background:#fff;box-shadow:0 calc(30 * var(--u)) calc(60 * var(--u)) calc(-20 * var(--u)) rgba(0,0,60,.35);padding:calc(20 * var(--u)) calc(22 * var(--u));font-family:Inter,sans-serif}
+.fgrid h5{margin:0;font-size:calc(14 * var(--u));font-weight:600;color:#111}
+.fgrid .row{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(12 * var(--u));margin-top:calc(16 * var(--u))}
+.fgrid .dc{position:relative;height:calc(96 * var(--u));border-radius:calc(8 * var(--u));background:#f3f5fb;border:1px solid #e7eaf3;padding:calc(8 * var(--u));transition:transform .5s var(--ease),box-shadow .5s,border-color .5s,opacity .5s}
+.fgrid .dc i{position:absolute;left:calc(8 * var(--u));right:calc(8 * var(--u));height:calc(4 * var(--u));border-radius:2px;background:#dfe4f2}
+.fgrid .dc b{position:absolute;left:calc(8 * var(--u));bottom:calc(8 * var(--u));font-size:calc(8 * var(--u));font-weight:500;color:#333}
+.fgrid .dc u{position:absolute;left:calc(8 * var(--u));right:calc(8 * var(--u));top:calc(36 * var(--u));height:calc(30 * var(--u));border-radius:4px;background:linear-gradient(180deg,#c9d4ff,#e9eeff);text-decoration:none}
+.fgrid .dc.new{border-color:#4d6dff;box-shadow:0 0 0 3px rgba(0,57,255,.15)}
+.fgrid .dc.pop{opacity:0;transform:scale(.9)}
+.facc{left:calc(390 * var(--u));top:calc(330 * var(--u));width:calc(300 * var(--u));border-radius:calc(10 * var(--u));background:#fff;box-shadow:0 calc(24 * var(--u)) calc(50 * var(--u)) calc(-16 * var(--u)) rgba(0,0,60,.4);padding:calc(14 * var(--u)) calc(16 * var(--u));font-family:Inter,sans-serif;font-size:calc(10 * var(--u))}
+.facc h5{margin:0 0 calc(8 * var(--u));font-size:calc(12 * var(--u));font-weight:600}
+.facc .pp{display:flex;align-items:center;gap:calc(8 * var(--u));padding:calc(6 * var(--u)) 0;border-top:1px solid #f0f0f4;transition:opacity .4s,transform .4s}
+.facc .pp.off{opacity:0;transform:translateY(6px)}
+.facc .pp i{width:calc(20 * var(--u));height:calc(20 * var(--u));border-radius:50%;flex:none}
+.facc .pp span{flex:1}
+.facc .pp em{font-style:normal;color:#777;font-size:calc(9 * var(--u))}
+.fcom{width:calc(250 * var(--u));border-radius:calc(10 * var(--u));background:#1d1d20;color:#fff;padding:calc(12 * var(--u)) calc(14 * var(--u));font-family:Inter,sans-serif;font-size:calc(10.5 * var(--u));box-shadow:0 calc(20 * var(--u)) calc(40 * var(--u)) calc(-14 * var(--u)) rgba(0,0,40,.6)}
+.fcom .ph{color:#777}
+.fcom .snd{position:absolute;right:calc(10 * var(--u));bottom:calc(10 * var(--u));width:calc(22 * var(--u));height:calc(22 * var(--u));border-radius:calc(5 * var(--u));background:var(--blue)}
+.fcom .w{font-weight:600;font-size:calc(10 * var(--u));color:#ccc;margin-bottom:calc(3 * var(--u))}
+.fcom .w time{font-weight:400;color:#888;margin-left:4px}
+.fcom .r{display:flex;gap:calc(8 * var(--u));margin-top:calc(10 * var(--u))}
+.fcom .av{flex:none;width:calc(20 * var(--u));height:calc(20 * var(--u));border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:calc(9 * var(--u))}
+.fpin{width:calc(22 * var(--u));height:calc(22 * var(--u));border-radius:50% 50% 50% 0;background:var(--blue);color:#fff;font-size:calc(10 * var(--u));display:grid;place-items:center;box-shadow:0 0 0 3px rgba(255,255,255,.9)}
+.fres{display:inline-flex;align-items:center;gap:4px;margin-top:calc(8 * var(--u));font-size:calc(9 * var(--u));color:#45d483}
+.sd-ctaw{background:#000;padding:calc(82 * var(--u)) calc(58 * var(--u))}
+.sd-cta{position:relative;height:calc(302 * var(--u));border-radius:calc(12 * var(--u));overflow:hidden;background:linear-gradient(100deg,#0a0f2e 0%,#1335c9 34%,#3a63ff 62%,#9fb2ff 100%);opacity:0;transform:translateY(calc(30 * var(--u)))}
+.in .sd-cta{animation:sdFadeUp 1s var(--ease) both}
+.sd-cta .bl{position:absolute;border-radius:50%;filter:blur(calc(40 * var(--u)))}
+.sd-cta .bl.a{left:20%;top:-30%;width:45%;height:120%;background:rgba(160,185,255,.55);animation:sdBlobA 8s ease-in-out infinite}
+.sd-cta .bl.b{left:55%;top:-10%;width:40%;height:110%;background:rgba(10,30,140,.5);animation:sdBlobB 11s ease-in-out infinite}
+@keyframes sdBlobA{0%,100%{transform:none}25%{transform:translate(-6%,-4%) rotate(-10deg) scale(.9,1.08)}50%{transform:translate(3%,5%) rotate(6deg) scale(1.1,.92)}75%{transform:translate(6%,-3%) rotate(-8deg) scale(.95,1.05)}}
+@keyframes sdBlobB{0%,100%{transform:none}25%{transform:translate(7%,-5%) rotate(12deg) scale(1.08,1.1)}50%{transform:translate(-3%,6%) rotate(-6deg) scale(.95)}75%{transform:translate(-6%,-2%) rotate(5deg) scale(1.05,.95)}}
+.sd-cta .fig{position:absolute;bottom:-12%;background:#03040c;filter:blur(calc(3 * var(--u)));opacity:.92}
+.sd-cta .fig.f1{left:29%;width:24%;height:80%;border-radius:45% 50% 0 0/60% 60% 0 0;transform:rotate(-14deg);animation:sdSway 9s ease-in-out infinite alternate}
+.sd-cta .fig.f1::before{content:'';position:absolute;left:30%;top:-34%;width:40%;height:48%;border-radius:50%;background:inherit}
+.sd-cta .fig.f2{left:50%;width:36%;height:96%;border-radius:40% 55% 0 0/50% 60% 0 0;transform:rotate(-6deg);animation:sdSway 12s ease-in-out infinite alternate-reverse}
+.sd-cta .fig.f2::before{content:'';position:absolute;left:12%;top:-22%;width:30%;height:40%;border-radius:46% 54% 50% 50%;background:inherit}
+.sd-cta .fig.f0{left:-6%;width:28%;height:120%;border-radius:50% 50% 0 0;opacity:.7;filter:blur(calc(14 * var(--u)))}
+@keyframes sdSway{from{translate:0 0}to{translate:calc(14 * var(--u)) calc(-6 * var(--u))}}
+.sd-cta .ttl2{position:absolute;left:calc(95 * var(--u));top:calc(76 * var(--u));font-size:calc(40 * var(--u));line-height:1.08;color:#fff}
+.sd-cta .gh{position:absolute;right:calc(66 * var(--u));top:calc(80 * var(--u));width:calc(190 * var(--u));height:calc(76 * var(--u));border-radius:calc(12 * var(--u));background:#fff;border:1px solid #000;box-shadow:0 0 0 calc(3 * var(--u)) #fff;display:flex;align-items:center;justify-content:center;gap:calc(8 * var(--u));font-size:calc(22 * var(--u));font-weight:700;letter-spacing:-.03em;color:#000;transition:transform .3s var(--soft),box-shadow .3s}
+.sd-cta .gh:hover{transform:translateY(-2px);box-shadow:0 0 0 calc(3 * var(--u)) #fff,0 14px 30px -10px rgba(0,0,0,.6)}
+.sd-cta .gh svg{width:calc(32 * var(--u));height:calc(32 * var(--u))}
+.sd-faq{position:relative;background:#000;color:#fff;min-height:calc(757 * var(--u));padding:calc(98 * var(--u)) 0 calc(88 * var(--u))}
+.sd-faq h3{position:absolute;left:calc(42 * var(--u));top:calc(98 * var(--u));font-size:calc(60 * var(--u));line-height:.9}
+.sd-qs{margin-left:calc(710 * var(--u));width:calc(650 * var(--u))}
+.sd-q{border-bottom:1px solid rgba(255,255,255,.18)}
+.sd-q button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:calc(20 * var(--u));padding:calc(18 * var(--u)) calc(16 * var(--u));font-size:calc(17 * var(--u));font-family:Inter,sans-serif;color:#fff}
+.sd-q button b{font-weight:600}
+.sd-q button svg{width:calc(18 * var(--u));height:calc(18 * var(--u));flex:none;fill:none;stroke:#fff;stroke-width:2;transition:transform .45s var(--ease)}
+.sd-q.open button svg{transform:rotate(180deg)}
+.sd-q .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.sd-q.open .a{grid-template-rows:1fr}
+.sd-q .a>div{overflow:hidden}
+.sd-q .a p{padding:0 calc(16 * var(--u)) calc(22 * var(--u));font-size:calc(15 * var(--u));line-height:1.6;color:rgba(255,255,255,.7);font-family:Inter,sans-serif;opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .45s var(--ease)}
+.sd-q.open .a p{opacity:1;transform:none;transition-delay:.08s}
+.sd-q .a p b{color:#fff;font-weight:600}
+.sd-foot{position:relative;height:calc(470 * var(--u));overflow:hidden;color:#fff;background:linear-gradient(180deg,#000 0%,#000 18%,#020a4a 48%,#0626c9 78%,#1a45ff 100%)}
+.sd-foot .px{position:absolute;inset:0;background-image:linear-gradient(rgba(140,170,255,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(140,170,255,.13) 1px,transparent 1px);background-size:calc(4 * var(--u)) calc(4 * var(--u));-webkit-mask-image:linear-gradient(180deg,transparent 20%,#000 75%);mask-image:linear-gradient(180deg,transparent 20%,#000 75%)}
+.sd-foot .glow{position:absolute;left:var(--mx,50%);top:var(--my,80%);width:calc(700 * var(--u));height:calc(400 * var(--u));margin:calc(-200 * var(--u)) 0 0 calc(-350 * var(--u));background:radial-gradient(closest-side,rgba(120,150,255,.35),transparent);pointer-events:none;transition:left .6s var(--ease),top .6s var(--ease),opacity .5s;opacity:0}
+.sd-foot:hover .glow{opacity:1}
+.sd-foot .word{position:absolute;left:calc(-4 * var(--u));bottom:calc(-60 * var(--u));font-size:calc(232 * var(--u));line-height:1;color:#d5dcff;letter-spacing:-.05em;white-space:nowrap;opacity:0;transform:translateY(30%)}
+.in .sd-foot .word,.sd-foot.in .word{animation:sdWord 1.2s var(--ease) both}
+@keyframes sdWord{from{opacity:0;transform:translateY(30%)}to{opacity:1;transform:none}}
+.sd-foot .meta{position:absolute;right:calc(20 * var(--u));bottom:calc(30 * var(--u));text-align:right;font-size:calc(15 * var(--u));font-family:Inter,sans-serif}
+.sd-foot .meta b{display:block;font-size:calc(30 * var(--u));font-weight:700;font-style:italic;letter-spacing:-.04em;margin-bottom:calc(8 * var(--u))}
+.sd-foot .meta a{opacity:.9}
+.sd-foot .meta a:hover{text-decoration:underline}
+.sd-replay{display:block;margin:calc(8 * var(--u)) 0 0 auto;font-size:calc(12 * var(--u));opacity:.6;text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.sd *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+`;
+
+export const sdBus = { l: {}, on(e, f) { (this.l[e] = this.l[e] || new Set()).add(f); return () => this.l[e].delete(f); }, emit(e, d) { (this.l[e] || []).forEach((f) => f(d)); } };
+
+export const sdClamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
+
+export const sdSmooth = (v) => v * v * (3 - 2 * v);
+
+export const useSdSeen = (ref, threshold = 0.25) => {
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        setSeen(true);
+        io.disconnect();
+      }
+    }, { threshold });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return seen;
+};
+
+export const useSdVisible = (ref) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.02 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return visible;
+};
+
+export const useSdClock = (running, fps = 30) => {
+  const [t, setT] = useState(0);
+  const acc = useRef(0);
+  useEffect(() => {
+    if (!running) return;
+    let raf = 0;
+    let last = performance.now();
+    let drawn = 0;
+    const tick = (now) => {
+      acc.current += Math.min(now - last, 100);
+      last = now;
+      if (now - drawn >= 1000 / fps) {
+        drawn = now;
+        setT(acc.current);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [running]);
+  const reset = () => {
+    acc.current = 0;
+    setT(0);
+  };
+  return [t, reset];
+};
+
+export const Rise = ({ lines, className = '', base = 0, step = 0.1, style }) => (
+  <div className={`sd-rise ${className}`} style={style}>
+    {lines.map((line, i) => (
+      <span className="ln" key={i}><span style={{ '--d': `${base + i * step}s` }}>{line}</span></span>
+    ))}
+  </div>
+);
+
+export const Sec = ({ as = 'section', className = '', threshold = 0.25, children, ...rest }) => {
+  const ref = useRef(null);
+  const seen = useSdSeen(ref, threshold);
+  const Tag = as;
+  return <Tag ref={ref} className={`${className} ${seen ? 'in' : ''}`} {...rest}>{children}</Tag>;
+};
+
+export const Loader = ({ onReveal, onOff }) => {
+  const wrapRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [stage, setStage] = useState('play');
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    const glass = document.createElement('canvas');
+    const gctx = glass.getContext('2d');
+    const DARK = [[0, [1, 2, 7]], [0.3, [3, 6, 24]], [0.55, [6, 17, 90]], [0.78, [0, 47, 225]], [1, [44, 84, 255]]];
+    const LIGHT = [[0, [28, 72, 255]], [0.3, [84, 128, 255]], [0.55, [146, 176, 255]], [0.78, [204, 218, 255]], [1, [246, 249, 255]]];
+    const PALE = [232, 238, 255];
+    const BLUE = [40, 86, 255];
+    const LD = { depth: 4400, focal: 900, ring: 300, tw: 760, th: 430, ncx: 12, ncy: 7, speed: 520, hold: 3.2, pre: 0.9, exit: 1.6, landDur: 1100 };
+    const ease = (x) => -(Math.cos(Math.PI * sdClamp(x)) - 1) / 2;
+    const mix = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
+    const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a.toFixed(3)})`;
+    const ramp = (stops, v) => {
+      for (let i = 1; i < stops.length; i++) {
+        if (v <= stops[i][0]) {
+          const a = stops[i - 1];
+          const b = stops[i];
+          return mix(a[1], b[1], ease((v - a[0]) / (b[0] - a[0])));
+        }
+      }
+      return stops[stops.length - 1][1];
+    };
+    const flow = (s, z, t, phase) => {
+      const f = t * 1.6;
+      return 0.5 + 0.22 * Math.sin(0.0019 * s + 0.45 * f + 1.6 * Math.sin(0.0011 * z + 0.23 * f)) + 0.2 * Math.sin(0.0015 * z - 0.6 * f + 1.4 * Math.cos(0.0012 * s - 0.31 * f)) + 0.12 * Math.sin(0.0009 * (s + z) + 0.37 * f) + phase * 0;
+    };
+    const stars = Array.from({ length: 140 }, () => ({ x: 1500 * (2 * Math.random() - 1), y: 880 * (2 * Math.random() - 1), z: -Math.random() * LD.depth * 1.15, r: 0.9 + 1.4 * Math.random() }));
+    let raf = 0;
+    let camZ = 0;
+    let last = performance.now();
+    const t0 = last;
+    let endT = 0;
+    let landT = 0;
+    let revealed = false;
+    let off = false;
+    const timers = [];
+    const frame = (now) => {
+      raf = requestAnimationFrame(frame);
+      const t = (now - t0) / 1000;
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const W = Math.round(canvas.clientWidth * dpr);
+      const H = Math.round(canvas.clientHeight * dpr);
+      if (canvas.width !== W || canvas.height !== H) {
+        canvas.width = W;
+        canvas.height = H;
+        glass.width = Math.max(2, W >> 1);
+        glass.height = Math.max(2, H >> 1);
+      }
+      const shown = sdClamp(ease(t / LD.hold));
+      if (!endT && t >= LD.hold) {
+        endT = now;
+        timers.push(setTimeout(() => wrapRef.current && wrapRef.current.classList.add('out'), 150));
+        timers.push(setTimeout(() => { landT = performance.now(); }, 300));
+        timers.push(setTimeout(() => { revealed = true; onReveal(); }, 700));
+        timers.push(setTimeout(() => setStage('gone'), 1650));
+        timers.push(setTimeout(() => { off = true; onOff(); }, 2300));
+      }
+      const exitP = endT ? sdClamp((now - endT) / (1000 * LD.exit)) : 0;
+      const land = landT ? sdClamp((now - landT) / LD.landDur) : 0;
+      const asm = sdClamp((t - 0.05) / LD.pre);
+      const asmE = ease(sdClamp((asm - 0.02) / 0.72));
+      const speed = LD.speed * (0.32 + Math.pow(shown, 1.6) * 1.2) * (1 + 5 * Math.pow(exitP, 2.2));
+      camZ += speed * dt;
+      const palMix = Math.pow(shown, 2.1) + (1 - Math.pow(shown, 2.1)) * ease(sdClamp(exitP / 0.38));
+      const palette = (v) => mix(ramp(DARK, sdClamp(v)), ramp(LIGHT, sdClamp(v)), palMix);
+      const scale = W / 1440;
+      const cx = W / 2;
+      const cy = H / 2;
+      const swayX = Math.sin(t * 0.55) * 18;
+      const swayY = Math.cos(t * 0.42) * 11;
+      const F = LD.focal;
+      const bendX = (z) => { const e = Math.max(0, -z) / (1.2 * LD.depth); return 3600 * e * e; };
+      const bendY = (z) => { const e = Math.max(0, -z) / (1.2 * LD.depth); return 160 * e * e; };
+      const proj = (x, y, z) => { const d = F / (F - z); return [cx + (x + bendX(z) - swayX) * d * scale, cy + (y + bendY(z) - swayY) * d * scale, d]; };
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = rgba(palette(0.15 + 0.82 * ease(palMix)), 1);
+      ctx.fillRect(0, 0, W, H);
+      const nearZ = 0.55 * F;
+      const farZ = -1.2 * LD.depth;
+      const farA = proj(-LD.tw, -LD.th, farZ * 0.995);
+      const farB = proj(LD.tw, LD.th, farZ * 0.995);
+      const gx = (farA[0] + farB[0]) / 2;
+      const gy = (farA[1] + farB[1]) / 2;
+      const gs = Math.max(farB[0] - farA[0], farB[1] - farA[1]);
+      ctx.globalCompositeOperation = 'lighter';
+      const glowA = (0.35 + 0.65 * asmE) * sdClamp((shown - 0.3) / 0.4) * (1 - sdClamp(exitP / 0.6));
+      const bg = ctx.createRadialGradient(gx, gy, gs * 0.2, gx, gy, gs * 2.8 + 120 * dpr);
+      bg.addColorStop(0, `rgba(230,236,255,${(0.55 * glowA).toFixed(3)})`);
+      bg.addColorStop(0.25, `rgba(90,130,255,${(0.28 * glowA).toFixed(3)})`);
+      bg.addColorStop(1, 'rgba(0,40,200,0)');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'source-over';
+      const P = LD.ring;
+      const off0 = camZ % P;
+      const nRings = Math.ceil((nearZ - farZ) / P) + 1;
+      const logN = Math.log(F - nearZ);
+      const logSpan = Math.max(1e-6, Math.log(F - farZ) - logN);
+      gctx.setTransform(1, 0, 0, 1, 0, 0);
+      gctx.clearRect(0, 0, glass.width, glass.height);
+      gctx.setTransform(glass.width / W, 0, 0, glass.width / W, 0, 0);
+      const strokes = [];
+      const holes = [];
+      const wallPoint = (wall, s, z) => (wall === 0 ? [s, LD.th, z] : wall === 1 ? [s, -LD.th, z] : wall === 2 ? [-LD.tw, s, z] : [LD.tw, s, z]);
+      const perim = (wall, s) => (wall === 0 ? s + LD.tw : wall === 2 ? 2 * LD.tw + LD.th - s : wall === 1 ? 2 * LD.tw + 2 * LD.th + (LD.tw - s) : 4 * LD.tw + 2 * LD.th + (s + LD.th));
+      const quad = (c, q) => { c.beginPath(); c.moveTo(q[0][0], q[0][1]); c.lineTo(q[1][0], q[1][1]); c.lineTo(q[2][0], q[2][1]); c.lineTo(q[3][0], q[3][1]); c.closePath(); };
+      const sweep = 1.3 * sdClamp((asm - 0.06) / 0.6);
+      const fillIn = sdClamp((asm - 0.34) / 0.66);
+      const landT2 = land * 1.52;
+      for (let k = nRings; k >= 0; k--) {
+        const zNear = Math.min(nearZ - k * P + off0, nearZ);
+        const zFar = nearZ - (k + 1) * P + off0;
+        if (zNear <= farZ) continue;
+        const z1 = Math.max(zFar, farZ);
+        const mid = (z1 + zNear) / 2;
+        const nearFade = mid > 0.15 * F ? sdClamp(1 - (mid - 0.15 * F) / (nearZ - 0.15 * F)) : 1;
+        if (nearFade < 0.01) continue;
+        const depthK = sdClamp((Math.log(F - mid) - logN) / logSpan);
+        const prox = sdClamp(1 - (mid - farZ) / (0.7 * (nearZ - farZ)));
+        const tintA = Math.pow(prox, 2.2) * (0.3 + 0.7 * asmE);
+        const whiteA = Math.pow(prox, 3.6) * asmE;
+        const ringIdx = Math.floor((zFar + camZ) / P);
+        for (let wall = 0; wall < 4; wall++) {
+          const vertical = wall >= 2;
+          const n = vertical ? LD.ncy : LD.ncx;
+          const start = vertical ? -LD.th : -LD.tw;
+          const step = (vertical ? 2 * LD.th : 2 * LD.tw) / n;
+          for (let i = 0; i < n; i++) {
+            const s0 = start + i * step;
+            const s1 = s0 + step;
+            const q = [wallPoint(wall, s0, z1), wallPoint(wall, s1, z1), wallPoint(wall, s1, zNear), wallPoint(wall, s0, zNear)].map((p) => proj(p[0], p[1], p[2]));
+            const shade = sdClamp(0.42 + 0.25 * (1 - ((s0 + s1) / 2) / LD.tw) * (vertical ? 0 : 1) + (wall === 1 ? 0.12 : 0) + (wall === 3 ? 0.18 : 0), 0.3, 1);
+            const scan = asm < 1 ? Math.exp(-(((depthK - (sweep - 0.15)) / 0.09) ** 2)) * (1 - sweep * sweep / 1.69) : 0;
+            const hash = (((11 * i + 17 * wall + 3 * ringIdx) % 13) + 13) % 13 / 13;
+            const je = 1 - depthK + 0.16 * hash;
+            const punch = ease(sdClamp((landT2 - je) / 0.2));
+            const whiteOut = ease(sdClamp((landT2 - je - 0.16) / 0.2));
+            const vis = ease(sdClamp((1.45 * fillIn - depthK) / 0.45)) * (1 - punch);
+            if (vis > 0.004) {
+              const p = perim(wall, (s0 + s1) / 2);
+              let ca = palette(flow(p, zFar + camZ, t));
+              let cb = palette(flow(p, zNear + camZ, t));
+              const toBlue = Math.max(0.75 * tintA * shade, Math.pow(depthK, 2.2) * asmE * 0.9 * (0.45 + 0.55 * shade));
+              const toPale = Math.max(whiteA * (0.45 + 0.55 * shade), Math.pow(depthK, 6.5) * asmE * (0.7 + 0.3 * shade));
+              ca = mix(mix(ca, BLUE, toBlue), PALE, toPale);
+              cb = mix(mix(cb, BLUE, toBlue), PALE, toPale);
+              const gr = gctx.createLinearGradient((q[0][0] + q[1][0]) / 2, (q[0][1] + q[1][1]) / 2, (q[2][0] + q[3][0]) / 2, (q[2][1] + q[3][1]) / 2);
+              gr.addColorStop(0, rgba(ca, nearFade * vis));
+              gr.addColorStop(1, rgba(cb, nearFade * vis));
+              gctx.fillStyle = gr;
+              quad(gctx, q);
+              gctx.fill();
+            }
+            if (punch > 0.004) holes.push([q, punch]);
+            const lineIn = ease(sdClamp((sweep - depthK) / 0.3));
+            strokes.push([q, nearFade * (0.28 + 0.5 * tintA * shade + 0.6 * scan) * lineIn * (1 - whiteOut), scan]);
+          }
+        }
+      }
+      ctx.drawImage(glass, 0, 0, W, H);
+      ctx.filter = `blur(${(14 * scale * dpr).toFixed(1)}px)`;
+      ctx.drawImage(glass, 0, 0, W, H);
+      ctx.filter = 'none';
+      const lineCol = mix([170, 190, 255], [255, 255, 255], palMix);
+      ctx.lineWidth = Math.max(0.8, 0.7 * dpr);
+      for (const [q, a, scan] of strokes) {
+        if (a < 0.01) continue;
+        ctx.strokeStyle = rgba(scan > 0.01 ? mix(lineCol, [255, 255, 255], scan) : lineCol, Math.min(1, a * (1 - 0.35 * palMix)));
+        quad(ctx, q);
+        ctx.stroke();
+      }
+      for (const s of stars) {
+        s.z += speed * dt;
+        if (s.z > 0.82 * F) {
+          if (endT) continue;
+          s.x = 1500 * (2 * Math.random() - 1);
+          s.y = 880 * (2 * Math.random() - 1);
+          s.z = -1.15 * LD.depth;
+        }
+        const p = proj(0.9 * s.x, 0.9 * s.y, s.z);
+        if (p[2] <= 0 || p[2] > 60) continue;
+        const fade = s.z > 0.3 * F ? sdClamp(1 - (s.z - 0.3 * F) / (0.52 * F)) : 1;
+        const r = Math.min(s.r * p[2], 4) * scale * dpr;
+        const coc = Math.min(4300 * Math.abs(1 / (F - s.z) - 1 / (F + 600)) * 0.9, 14) * scale * dpr;
+        const a = 0.8 * fade * Math.min(1, (r * r + 0.5) / ((r + 0.8 * coc) ** 2)) * sdClamp((s.z - farZ) / 600);
+        if (a < 0.01) continue;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(p[0], p[1], r + 0.8 * coc, 0, 6.2832);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      const bloom = asmE * (1 - ease(sdClamp((land - 0.35) / 0.65)));
+      const bloomIn = endT ? ease(sdClamp((now - endT - 200) / 400)) : 0;
+      if (bloom * bloomIn > 0.004) {
+        const rr = 2.3 * gs + 170 * dpr;
+        const g2 = ctx.createRadialGradient(gx, gy, 0, gx, gy, rr);
+        g2.addColorStop(0, `rgba(255,255,255,${(0.78 * bloom).toFixed(3)})`);
+        g2.addColorStop(sdClamp(0.42 * gs / rr, 0.05, 0.5), `rgba(246,248,255,${(0.62 * bloom).toFixed(3)})`);
+        g2.addColorStop(sdClamp(0.9 * gs / rr, 0.12, 0.7), `rgba(200,214,255,${(0.24 * bloom).toFixed(3)})`);
+        g2.addColorStop(1, 'rgba(120,150,255,0)');
+        ctx.globalAlpha = bloomIn;
+        ctx.fillStyle = g2;
+        ctx.fillRect(0, 0, W, H);
+        ctx.globalAlpha = 1;
+      }
+      if (holes.length) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineWidth = 1.6 * dpr;
+        ctx.lineJoin = 'round';
+        for (const [q, a] of holes) {
+          ctx.globalAlpha = a;
+          quad(ctx, q);
+          ctx.fill();
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      if (land >= 1) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.globalAlpha = ease(sdClamp((now - landT - LD.landDur) / 300));
+        ctx.fillRect(0, 0, W, H);
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+      }
+    };
+    raf = requestAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+      if (!revealed) onReveal();
+      if (!off) onOff();
+    };
+  }, []);
+  if (stage === 'off') return null;
+  return (
+    <div ref={wrapRef} className={`sd-loader ${stage === 'gone' ? 'gone' : ''}`} onClick={() => setStage('off')} title="Click to skip">
+      <canvas ref={canvasRef} />
+      <div className="cap mono">LOADING <i>.</i><i>.</i><i>.</i></div>
+      <div className="line tasa">The Future of Docs.</div>
+    </div>
+  );
+};
+
+export const Sky = () => {
+  const ref = useRef(null);
+  const [fallback, setFallback] = useState(false);
+  useEffect(() => {
+    const canvas = ref.current;
+    const host = canvas.parentElement;
+    const gl = canvas.getContext('webgl', { antialias: false, alpha: false, premultipliedAlpha: false });
+    if (!gl) {
+      setFallback(true);
+      return;
+    }
+    const N = 10;
+    const vs = 'attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+    const fs = `precision highp float;
+varying vec2 v;
+uniform float T,uForm,uAsp,uOff;
+uniform vec3 P[${N}];
+uniform vec2 V[${N}];
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+1.),f.x),f.y);}
+float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return s;}
+void main(){
+  vec2 uv=v;
+  vec2 disp=vec2(0.);float dens=0.;
+  for(int i=0;i<${N};i++){float w=P[i].z;if(w<=.002)continue;vec2 d=(uv-P[i].xy)*vec2(uAsp,1.);float r2=dot(d,d);float R=.075;
+    float f=(exp(-r2/(R*R))+exp(-r2/(R*R*5.2))*.55)*w;vec2 vel=V[i];disp+=f*(-vel*.07+vec2(-d.y,d.x)*length(vel)*.6);dens+=f;}
+  float m=length(disp);float lim=.0375;if(m>1e-6)disp*=(lim*m/(m+lim))/m;
+  vec2 q=vec2(uv.x*uAsp,uv.y-uOff)*1.15+disp*vec2(uAsp,1.)*2.6;
+  float t=T*.035;
+  vec2 w=vec2(fbm(q*1.1+vec2(t,-t*.7)),fbm(q*1.1+vec2(-t*.8,t)+5.2));
+  float c=fbm(q*.95+w*1.5+vec2(0.,t*.6));
+  float b=smoothstep(.5,.74,c);
+  float l=smoothstep(.38,.66,fbm(q*1.6-w+3.));
+  float edge=smoothstep(.55,1.,abs(uv.x-.5)*2.);
+  b=clamp(b+edge*smoothstep(.42,.6,c)*.55,0.,1.);
+  vec3 ground=vec3(.925,.933,.965);
+  vec3 col=mix(ground,vec3(.84,.85,1.),l*.6);
+  col=mix(col,vec3(.47,.53,1.),b*.82);
+  col=mix(col,vec3(.36,.43,1.),smoothstep(.75,.95,c)*.5);
+  float th=1.-uForm*1.35;
+  float k2=smoothstep(th,th+.5,b+.12*sin(uv.x*9.+uv.y*7.));
+  col=mix(ground,mix(ground,col,smoothstep(0.,.55,uForm)),max(k2,smoothstep(.72,1.,uForm)));
+  float d2=clamp(dens,0.,1.);d2=d2*d2*(3.-2.*d2);col+=d2*.45*.5*(1.-col);
+  gl_FragColor=vec4(col,1.);
+}`;
+    const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
+    const prog = gl.createProgram();
+    const a = sh(gl.VERTEX_SHADER, vs);
+    const b = sh(gl.FRAGMENT_SHADER, fs);
+    if (!a || !b) {
+      setFallback(true);
+      return;
+    }
+    gl.attachShader(prog, a);
+    gl.attachShader(prog, b);
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = {};
+    ['T', 'uForm', 'uAsp', 'uOff', 'P', 'V'].forEach((k) => { U[k] = gl.getUniformLocation(prog, k); });
+    const pos = new Float32Array(3 * N);
+    const vel = new Float32Array(2 * N);
+    const hist = [];
+    const hand = { x: 0.5, y: 0.5, px: 0.5, py: 0.5, vx: 0, vy: 0, seen: false };
+    let form = null;
+    let lift = 0;
+    let liftTarget = 0;
+    let raf = 0;
+    let visible = true;
+    const start = performance.now();
+    let last = start;
+    const onMove = (e) => {
+      const r = canvas.getBoundingClientRect();
+      if (!r.width) return;
+      hand.x = (e.clientX - r.left) / r.width;
+      hand.y = 1 - (e.clientY - r.top) / r.height;
+      if (!hand.seen) { hand.seen = true; hand.px = hand.x; hand.py = hand.y; }
+    };
+    const step = (now, dt) => {
+      if (!hand.seen) return;
+      const lx = (hand.x - hand.px) / dt;
+      const ly = (hand.y - hand.py) / dt;
+      hand.px = hand.x;
+      hand.py = hand.y;
+      const k = 1 - Math.exp(-24 * dt);
+      hand.vx += (lx - hand.vx) * k;
+      hand.vy += (ly - hand.vy) * k;
+      const sp = Math.hypot(hand.vx, hand.vy);
+      const h0 = hist[0];
+      if (!h0 || Math.hypot(hand.x - h0.x, hand.y - h0.y) > 0.0016) {
+        hist.unshift({ x: hand.x, y: hand.y, vx: hand.vx, vy: hand.vy, s: Math.min(3 * sp, 1), t: now });
+        if (hist.length > N) hist.length = N;
+      }
+      for (let i = 0; i < N; i++) {
+        const p = hist[i];
+        if (p) {
+          const age = Math.min((now - p.t) / 420, 1);
+          const w = (1 - age) * (1 - age) * (3 - 2 * (1 - age));
+          pos[3 * i] = p.x; pos[3 * i + 1] = p.y; pos[3 * i + 2] = w * p.s;
+          vel[2 * i] = p.vx; vel[2 * i + 1] = p.vy;
+        } else {
+          pos[3 * i + 2] = 0;
+        }
+      }
+    };
+    const frame = (now) => {
+      raf = 0;
+      if (!visible) return;
+      const dt = Math.min(Math.max((now - last) / 1000, 1 / 240), 1 / 30);
+      last = now;
+      const w = Math.min(900, Math.max(320, Math.round(host.clientWidth / 1.6)));
+      const hgt = Math.max(64, Math.round(w * host.clientHeight / Math.max(host.clientWidth, 1)));
+      if (canvas.width !== w || canvas.height !== hgt) { canvas.width = w; canvas.height = hgt; gl.viewport(0, 0, w, hgt); }
+      step(now, dt);
+      lift += (liftTarget - lift) * (1 - Math.exp(-dt * 2.4));
+      const fr = form === null ? 0 : sdSmooth(sdClamp((now - form) / 2100));
+      gl.uniform1f(U.T, (now - start) / 1000);
+      gl.uniform1f(U.uForm, fr);
+      gl.uniform1f(U.uAsp, w / hgt);
+      gl.uniform1f(U.uOff, lift);
+      gl.uniform3fv(U.P, pos);
+      gl.uniform2fv(U.V, vel);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      raf = requestAnimationFrame(frame);
+    };
+    const kick = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); });
+    io.observe(host);
+    window.addEventListener('pointermove', onMove, { passive: true });
+    const offForm = sdBus.on('loader:done', () => { if (form === null) form = performance.now(); });
+    const offLift = sdBus.on('sky:lift', (n) => { liftTarget = -n * 160 / Math.max(host.clientHeight, 1); });
+    const offScroll = sdBus.on('sky:scroll', (y) => { canvas.style.transform = `translateY(${(0.18 * y).toFixed(1)}px)`; });
+    const fallbackForm = setTimeout(() => { if (form === null) form = performance.now(); }, 6000);
+    kick();
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      window.removeEventListener('pointermove', onMove);
+      offForm(); offLift(); offScroll();
+      clearTimeout(fallbackForm);
+      const lose = gl.getExtension('WEBGL_lose_context');
+      if (lose) lose.loseContext();
+    };
+  }, []);
+  return (
+    <div className="sd-sky" aria-hidden="true">
+      {fallback ? <div className="fb"><i style={{ left: '-8%', top: '10%', width: '40%', height: '40%' }} /><i style={{ right: '-6%', top: '30%', width: '30%', height: '45%' }} /></div> : <canvas ref={ref} />}
+    </div>
+  );
+};
+
+export const Nav = ({ live }) => {
+  const navRef = useRef(null);
+  const linkRefs = useRef({});
+  const [active, setActive] = useState(null);
+  const [ind, setInd] = useState(null);
+  const links = [['Values', 'sd-values'], ['Impact', 'sd-impact'], ['Features', 'sd-features'], ['FAQs', 'sd-faq']];
+  useEffect(() => {
+    let raf = 0;
+    const measure = () => {
+      raf = 0;
+      const limit = 0.4 * window.innerHeight;
+      const root = navRef.current && navRef.current.closest('.sd');
+      let cur = null;
+      links.forEach(([, id]) => {
+        const el = root && root.querySelector(`#${id}`);
+        if (el && el.getBoundingClientRect().top <= limit) cur = id;
+      });
+      setActive(cur);
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(measure); };
+    measure();
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener('scroll', onScroll, { capture: true });
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+  useEffect(() => {
+    const bar = navRef.current;
+    const el = active && linkRefs.current[active];
+    if (!bar || !el) return;
+    const a = bar.getBoundingClientRect();
+    const b = el.getBoundingClientRect();
+    setInd({ x: b.left - a.left, w: b.width });
+  }, [active]);
+  const go = (id) => (e) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  return (
+    <nav ref={navRef} className="sd-nav">
+      <a className="sd-brand" onClick={go('sd-top')}>Workspace<small>BY <b>Mintlify</b></small></a>
+      <div className="sd-links">
+        {links.map(([label, id]) => <a key={id} ref={(el) => { linkRefs.current[id] = el; }} href={`#${id}`} onClick={go(id)}>{label}</a>)}
+        <a className="cta" href="#sd-features" onClick={go('sd-features')}>Try Now</a>
+      </div>
+      <i className={`sd-ind ${active && ind ? 'on' : ''}`} style={{ '--x': `${ind ? ind.x : 0}px`, '--w': `${ind ? ind.w : 0}px` }} />
+    </nav>
+  );
+};
+
+export const Flip = ({ face, render, className = '', dir = 1 }) => {
+  const [shown, setShown] = useState(face);
+  const [phase, setPhase] = useState('');
+  useEffect(() => {
+    if (face === shown) return;
+    setPhase('out');
+    const a = setTimeout(() => { setShown(face); setPhase('in'); }, 420);
+    const b = setTimeout(() => setPhase(''), 940);
+    return () => { clearTimeout(a); clearTimeout(b); };
+  }, [face]);
+  return <div className={`flip ${phase} ${dir < 0 ? 'rev' : ''} ${className}`}>{render(shown)}</div>;
+};
+
+export const Dust = ({ text, className = '', dur = 720 }) => {
+  const [shown, setShown] = useState(text);
+  const [ghost, setGhost] = useState(null);
+  const [px, setPx] = useState(0);
+  useEffect(() => {
+    if (text === shown) return;
+    setGhost(shown);
+    setPx((n) => n + 1);
+    const a = setTimeout(() => setShown(text), 0.4 * dur);
+    const b = setTimeout(() => setGhost(null), dur + 40);
+    return () => { clearTimeout(a); clearTimeout(b); };
+  }, [text]);
+  return (
+    <span className={`dustwrap ${className}`}>
+      <span key={px} className={px ? 'sb-px' : ''}>{shown}</span>
+      {ghost !== null && <span className="sb-dust txt" aria-hidden="true">{ghost}</span>}
+    </span>
+  );
+};
+
+export const PixelField = ({ cell = 14, fps = 12, density = 1 }) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
+    const BAYER = [0, 32, 8, 40, 2, 34, 10, 42, 48, 16, 56, 24, 50, 18, 58, 26, 12, 44, 4, 36, 14, 46, 6, 38, 60, 28, 52, 20, 62, 30, 54, 22, 3, 35, 11, 43, 1, 33, 9, 41, 51, 19, 59, 27, 49, 17, 57, 25, 15, 47, 7, 39, 13, 45, 5, 37, 63, 31, 55, 23, 61, 29, 53, 21];
+    let raf = 0;
+    let lastDraw = 0;
+    let visible = false;
+    const start = performance.now();
+    const draw = (now) => {
+      raf = 0;
+      if (!visible) return;
+      raf = requestAnimationFrame(draw);
+      if (now - lastDraw < 1000 / fps) return;
+      lastDraw = now;
+      const t = (now - start) / 1000;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const W = Math.round(canvas.clientWidth * dpr);
+      const H = Math.round(canvas.clientHeight * dpr);
+      if (!W || !H) return;
+      if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+      const c = Math.max(4, cell * dpr * density * (W / 600));
+      ctx.fillStyle = '#1554ff';
+      ctx.fillRect(0, 0, W, H);
+      const cols = Math.ceil(W / c);
+      const rows = Math.ceil(H / c);
+      const blobs = [[0.5 + 0.12 * Math.sin(t * 0.5), 0.45 + 0.1 * Math.cos(t * 0.4), 0.32], [0.38 + 0.1 * Math.cos(t * 0.7), 0.6 + 0.08 * Math.sin(t * 0.6), 0.22], [0.66 + 0.08 * Math.sin(t * 0.9 + 1), 0.35 + 0.1 * Math.sin(t * 0.5 + 2), 0.2], [0.55 + 0.15 * Math.sin(t * 0.3 + 3), 0.78 + 0.06 * Math.cos(t * 0.8), 0.16]];
+      ctx.lineWidth = Math.max(1, dpr * 0.8);
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const u = (x + 0.5) / cols;
+          const v = (y + 0.5) / rows;
+          let f = 0;
+          for (const [bx, by, br] of blobs) {
+            const dx = (u - bx) * (W / H);
+            const dy = v - by;
+            f += (br * br) / (dx * dx + dy * dy + 0.0001);
+          }
+          f += 0.25 * Math.sin(u * 13 + t * 1.3) * Math.sin(v * 11 - t);
+          const px = x * c;
+          const py = y * c;
+          if (f > 1.15) {
+            const k = sdClamp((f - 1.15) / 2.2);
+            const th = (BAYER[(x % 8) * 8 + (y % 8)] + 0.5) / 64;
+            ctx.fillStyle = k > th ? 'rgba(232,246,255,.96)' : 'rgba(160,200,255,.85)';
+            ctx.fillRect(px + 1, py + 1, c - 2, c - 2);
+            if (k < 0.35) {
+              ctx.strokeStyle = 'rgba(21,84,255,.9)';
+              ctx.strokeRect(px + c * 0.25, py + c * 0.25, c * 0.5, c * 0.5);
+            }
+          } else if (f > 0.85) {
+            ctx.strokeStyle = 'rgba(220,240,255,.9)';
+            ctx.strokeRect(px + 1.5, py + 1.5, c - 3, c - 3);
+          } else {
+            ctx.strokeStyle = 'rgba(255,255,255,.14)';
+            ctx.strokeRect(px + 0.5, py + 0.5, c - 1, c - 1);
+          }
+        }
+      }
+    };
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(draw); });
+    io.observe(canvas);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+  }, []);
+  return <canvas ref={ref} />;
+};
+
+export const SD_ICONS = {
+  home: 'M3 11l9-7 9 7v9H3z', sliders: 'M4 6h16M4 12h16M4 18h16M9 4v4M15 10v4M7 16v4', bell: 'M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20h4', user: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0', folder: 'M3 6h6l2 2h10v11H3z', chat: 'M4 5h16v11H9l-5 4z', percent: 'M5 19L19 5M7 7h.01M17 17h.01', target: 'M12 21a9 9 0 100-18 9 9 0 000 18zM12 16a4 4 0 100-8 4 4 0 000 8z', search: 'M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4', link: 'M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1', branch: 'M6 4v12M6 16a2 2 0 100 4 2 2 0 000-4zM18 8a2 2 0 100-4 2 2 0 000 4zM18 8c0 6-12 3-12 8', min: 'M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7', share: 'M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.6 13.5l6.8 4M15.4 6.5l-6.8 4', panel: 'M3 4h18v16H3zM15 4v16M10 10l2 2-2 2', more: 'M5 12h.01M12 12h.01M19 12h.01',
+};
+
+export const SdIcon = ({ name }) => <svg viewBox="0 0 24 24"><path d={SD_ICONS[name]} /></svg>;
+
+export const SdStar = () => <svg viewBox="0 0 24 24"><path d="M12 2c.6 4.8 2.2 8.4 10 10-7.8 1.6-9.4 5.2-10 10-.6-4.8-2.2-8.4-10-10 7.8-1.6 9.4-5.2 10-10z" /></svg>;
+
+export const SB_SKEL = [...Array.from({ length: 8 }, (_, i) => [16, 26 + 45 * i, 37, 37, 12]), [98, 21, 217, 47, 23.5], [1250, 21, 162, 47, 23.5], [100, 86, 470, 56, 28], [1080, 92, 127, 47, 23.5], [1218, 92, 146, 46, 23], [98, 172, 434, 116, 27], [558, 172, 434, 116, 27], [1018, 172, 434, 116, 27], [96, 298, 660, 446, 40], [792, 296, 662, 446, 40]];
+
+export const sbBox = (x, y, w, h, extra = {}) => ({ left: `calc(${x} * var(--s))`, top: `calc(${y} * var(--s))`, width: w === undefined ? undefined : `calc(${w} * var(--s))`, height: h === undefined ? undefined : `calc(${h} * var(--s))`, ...extra });
+
+export const sbDelay = (x, y, i) => `${Math.round(60 + (x / 1486) * 260 + (y / 764) * 300 + (i % 3) * 25)}ms`;
+
+export const SalesSheet = ({ ready, live, tau }) => {
+  const icons = ['home', 'sliders', 'bell', 'user', 'folder', 'chat', 'percent', 'target'];
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const hs = [215, 300, 170, 290, 245, 215];
+  const tops = [[78, 64, 40], [128, 60, 40], [96, 52, 40], [150, 64, 40], [104, 70, 40]];
+  const segCol = ['#0039FF', '#4f74ff', '#d9d9d9'];
+  const j = (a, f, p) => (live ? a * Math.sin(tau * f + p) : 0);
+  const pay = 41.2 + j(0.22, 0.21, 0) + j(0.07, 0.93, 1.2);
+  const rev = 7.9 + j(0.11, 0.27, 2.1) + j(0.04, 1.17, 0);
+  const sess = Math.round(463 + j(5, 0.16, 0.5) + j(2, 0.71, 0));
+  const kpis = [['Available to pay out', `$${pay.toFixed(1)}K`, true], ['Revenue today', `$${rev.toFixed(1)}K`, false], ['Sessions today', String(sess), false]];
+  let n = 0;
+  const asm = (x, y) => ({ '--d': sbDelay(x, y, n++) });
+  return (
+    <div className={`sb ${ready ? 'ready' : ''}`}>
+      <div className="rail asm" style={{ ...sbBox(0, 0, 70, 764), ...asm(0, 0) }} />
+      {icons.map((ic, i) => <div key={ic} className={`ric asm ${i === 1 ? 'on' : ''}`} style={{ ...sbBox(16, 26 + 45 * i, 37, 37), ...asm(16, 26 + 45 * i) }}><SdIcon name={ic} /></div>)}
+      <div className="pill asm" style={{ ...sbBox(98, 21, 217, 47), ...asm(98, 21) }}><span className="kn"><SdIcon name="search" /></span>Search today’s payouts</div>
+      <div className="pill asm" style={{ ...sbBox(1250, 21, 162, 47), ...asm(1250, 21) }}><span className="kn"><SdIcon name="bell" /></span>Notifications <b style={{ marginLeft: 'auto', marginRight: 'calc(14 * var(--s))', color: '#111' }}>4</b></div>
+      <div className="h asm" style={{ ...sbBox(100, 92), ...asm(100, 86) }}>Your Payout Analysis</div>
+      <div className="pill asm" style={{ ...sbBox(1080, 92, 127, 47), ...asm(1080, 92), background: '#f7f7f7', justifyContent: 'center' }}>⇅ Funnel ⌄</div>
+      <div className="pill asm" style={{ ...sbBox(1218, 92, 146, 46), ...asm(1218, 92), background: '#000', color: '#fff', justifyContent: 'center' }}>Export as PDF</div>
+      {kpis.map(([label, value, hot], i) => (
+        <div key={label} className="kpi asm" style={{ ...sbBox(98 + 460 * i, 172, 434, 116), ...asm(98 + 460 * i, 172) }}>
+          <span className="l">{label}</span><span className={`ar ${hot ? 'on' : ''}`}>↗</span>
+          <span className="v">{value}</span><span className="f">Settles in 2 days • $6.1K pending</span>
+        </div>
+      ))}
+      <div className="panel asm" style={{ ...sbBox(96, 298, 660, 446), ...asm(96, 298) }}>
+        <span className="t">Settlements</span><span className="st">Total settlements per month</span><span className="dd">Weekly ⌄</span><span className="fl" />
+        {hs.map((h, i) => {
+          const hh = ready ? h + j(9, 0.31, 1.3 * i) + j(3, 0.83, 0.7 * i) : 0;
+          return (
+            <span key={i}>
+              <i className={`k bar ${i === 3 ? 'hot' : ''} ${live ? 'live' : ''}`} style={{ left: `calc(${40 + 100 * i} * var(--s))`, height: `calc(${hh} * var(--s))`, '--rd': `${260 + 70 * i}ms` }} />
+              <i className="k day" style={{ left: `calc(${40 + 100 * i} * var(--s))`, fontStyle: 'normal' }}>{days[i]}</i>
+              {i === 3 && <i className="k tip" style={{ left: `calc(${35 + 100 * i} * var(--s))`, bottom: `calc(${70 + hh} * var(--s))`, fontStyle: 'normal' }}>{Math.round(615 + j(3, 0.31, 3.9))}</i>}
+            </span>
+          );
+        })}
+      </div>
+      <div className="panel asm" style={{ ...sbBox(792, 296, 662, 446), ...asm(792, 296) }}>
+        <span className="t">Queries</span><span className="st">Based on support tickets</span><span className="dd">Weekly ⌄</span><span className="fl" />
+        {tops.map((col, a) => {
+          let acc = 40;
+          return col.map((h, s) => {
+            const hh = ready ? h * (1 + j(0.07, 0.27, 0.9 * a + 2.1 * s)) : 0;
+            const el = <i key={`${a}-${s}`} className={`k seg ${live ? 'live' : ''}`} style={{ left: `calc(${30 + 122 * a} * var(--s))`, bottom: `calc(${acc + (2 - s) * 0} * var(--s))`, height: `calc(${hh} * var(--s))`, background: segCol[2 - s], '--rd': `${200 + 60 * a}ms` }} />;
+            acc += hh + 8;
+            return el;
+          });
+        })}
+      </div>
+      <div className="sb-skel" aria-hidden="true">{SB_SKEL.map(([x, y, w, h, r]) => <i key={`${x}-${y}`} style={{ ...sbBox(x, y, w, h), borderRadius: `calc(${r} * var(--s))` }} />)}</div>
+    </div>
+  );
+};
+
+export const PixelSheet = ({ tau }) => {
+  const presets = [['Dithering', '.:-=+*#%@'], ['Blocks', '░▒▓█'], ['Halftone', '·•●'], ['Contour', '-/|\\'], ['Matrix', '01'], ['Dots', '·:°∙']];
+  const contrast = 0.31 + 0.15 * (0.5 + 0.5 * Math.sin(0.23 * tau));
+  const dens = 11 + Math.round(1.4 * Math.sin(0.17 * tau + 1));
+  const trackW = 240;
+  return (
+    <div className="sb ready">
+      <div className="canvas-area"><PixelField cell={13} /></div>
+      <div className="ctl" style={{ ...sbBox(1088, 42), fontSize: 'calc(22 * var(--s))', fontWeight: 600 }}>Controls</div>
+      <div className="k" style={{ ...sbBox(1052, 90, 408, 1), background: '#e4e4e1' }} />
+      <div className="ctl" style={{ ...sbBox(1088, 110), fontSize: 'calc(22 * var(--s))', fontWeight: 700 }}>Pixel Generator</div>
+      <div className="ctl" style={{ ...sbBox(1052, 154), fontSize: 'calc(17 * var(--s))', fontWeight: 500 }}>Presets</div>
+      {presets.map(([name, sample], i) => <div key={name} className={`preset ${i === 0 ? 'on' : ''}`} style={sbBox(1052 + (i % 2) * 208, 186 + 70 * Math.floor(i / 2), 200, 61)}><b>{name}</b><span>{sample}</span></div>)}
+      <div className="ctl" style={{ ...sbBox(1052, 412), fontSize: 'calc(17 * var(--s))', fontWeight: 500 }}>Render</div>
+      {[['Density', dens / 24, `${dens} px`], ['Contrast', contrast, `${Math.round(contrast * 100)}%`]].map(([name, fill, label], i) => (
+        <span key={name}>
+          <div className="ctl g" style={sbBox(1052, 472 + 50 * i)}>{name}</div>
+          <div className="track" style={sbBox(1220, 460 + 50 * i, trackW, 40)}><i style={{ width: `calc(${trackW * fill} * var(--s))` }} /><span>{label}</span></div>
+        </span>
+      ))}
+      {[['Invert', false], ['Animate', true]].map(([name, on], i) => (
+        <span key={name}>
+          <div className="ctl g" style={sbBox(1052, 572 + 40 * i)}>{name}</div>
+          <div className="tog" style={{ ...sbBox(1412, 566 + 40 * i, 47, 27), background: on ? '#141414' : '#d6d6d3' }}><i style={{ left: `calc(${on ? 23 : 4} * var(--s))` }} /></div>
+        </span>
+      ))}
+      <div className="ctl" style={{ ...sbBox(1052, 658), fontSize: 'calc(17 * var(--s))', fontWeight: 500 }}>Output</div>
+      <div className="ctl g" style={sbBox(1052, 710)}>Format</div>
+      <div className="track" style={{ ...sbBox(1220, 698, 240, 40), display: 'grid', placeItems: 'center' }}><span style={{ position: 'static' }}>MP4</span></div>
+    </div>
+  );
+};
+
+export const PrdSheet = ({ titleEnd, hl, ok, tau }) => {
+  const meta = [['OWNER', 'Lena Park'], ['STATUS', 'Draft — in review'], ['TARGET GA', '7 Dec 2026'], ['ENG LEAD', 'R. Mehta']];
+  const base = [[62, 64], [300, 66], [560, 120], [820, 176], [1060, 186], [1352, 168]];
+  const pts = base.map(([x, y], i) => `${x},${y + 4 * Math.sin(0.29 * tau + 0.9 * i) + 1.5 * Math.sin(0.9 * tau + 1.7 * i)}`).join(' ');
+  return (
+    <div className="sb ready">
+      <div className="kick mono" style={sbBox(48, 42)}>PRODUCT REQUIREMENTS · DRAFT · SEP 2026 · ILLUSTRATIVE FIGURES</div>
+      <div className="ptitle tasa" style={sbBox(48, 128)}>One view <span className={`sp ${hl ? 'hl' : ''} ${ok ? 'ok' : ''}`}><Dust text={titleEnd} /></span></div>
+      <div className="pbody" style={sbBox(48, 228)}>Build the payouts home so an ops lead can answer “what happened to my</div>
+      <div className="pbody" style={sbBox(48, 260)}>money today” in under 30 seconds, without exporting a report.</div>
+      <div className="k rule" style={sbBox(48, 340, 1390, 1)} />
+      <div className="k rule" style={sbBox(48, 450, 1390, 1)} />
+      {meta.map(([k, v], i) => (
+        <span key={k}>
+          <div className="mk mono" style={sbBox(64 + 348 * i, 364)}>{k}</div>
+          <div className="mv" style={sbBox(64 + 348 * i, 396)}>{v}</div>
+          {i > 0 && <div className="k rule" style={sbBox(48 + 348 * i, 340, 1, 110)} />}
+        </span>
+      ))}
+      <div className="chart" style={sbBox(48, 478, 1390, 286)}>
+        <b>Time to answer, against target</b>
+        <span className="k chip mono">Modelled</span>
+        <svg viewBox="0 0 1390 286" preserveAspectRatio="none">
+          {[0, 1, 2, 3, 4].map((i) => <line key={i} x1="62" x2="1352" y1={82 + 40 * i} y2={82 + 40 * i} stroke="#e3e5ec" />)}
+          <polyline points={pts.split(' ').map((p) => { const [x, y] = p.split(','); return `${x},${Number(y) + 18}`; }).join(' ')} fill="none" stroke="#0039FF" strokeWidth="2.4" />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+export const HERO_DOCS = ['payouts_tracker.html', 'pixel_studio.html', 'support_review_prd.html'];
+
+export const HERO_BOOT = ['> Workspace // PAYOUTS TRACKER', '', '  Status    : Connected (wss://workspace.mintlify.com/stream)', '  Sync      : Active (dashboard synced)', '  Latency   : 24ms'];
+
+export const HERO_FETCH = ['> Workspace // PAYOUTS TRACKER', '', '[● LIVE] Generating dashboard from ledger data...', '', '  Source    : wss://workspace.mintlify.com/stream', '  Metrics   : 2,410 transactions processed', '  Volume    : $184,920.00 (24h)', '  Widgets   : 3 KPIs, 2 charts', '', '> SUCCESS: Dashboard generated.'];
+
+export const termLine = (line, i) => {
+  const m = line.match(/^(.*?)(\[● LIVE\]|SUCCESS:.*)?(.*)$/);
+  if (!m || !m[2]) return <span key={i}>{line}{'\n'}</span>;
+  return <span key={i}>{m[1]}<em>{m[2]}</em>{m[3]}{'\n'}</span>;
+};
+
+export const Storyboard = ({ live }) => {
+  const stageRef = useRef(null);
+  const visible = useSdVisible(stageRef);
+  const [scene, setScene] = useState(0);
+  const [clock, resetClock] = useSdClock(live && visible, 30);
+  const [dir, setDir] = useState(1);
+  const [booted, setBooted] = useState(false);
+  const t = clock;
+  const tau = t / 1000;
+  const ends = [8150, 5000, 10800];
+  const sceneRef = useRef(0);
+  sceneRef.current = scene;
+  const jump = (n) => {
+    if (n === sceneRef.current) return;
+    setDir(n > sceneRef.current ? 1 : -1);
+    setScene(n);
+    resetClock();
+    sdBus.emit('sky:lift', n);
+  };
+  useEffect(() => {
+    if (!live) return;
+    const id = setTimeout(() => setBooted(true), 600);
+    return () => clearTimeout(id);
+  }, [live]);
+  useEffect(() => {
+    if (t >= ends[scene]) jump((scene + 1) % 3);
+  }, [t, scene]);
+  useEffect(() => {
+    const stage = stageRef.current;
+    let acc = 0;
+    let lock = 0;
+    const scroller = (() => {
+      let el = stage.parentElement;
+      while (el && el !== document.body) {
+        const oy = getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) return el;
+        el = el.parentElement;
+      }
+      return null;
+    })();
+    const atTop = () => {
+      const top = scroller ? scroller.getBoundingClientRect().top : 0;
+      return Math.abs(stage.getBoundingClientRect().top - top) < 120 && (scroller ? scroller.scrollTop : window.scrollY) < 140;
+    };
+    const onWheel = (e) => {
+      if (e.ctrlKey || !atTop()) return;
+      const now = performance.now();
+      const cur = sceneRef.current;
+      if (e.deltaY > 0 && cur === 2) return;
+      if (e.deltaY < 0 && cur === 0) return;
+      e.preventDefault();
+      if (now < lock) return;
+      acc += e.deltaY;
+      if (Math.abs(acc) > 40) {
+        lock = now + 900;
+        jump(sdClamp(cur + (acc > 0 ? 1 : -1), 0, 2));
+        acc = 0;
+      }
+    };
+    stage.addEventListener('wheel', onWheel, { passive: false });
+    return () => stage.removeEventListener('wheel', onWheel);
+  }, []);
+  const typed = (text, from, cps = 30) => text.slice(0, Math.max(0, Math.floor(((t - from) / 1000) * cps)));
+  const nameStart = scene === 0 ? 300 : 450;
+  const docName = typed(HERO_DOCS[scene], nameStart, 32);
+  const nameTyping = docName.length < HERO_DOCS[scene].length && t > nameStart - 100;
+  const s0 = scene === 0;
+  const s1 = scene === 1;
+  const s2 = scene === 2;
+  const prompt = 'generate a real-time payouts dashboard';
+  const bootCount = sdClamp(Math.floor((t - 900) / 110) + 1, 0, HERO_BOOT.length);
+  const fetchCount = sdClamp(Math.floor((t - 3740) / 110) + 1, 0, HERO_FETCH.length);
+  const logLines = s0 ? (t < 3740 ? HERO_BOOT.slice(0, bootCount) : HERO_FETCH.slice(0, fetchCount)) : HERO_FETCH;
+  const task = s0 && t >= 1950 && t < 3740 ? typed(prompt, 1950, 32) : '';
+  const ready = !s0 || t >= 5190;
+  const liveData = !s0 || t >= 6750;
+  const email = s1 ? typed('priya@mintlify.com', 1500, 30) : '';
+  const shared = s1 && t >= 2400;
+  const comment = s2 ? typed('let’s change this to ‘how the money moves’', 1750, 30) : '';
+  const dockFace = s0 ? 'term' : s1 ? 'share' : t < 3960 ? 'comp' : 'thread';
+  const dockIn = booted && (!s0 || t >= 600 || true);
+  const renderDoc = (n) => (n === 0 ? <SalesSheet ready={ready} live={liveData} tau={tau} /> : n === 1 ? <PixelSheet tau={tau} /> : <PrdSheet titleEnd={s2 && t >= 6550 ? 'for how the money moves' : 'for support operations'} hl={s2 && t >= 950 && t < 6870} ok={s2 && t >= 6870} tau={tau} />);
+  const renderDock = (face) => {
+    if (face === 'term') {
+      return (
+        <div className="dk dark">
+          <div className="bar3"><i style={{ background: '#ff5f57' }} /><i style={{ background: '#febc2e' }} /><i style={{ background: '#28c840' }} /><span className="mono">you@laptop — 80 × 24</span></div>
+          <div className="log mono">{logLines.map(termLine)}</div>
+          <div className="task mono">{task}{s0 && t >= 1950 && t < 3740 && <i className="caret" />}</div>
+        </div>
+      );
+    }
+    if (face === 'share') {
+      return (
+        <div className="dk white">
+          <div className="sh">
+            <h4>Share document</h4>
+            <div className={`fld ${email ? '' : 'ph'}`}>{email || 'name@company.com'}{email && email.length < 18 && <i className="caret" style={{ width: 1 }} />}</div>
+            <div className="fld">Commenter<span className="chev">⌄</span></div>
+            <div className="go"><Dust text={shared ? '✓ Shared' : 'Share'} /></div>
+          </div>
+        </div>
+      );
+    }
+    if (face === 'comp') {
+      return (
+        <div className="dk dark">
+          <div className="comp">{comment ? <span>{comment}<i className="caret" style={{ width: 1 }} /></span> : <span className="ph">Add a comment…</span>}</div>
+          <span className="x">✕</span>
+          <span className={`send ${s2 && t >= 3580 && t < 3960 ? 'hit' : ''}`}><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z" /></svg></span>
+        </div>
+      );
+    }
+    return (
+      <div className="dk dark">
+        <div className={`thr ${t >= 7900 ? 'scrolled' : ''}`}>
+          <div className={`m q ${t >= 4900 ? 'in' : ''}`}><div><div className="w">Priya<time>14:31</time></div><p>let’s change this to<br />‘how the money moves’</p></div></div>
+          <div className={`m ${t >= 5350 ? 'in' : ''}`}><span className="av"><SdStar /></span><div><div className="w" style={{ color: '#fff' }}>Arjun’s agent<time>14:31</time></div><p>On it. Updating it.</p></div></div>
+          <div className={`chipw ${t >= 5350 && t < 7600 ? 'in' : t >= 7600 ? 'out' : ''}`}>Working on it</div>
+          <div className={`m ${t >= 7900 ? 'in' : ''}`}><span className="av"><SdStar /></span><div><div className="w" style={{ color: '#fff' }}>Arjun’s agent<time>14:32</time></div><p>Done. Updated the headline.</p></div></div>
+        </div>
+      </div>
+    );
+  };
+  return (
+    <div ref={stageRef} className="sd-hero" id="sd-top">
+      <Rise className={`sd-h1 tasa ${live ? 'in' : ''}`} lines={['The Workspace', 'for Agent-Native Teams.']} base={0.1} step={0.08} />
+      <p className={`sd-dek sd-rv ${live ? 'in' : ''}`} style={{ '--d': '0.3s' }}><b>Workspace</b> is where agents publish living pages and teams review, comment and revise them together. Built into Mintlify.</p>
+      <div className={`sd-btns sd-rv ${live ? 'in' : ''}`} style={{ '--d': '0.4s' }}>
+        <a className="sd-btn dark">Try Now</a>
+        <a className="sd-btn line"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 015.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z" /></svg>GitHub</a>
+      </div>
+      <div className={`sd-phases sd-rv ${live ? 'in' : ''}`} style={{ '--d': '0.5s' }}>
+        {['build', 'collaborate', 'iterate'].map((label, i) => <button key={label} className={`sd-phase ${scene === i ? 'on' : ''}`} onClick={() => jump(i)}>{label}</button>)}
+      </div>
+      <div className="sd-win">
+        <div className={`sd-ttl ${nameTyping ? 'typing' : ''}`}>Workspace/ <b>{docName}</b><i /></div>
+        <div className="sd-tools">{['branch', 'min', 'share', 'panel', 'more'].map((ic) => <SdIcon key={ic} name={ic} />)}</div>
+        <div className="sd-card"><Flip face={scene} dir={dir} render={renderDoc} /></div>
+      </div>
+      <div className={`sd-pill ${s2 && t >= 1350 && t < 9800 ? 'in' : ''}`}><SdIcon name="chat" /><SdIcon name="link" /></div>
+      <div className={`sd-dock ${dockIn ? 'in' : ''}`}><Flip face={dockFace} dir={dir} render={renderDock} /></div>
+    </div>
+  );
+};
+
+export const makeTorus = (canvas) => {
+  const ctx = canvas.getContext('2d');
+  const TAU = Math.PI * 2;
+  const DEG = Math.PI / 180;
+  const W = 640;
+  const H = 524;
+  const RM = 176;
+  const RT = 66;
+  const NU = 84;
+  const NV = 42;
+  const PERSP = 3600;
+  const FRONT = [0, 57, 255];
+  const BACK = [125, 125, 125];
+  const SH_F = [6, 14, 70];
+  const SH_B = [38, 38, 40];
+  const LIGHT = [-0.5, -0.66, -0.56];
+  const BAYER = [0, 32, 8, 40, 2, 34, 10, 42, 48, 16, 56, 24, 50, 18, 58, 26, 12, 44, 4, 36, 14, 46, 6, 38, 60, 28, 52, 20, 62, 30, 54, 22, 3, 35, 11, 43, 1, 33, 9, 41, 51, 19, 59, 27, 49, 17, 57, 25, 15, 47, 7, 39, 13, 45, 5, 37, 63, 31, 55, 23, 61, 29, 53, 21];
+  const cosV = [];
+  const sinV = [];
+  for (let j = 0; j < NV; j++) { cosV.push(Math.cos((j * TAU) / NV)); sinV.push(Math.sin((j * TAU) / NV)); }
+  const mod = (a) => { const r = a % TAU; return r < 0 ? r + TAU : r; };
+  const rot = { cx: 1, sx: 0, cy: 1, sy: 0 };
+  let rollC = 1;
+  let rollS = 0;
+  let scale = 1;
+  let spin = 0;
+  const tilt = { x: 0, y: 0, z: 0 };
+  const want = { x: 0, y: 0, z: 0 };
+  const pointer = { x: -1e5, y: -1e5 };
+  const tmp = [0, 0, 0];
+  const rotate = (x, y, z, out) => { const a = y * rot.cx - z * rot.sx; const b = y * rot.sx + z * rot.cx; out[0] = x * rot.cy + b * rot.sy; out[1] = a; out[2] = -x * rot.sy + b * rot.cy; return out; };
+  const project = (x, y, z) => { rotate(x, y, z, tmp); const f = PERSP / (PERSP + tmp[2]); const px = tmp[0] * f; const py = tmp[1] * f; return [320 + px * rollC - py * rollS, 262 + px * rollS + py * rollC, tmp[2]]; };
+  const smoother = (t, d) => { const x = sdClamp(t / d); return x + (x * x * x * (x * (6 * x - 15) + 10) - x) * 0.7; };
+  const band = (time) => { const ph = time % 3.8; const head = smoother(ph, 2.4) * TAU; const tail = smoother(ph - 1.1, 2.4) * TAU; const len = Math.max(5 * DEG, head - tail); return [len, tail + len > TAU ? TAU - len : tail]; };
+  const draw = (time, still) => {
+    const wob = still ? 0 : 1;
+    const ax = -64 * DEG + tilt.x + 0.03 * Math.sin(0.45 * time) * wob;
+    const ay = tilt.y + 0.045 * Math.sin(0.3 * time) * wob;
+    rot.cx = Math.cos(ax); rot.sx = Math.sin(ax); rot.cy = Math.cos(ay); rot.sy = Math.sin(ay);
+    const roll = 28 * DEG + tilt.z;
+    rollC = Math.cos(roll); rollS = Math.sin(roll);
+    const [len0, tail] = still ? [60 * DEG, 0] : band(time);
+    const start = mod(12 * DEG + spin + tail);
+    const len = sdClamp(len0, 0.02, TAU - 1e-4);
+    const rings = [];
+    for (let i = 0; i < NU; i++) rings.push({ a: mod((i * TAU) / NU + spin), ring: i % 3 === 0 });
+    rings.push({ a: start, ring: true });
+    rings.push({ a: mod(start + len), ring: true });
+    rings.sort((m, n) => m.a - n.a);
+    let zmin = 1e9;
+    let zmax = -1e9;
+    const pts = rings.map(({ a }) => {
+      const ca = Math.cos(a);
+      const sa = Math.sin(a);
+      const row = [];
+      for (let j = 0; j < NV; j++) {
+        const rr = RM + RT * cosV[j];
+        const p = project(rr * ca, rr * sa, RT * sinV[j]);
+        row.push(p);
+        if (p[2] < zmin) zmin = p[2];
+        if (p[2] > zmax) zmax = p[2];
+      }
+      return row;
+    });
+    const span = Math.max(1e-6, zmax - zmin);
+    const quads = [];
+    const nrm = [0, 0, 0];
+    const pos = [0, 0, 0];
+    const uStep = TAU / Math.max(8, Math.round((TAU * RM) / 3.6));
+    const vStep = TAU / Math.max(8, Math.round((TAU * RT) / 3.6));
+    for (let i = 0; i < rings.length; i++) {
+      const k2 = (i + 1) % rings.length;
+      const a0 = rings[i].a;
+      let a1 = rings[k2].a;
+      if (k2 === 0) a1 += TAU;
+      if (a1 - a0 < 1e-5) continue;
+      const mid = a0 + (a1 - a0) / 2;
+      const inBand = mod(mid - start) <= len;
+      const cm = Math.cos(mid);
+      const sm = Math.sin(mid);
+      for (let j = 0; j < NV; j++) {
+        const line = j % 3 === 0;
+        if (!inBand && !rings[i].ring && !line) continue;
+        const jn = (j + 1) % NV;
+        const A = pts[i][j];
+        const B = pts[k2][j];
+        const C = pts[k2][jn];
+        const D = pts[i][jn];
+        const q = { A, B, C, D, z: (A[2] + B[2] + C[2] + D[2]) / 4, ring: rings[i].ring, line, band: inBand, a0, a1, j, front: false, face: 0, lam: 0 };
+        if (inBand) {
+          const vm = ((j + 0.5) * TAU) / NV;
+          const cv = Math.cos(vm);
+          const sv = Math.sin(vm);
+          rotate(cv * cm, cv * sm, sv, nrm);
+          const rr = RM + RT * cv;
+          rotate(rr * cm, rr * sm, RT * sv, pos);
+          q.front = nrm[0] * pos[0] + nrm[1] * pos[1] + nrm[2] * (pos[2] + PERSP) < 0;
+          q.face = Math.abs(nrm[2]);
+          const lam = -(nrm[0] * LIGHT[0] + nrm[1] * LIGHT[1] + nrm[2] * LIGHT[2]) * (q.front ? 1 : -1);
+          q.lam = lam > 0 ? lam : 0;
+        }
+        quads.push(q);
+      }
+    }
+    quads.sort((m, n) => n.z - m.z);
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    const bucket = (p, q) => Math.min(3, Math.floor((((p[2] + q[2]) / 2 - zmin) / span) * 4));
+    const alphaOf = (b) => 1 - (0.3 * (b + 0.5)) / 4;
+    let paths = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+    let used = [false, false, false, false];
+    let pending = false;
+    const flush = () => {
+      if (!pending) return;
+      ctx.strokeStyle = '#111111';
+      ctx.lineWidth = 0.8;
+      for (let b = 0; b < 4; b++) {
+        if (used[b]) { ctx.globalAlpha = alphaOf(b); ctx.stroke(paths[b]); paths[b] = new Path2D(); used[b] = false; }
+      }
+      ctx.globalAlpha = 1;
+      pending = false;
+    };
+    const batch = (p, q) => { const b = bucket(p, q); paths[b].moveTo(p[0], p[1]); paths[b].lineTo(q[0], q[1]); used[b] = true; pending = true; };
+    const solo = (p, q) => { ctx.globalAlpha = alphaOf(bucket(p, q)); ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke(); };
+    for (const q of quads) {
+      if (!q.band) {
+        if (q.ring) batch(q.A, q.D);
+        if (q.line) batch(q.A, q.B);
+        continue;
+      }
+      flush();
+      const baseC = q.front ? FRONT : BACK;
+      const shC = q.front ? SH_F : SH_B;
+      const k = 0.12 * (1 - q.lam) * 0.85;
+      const col = `rgb(${Math.round(baseC[0] + (shC[0] - baseC[0]) * k)},${Math.round(baseC[1] + (shC[1] - baseC[1]) * k)},${Math.round(baseC[2] + (shC[2] - baseC[2]) * k)})`;
+      ctx.fillStyle = col;
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 0.7;
+      ctx.globalAlpha = 1;
+      ctx.beginPath();
+      ctx.moveTo(q.A[0], q.A[1]); ctx.lineTo(q.B[0], q.B[1]); ctx.lineTo(q.C[0], q.C[1]); ctx.lineTo(q.D[0], q.D[1]);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      if (q.front) {
+        const r0 = q.a0 - spin;
+        const r1 = q.a1 - spin;
+        const iu0 = Math.ceil(r0 / uStep);
+        const iu1 = Math.ceil(r1 / uStep) - 1;
+        const v0 = (q.j * TAU) / NV;
+        const v1 = ((q.j + 1) * TAU) / NV;
+        const iv0 = Math.ceil(v0 / vStep);
+        const iv1 = Math.ceil(v1 / vStep) - 1;
+        if (iu1 >= iu0 && iv1 >= iv0) {
+          const strength = 0.85 * (0.3 + 0.7 * q.face);
+          let any = false;
+          ctx.beginPath();
+          const nU = Math.round(TAU / uStep);
+          const nVv = Math.round(TAU / vStep);
+          for (let iu = iu0; iu <= iu1; iu++) {
+            const u = iu * uStep;
+            const fu = (u + spin - q.a0) / (q.a1 - q.a0);
+            const ex = q.A[0] + (q.B[0] - q.A[0]) * fu;
+            const ey = q.A[1] + (q.B[1] - q.A[1]) * fu;
+            const fx = q.D[0] + (q.C[0] - q.D[0]) * fu;
+            const fy = q.D[1] + (q.C[1] - q.D[1]) * fu;
+            const bu = ((iu % nU) + nU) % nU;
+            for (let iv = iv0; iv <= iv1; iv++) {
+              const v = iv * vStep;
+              const fv = (v - v0) / (v1 - v0);
+              const bv = ((iv % nVv) + nVv) % nVv;
+              let w = 0.5 + 0.32 * Math.sin(2 * u + v + 1.7 * time) + 0.22 * Math.sin(4 * u - 2 * v - 1.15 * time + 2) + 0.12 * Math.sin(u + 4 * v + 0.8 * time + 4);
+              w = (w - 0.5) * 2.2 + 0.5;
+              if (w <= 0) continue;
+              if (w > 1) w = 1;
+              if ((BAYER[(bu % 8) * 8 + (bv % 8)] + 0.5) / 64 < w * strength) {
+                ctx.rect(ex + (fx - ex) * fv - 0.75, ey + (fy - ey) * fv - 0.75, 1.5, 1.5);
+                any = true;
+              }
+            }
+          }
+          if (any) { ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fill(); }
+        }
+      }
+      ctx.strokeStyle = '#111111';
+      ctx.lineWidth = 0.8;
+      if (q.ring) solo(q.A, q.D);
+      if (q.line) solo(q.A, q.B);
+      ctx.globalAlpha = 1;
+    }
+    flush();
+  };
+  const t0 = performance.now();
+  let last = t0;
+  return {
+    resize() {
+      const r = canvas.getBoundingClientRect().width / W || 1;
+      scale = Math.min(3, (window.devicePixelRatio || 1) * r);
+      canvas.width = Math.round(W * scale);
+      canvas.height = Math.round(H * scale);
+    },
+    frame(now) {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      const r = canvas.getBoundingClientRect();
+      if (r.width) {
+        const dx = pointer.x - (r.left + r.width / 2);
+        const dy = pointer.y - (r.top + r.height / 2);
+        const rad = 2.6 * Math.max(r.width, r.height);
+        const d = Math.hypot(dx, dy);
+        let o = Math.max(0, 1 - d / rad);
+        o = sdSmooth(o);
+        const nx = d > 1 ? dx / d : 0;
+        const ny = d > 1 ? dy / d : 0;
+        want.x = -ny * o * 0.18; want.y = nx * o * 0.18; want.z = nx * ny * o * 0.18 * 0.76;
+      }
+      const k = 1 - Math.exp(-6 * dt);
+      tilt.x += (want.x - tilt.x) * k; tilt.y += (want.y - tilt.y) * k; tilt.z += (want.z - tilt.z) * k;
+      spin += dt * 0.14;
+      draw((now - t0) / 1000, false);
+    },
+    setPointer(x, y) { pointer.x = x; pointer.y = y; },
+  };
+};
+
+export const Torus = () => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    const torus = makeTorus(canvas);
+    torus.resize();
+    let raf = 0;
+    let visible = false;
+    const loop = (now) => { raf = 0; if (!visible) return; torus.frame(now); raf = requestAnimationFrame(loop); };
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(loop); });
+    io.observe(canvas);
+    const onMove = (e) => torus.setPointer(e.clientX, e.clientY);
+    const onResize = () => torus.resize();
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('resize', onResize);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); window.removeEventListener('pointermove', onMove); window.removeEventListener('resize', onResize); };
+  }, []);
+  return <canvas ref={ref} className="sd-torus" />;
+};
+
+export const Scrub = ({ words, className = '', onProgress }) => {
+  const ref = useRef(null);
+  const [lit, setLit] = useState(0);
+  useEffect(() => {
+    const host = ref.current;
+    const spans = Array.from(host.querySelectorAll('.w'));
+    let target = 0;
+    let cur = 0;
+    let timer = null;
+    let raf = 0;
+    const stepTo = () => {
+      if (cur === target) { timer = null; return; }
+      cur += cur < target ? 1 : -1;
+      setLit(cur);
+      if (onProgress) onProgress(cur / spans.length);
+      timer = setTimeout(stepTo, Math.abs(target - cur) > 12 ? 35 : 60);
+    };
+    const measure = () => {
+      raf = 0;
+      const limit = window.innerHeight * 0.78;
+      let n = 0;
+      while (n < spans.length && spans[n].getBoundingClientRect().top < limit) n++;
+      target = n;
+      if (timer === null) stepTo();
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(measure); };
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', onScroll);
+    measure();
+    return () => { cancelAnimationFrame(raf); clearTimeout(timer); document.removeEventListener('scroll', onScroll, { capture: true }); window.removeEventListener('resize', onScroll); };
+  }, []);
+  return (
+    <p ref={ref} className={`sd-scrub tasa ${className}`}>
+      {words.map(([word, flags], i) => <span key={i} className={`w ${i < lit ? 'en' : ''} ${flags || ''}`}>{word} </span>)}
+    </p>
+  );
+};
+
+export const sdWords = (text, hi = [], bold = []) => text.split(' ').map((w, i) => [w, `${hi.includes(i) ? 'hi' : ''} ${bold.includes(i) ? 'bd' : ''}`]);
+
+export const AgentCard = () => {
+  const ref = useRef(null);
+  const seen = useSdSeen(ref, 0.4);
+  const status = ['Re-querying 2,410 rows', 'Checking totals', 'Rebinding the chart'];
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (!seen) return;
+    const id = setInterval(() => setI((n) => (n + 1) % status.length), 2200);
+    return () => clearInterval(id);
+  }, [seen]);
+  return (
+    <div ref={ref} className={`sd-agent ${seen ? 'in' : ''}`}>
+      <div className="art"><PixelField cell={9} fps={10} /></div>
+      <div className="bd mono">
+        <span className="ch">LENA’S AGENT</span>
+        <div className="tx">Settlements view: Monthly → Weekly.</div>
+        <div className="stt">{status[i]}</div>
+      </div>
+    </div>
+  );
+};
+
+export const Wire = ({ d, len, p, style, nodes = [] }) => (
+  <svg className="sd-wire" style={{ ...style, '--len': len, '--p': p }} viewBox={style.viewBox}>
+    <path className="ln" d={d} />
+    {nodes.map(([x, y], i) => <circle key={i} cx={x} cy={y} r="3" />)}
+  </svg>
+);
+
+export const Fold = () => {
+  const [p1, setP1] = useState(0);
+  const [p2, setP2] = useState(0);
+  const u = (n) => `calc(${n} * var(--u))`;
+  return (
+    <div className="sd-fold">
+      <Torus />
+      <Scrub words={sdWords('Docs stopped being static text a while ago. Agents now ship pages packed with live tables, reactive charts, and dashboards that update while you read.', [7, 8, 9, 10, 11])} onProgress={setP1} />
+      <svg className="sd-wire" style={{ left: u(738), top: u(330), width: u(640), height: u(40), '--len': 700, '--p': sdSmooth(sdClamp((p1 - 0.6) / 0.4)) }} viewBox="0 0 640 40" preserveAspectRatio="none">
+        <path className="ln" d="M0 30 H330 L352 8 H634" />
+        <circle cx="634" cy="8" r="3" />
+      </svg>
+      <Scrub className="b" words={sdWords('Workspace brings review into this new era of agent-written docs.', [4, 5, 6, 7, 8, 9], [0])} onProgress={setP2} />
+      <AgentCard />
+      <svg className="sd-wire" style={{ left: u(250), top: u(690), width: u(900), height: u(60), '--len': 1000, '--p': sdSmooth(sdClamp((p2 - 0.5) / 0.5)) }} viewBox="0 0 900 60" preserveAspectRatio="none">
+        <path className="ln" d="M6 6 H360 L392 38 H880 L896 20" />
+        <circle cx="6" cy="6" r="3" />
+      </svg>
+    </div>
+  );
+};
+
+export const globeArc = (base, rot) => {
+  let n = (base + rot + 180) % 360;
+  if (n < 0) n += 360;
+  const a = ((n - 180) * Math.PI) / 180;
+  const c = Math.cos(a);
+  const s = Math.sin(a);
+  if (c <= 0) return { d: '', o: 0 };
+  let o = Math.min(1, c / 0.35);
+  o = o * o * (3 - 2 * o);
+  return { d: `M12 3A${Math.abs(9 * s).toFixed(3)} 9 0 0 ${s >= 0 ? 1 : 0} 12 21`, o };
+};
+
+export const Globe = () => {
+  const bases = [0, 60, 120, 180, 240, 300];
+  const [rot, setRot] = useState(0);
+  const busy = useRef(false);
+  const spinIt = () => {
+    if (busy.current) return;
+    busy.current = true;
+    const t0 = performance.now();
+    const step = (now) => {
+      const o = Math.min((now - t0) / 1500, 1);
+      setRot(360 * (1 + 2.2 * (o - 1) ** 3 + 1.2 * (o - 1) ** 2));
+      if (o < 1) requestAnimationFrame(step);
+      else { setRot(0); busy.current = false; }
+    };
+    requestAnimationFrame(step);
+  };
+  return (
+    <svg viewBox="0 0 24 24" onMouseEnter={spinIt}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      {bases.map((b) => { const g = globeArc(b, rot); return <path key={b} d={g.d} style={{ opacity: g.o }} />; })}
+    </svg>
+  );
+};
+
+export const Values = () => {
+  const ref = useRef(null);
+  const seen = useSdSeen(ref, 0.35);
+  const [plays, setPlays] = useState({});
+  const play = (id, ms) => {
+    setPlays((p) => ({ ...p, [id]: (p[id] || 0) + 1 }));
+    setTimeout(() => setPlays((p) => ({ ...p, [id]: -Math.abs(p[id] || 0) })), ms);
+  };
+  useEffect(() => {
+    if (!seen) return;
+    play('agent', 1950);
+    const id = setTimeout(() => play('mit', 1650), 220);
+    return () => clearTimeout(id);
+  }, [seen]);
+  const u = (n) => `calc(${n} * var(--u))`;
+  const cols = [60, 500, 940];
+  const pillars = [['agent', 'Agent', 'agnostic', 195], ['hosted', 'Org-scoped', 'access', 635], ['mit', 'Open', 'format', 1080]];
+  const playing = (id) => (plays[id] || 0) > 0;
+  return (
+    <section ref={ref} id="sd-values" className={`sd-values ${seen ? 'in' : ''}`}>
+      <div className="sd-dots" />
+      <Rise className="sd-vlead tasa" lines={[<><b>Workspace</b> is where agent-native teams publish,</>, 'review, and revise their living pages.']} />
+      {cols.map((x) => <span key={`t${x}`}><i className="sd-tick" style={{ left: u(x), top: u(196) }} /><i className="sd-tick" style={{ left: u(x), top: u(430) }} /><i className="sd-plus" style={{ left: u(x - 5), top: u(322) }} /></span>)}
+      {pillars.map(([id, a, b, x], i) => (
+        <div key={id} className="sd-pillar sd-rv" style={{ left: u(x), '--d': `${0.25 + i * 0.1}s` }} onMouseEnter={() => { if (id !== 'hosted' && !playing(id)) play(id, id === 'agent' ? 1950 : 1650); }}>
+          {id === 'agent' && (
+            <svg viewBox="0 0 24 24" key={plays.agent} className={`ic-bot ${playing('agent') ? 'play' : ''}`}>
+              <g className="ant"><path d="M12 4v4M9 4h6" /></g>
+              <g className="head"><rect x="4" y="8" width="16" height="11" rx="3" /><path d="M2.5 12v4M21.5 12v4" /><g className="look"><circle className="eye" cx="9" cy="13.5" r="1.3" fill="#fff" stroke="none" /><circle className="eye" cx="15" cy="13.5" r="1.3" fill="#fff" stroke="none" /></g></g>
+            </svg>
+          )}
+          {id === 'hosted' && <Globe />}
+          {id === 'mit' && (
+            <svg viewBox="0 0 24 24" key={plays.mit} className={`ic-mit ${playing('mit') ? 'play' : ''}`}>
+              <path d="M6 3.5h9.2L19 7.3V20.5H6z" />
+              <path d="M15.2 3.5v3.8H19" />
+              <path className="ln" pathLength="1" d="M9 10h7" />
+              <path className="ln ln2" pathLength="1" d="M9 13h7" />
+              <path className="ln ln3" pathLength="1" d="M9 16h3" />
+              <g className="seal"><circle cx="16.5" cy="17.5" r="2.6" fill="#232325" /><path d="M15.4 17.5l.8.8 1.6-1.6" /></g>
+            </svg>
+          )}
+          <div className="pt">{a}<br />{b}</div>
+        </div>
+      ))}
+    </section>
+  );
+};
+
+export const Roll = ({ value, from, cardDelay }) => {
+  let idx = 0;
+  return (
+    <span>
+      {Array.from(value).map((ch, i) => {
+        if (!/\d/.test(ch)) return <span key={i}>{ch}</span>;
+        const to = Number(ch);
+        const f = /\d/.test(from.charAt(i)) ? Number(from.charAt(i)) : to;
+        const steps = (((to - f) % 10) + 10) % 10;
+        const n = idx++;
+        return (
+          <span key={i} className="dg">
+            <span className="strip" style={{ '--steps': steps, '--i': n, '--cd': cardDelay }}>{Array.from({ length: steps + 1 }, (_, k) => <span key={k}>{(f + k) % 10}</span>)}</span>
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
+export const StatCard = ({ card, k }) => {
+  const ref = useRef(null);
+  const blobRefs = useRef([]);
+  useEffect(() => {
+    const el = ref.current;
+    const rest = { x: 90, y: 80 };
+    const layers = [{ k: 1, ox: 0, oy: 0, lerp: 0.085 }, { k: 0.55, ox: 70, oy: 60, lerp: 0.05 }, { k: 0.8, ox: -70, oy: 50, lerp: 0.065 }];
+    const pos = layers.map((l) => ({ x: rest.x * l.k + l.ox, y: rest.y * l.k + l.oy }));
+    const tgt = { ...rest };
+    let raf = 0;
+    let inside = false;
+    let until = 0;
+    const apply = () => {
+      let moving = false;
+      layers.forEach((l, i) => {
+        const tx = tgt.x * l.k + l.ox;
+        const ty = tgt.y * l.k + l.oy;
+        pos[i].x += (tx - pos[i].x) * l.lerp;
+        pos[i].y += (ty - pos[i].y) * l.lerp;
+        if (Math.abs(tx - pos[i].x) > 0.3 || Math.abs(ty - pos[i].y) > 0.3) moving = true;
+        const b = blobRefs.current[i];
+        if (b) b.style.transform = `translate3d(${(pos[i].x + el.clientWidth / 2).toFixed(2)}px,${(pos[i].y + el.clientHeight / 2).toFixed(2)}px,0)`;
+      });
+      return moving;
+    };
+    const loop = (now) => { const m = apply(); raf = inside || m || now < until ? requestAnimationFrame(loop) : 0; };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
+    const setFrom = (e) => { const r = el.getBoundingClientRect(); tgt.x = e.clientX - r.left - r.width / 2; tgt.y = e.clientY - r.top - r.height / 2; };
+    const enter = (e) => { inside = true; setFrom(e); kick(); };
+    const move = (e) => { if (inside) { setFrom(e); kick(); } };
+    const leave = () => { inside = false; Object.assign(tgt, rest); until = performance.now() + 600; kick(); };
+    apply();
+    el.addEventListener('pointerenter', enter);
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerleave', leave);
+    return () => { cancelAnimationFrame(raf); el.removeEventListener('pointerenter', enter); el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave); };
+  }, []);
+  const shapes = [{ '--w': '80%', '--h': '84%', '--a': 0.085, '--t': '7s' }, { '--w': '112%', '--h': '104%', '--a': 0.06, '--t': '9s' }, { '--w': '56%', '--h': '62%', '--a': 0.08, '--t': '11s' }];
+  const delay = `${(0.18 * (k + 1)).toFixed(2)}s`;
+  return (
+    <div ref={ref} className="sd-stat" style={{ '--d': delay }}>
+      <div className="blobs">{shapes.map((s, i) => <span key={i} className="blob" style={s} ref={(el) => { blobRefs.current[i] = el; }}><i /></span>)}</div>
+      <p className={`sd-num ${card.small ? 'small' : ''}`}>
+        <span><Roll value={card.value} from={card.from} cardDelay={delay} /></span>
+        <span className="hot" aria-hidden="true">{card.value}</span>
+      </p>
+      <p className="sd-lab">{card.label}</p>
+    </div>
+  );
+};
+
+export const Stats = () => {
+  const cards = [{ value: '12,400+', from: '11,850+', label: <><b>Pages</b> published</> }, { value: '46%', from: '39%', label: 'of new pages start with an agent' }, { value: 'Every 4 Sec', from: 'Every 1 Sec', small: true, label: <>a <b>page</b> gets revised</> }];
+  return (
+    <Sec id="sd-impact" className="sd-impact" threshold={0.3}>
+      <Rise as="h3" className="tasa" lines={['Already busy inside Mintlify']} style={{ fontSize: 'calc(46 * var(--u))', marginBottom: 'calc(46 * var(--u))', color: '#e8e8ea' }} />
+      <div className="sd-cards">{cards.map((c, i) => <StatCard key={i} card={c} k={i} />)}</div>
+    </Sec>
+  );
+};
+
+export const FEAT_STEPS = [
+  { title: 'Ship straight from the terminal', body: 'Turn an agent’s output into a live page with a single command.', dur: 13000 },
+  { title: 'Effortless sharing', body: 'Share with anyone in your organization using the access controls you already manage.', dur: 9500 },
+  { title: 'Inline commenting on live HTML', body: 'Leave feedback on any line of text, table cell, or point on a chart.', dur: 10500 },
+  { title: 'Built-in agent reviewer', body: 'Agents read review threads over MCP and revise the living page in real time.', dur: 9500 },
+];
+
+export const FTerm = ({ top, cmd, typed, lines, shown, title = 'you@laptop — 80 × 24', style }) => (
+  <div className="fx fterm" style={{ top: `calc(${top} * var(--u))`, ...style }}>
+    <div className="bar3"><i style={{ background: '#ff5f57' }} /><i style={{ background: '#febc2e' }} /><i style={{ background: '#28c840' }} /><span>{title}</span></div>
+    <div className="body">{'> Workspace //\n'}{lines.slice(0, shown).map(termLine)}</div>
+    <div className="in">{cmd.slice(0, typed)}<i className="caret" style={{ width: 1 }} /></div>
+  </div>
+);
+
+export const FDoc = ({ style, sel, band, title = 'One view for the business', pins = [] }) => (
+  <div className="fx fdoc" style={style}>
+    <div className="url">workspace.mintlify.com/d/q1-payouts-report</div>
+    <div className="pg">
+      <div className="kk">PRODUCT REQUIREMENTS · DRAFT · SEP 2026 · ILLUSTRATIVE FIGURES</div>
+      <div className="tt">One view <span className={sel ? 'sel' : ''}>{title.replace('One view ', '')}</span></div>
+      <div className="sub">Rebuild the payouts home so an ops lead can answer “what happened to my money today” in under 30 seconds, without exporting a report.</div>
+      <div className="meta">{[['OWNER', 'Lena Park'], ['STATUS', 'Draft — in review'], ['TARGET GA', '7 Dec 2026'], ['ENG LEAD', 'R. Mehta']].map(([k, v]) => <div key={k}><span>{k}</span>{v}</div>)}</div>
+      <div className="ch">
+        <b>Time to answer, against target</b>
+        <svg viewBox="0 0 500 170" preserveAspectRatio="none">
+          {[0, 1, 2, 3, 4].map((i) => <line key={i} x1="0" x2="500" y1={20 + 35 * i} y2={20 + 35 * i} stroke="#eef0f6" />)}
+          <rect x="0" y={118} width="500" height={band * 40} fill="rgba(0,57,255,.08)" style={{ transition: 'height .8s' }} />
+          {band > 0 && <line x1="0" x2={500 * band} y1="118" y2="118" stroke="#0039FF" strokeDasharray="5 4" />}
+          <polyline points="0,22 60,24 120,30 180,48 240,70 300,92 360,104 420,112 500,114" fill="none" stroke="#2c56ff" strokeWidth="2" />
+          <circle cx="500" cy="114" r="4" fill="#2c56ff" />
+        </svg>
+        {pins.map(([x, y, n]) => <span key={n} className="fx fpin" style={{ left: `calc(${x} * var(--u))`, top: `calc(${y} * var(--u))` }}>{n}</span>)}
+      </div>
+      <div className="sm">Summary<p>Answering that question today takes nine clicks across four screens and is the single largest driver of support tickets.</p></div>
+    </div>
+  </div>
+);
+
+export const FeatScene = ({ i, t }) => {
+  const ty = (s, from, cps = 28) => Math.max(0, Math.floor(((t - from) / 1000) * cps));
+  const after = (ms) => t >= ms;
+  const show = (on, extra = {}) => ({ opacity: on ? 1 : 0, ...extra });
+  if (i === 0) {
+    const cmd = 'pull the Q1 payouts data and publish a report to Workspace';
+    const lines = ['', '[● LIVE] Reading ledger exports (3 files)...', '  Rows      : 18,204', '  Charts    : 3 built', '', '> SUCCESS: Published q1-payouts-report'];
+    const stageGrid = after(6800);
+    const stageDoc = after(10200);
+    return (
+      <>
+        <FTerm top={stageGrid ? 120 : 230} cmd={cmd} typed={ty(cmd, 400, 30)} lines={lines} shown={after(2800) ? Math.min(lines.length, Math.floor((t - 2800) / 420) + 1) : 0} style={show(!stageGrid, { transform: stageGrid ? 'translateY(-40px) scale(.96)' : 'none' })} />
+        <div className="fx fgrid" style={show(stageGrid && !stageDoc, { transform: stageDoc ? 'scale(1.6)' : stageGrid ? 'none' : 'translateY(30px) scale(.97)' })}>
+          <h5>Documents</h5>
+          {[0, 1].map((r) => (
+            <div key={r} className="row">
+              {[0, 1, 2].map((c) => {
+                const n = r * 3 + c;
+                const isNew = n === 0;
+                return <div key={c} className={`dc ${isNew ? 'new' : ''} ${isNew && !after(7600) ? 'pop' : ''}`}><i style={{ top: 'calc(10 * var(--u))' }} /><i style={{ top: 'calc(18 * var(--u))', right: '40%' }} /><u /><b>{['q1-payouts-report', 'support-review', 'pricing-model', 'launch-plan', 'okrs-h2', 'oncall-notes'][n]}</b></div>;
+              })}
+            </div>
+          ))}
+        </div>
+        <FDoc band={0} style={show(stageDoc, { transform: stageDoc ? 'none' : 'translateY(60px) scale(.9)' })} />
+      </>
+    );
+  }
+  if (i === 1) {
+    const cmd = 'share q1-payouts-report with #finance as commenters';
+    const lines = ['', '[● LIVE] Resolving #finance (18 people)...', '  Access    : org only · commenter', '', '> SUCCESS: Shared with 18 people'];
+    const people = [['Priya Shah', 'Commenter', '#ff9f6b'], ['Dev Patel', 'Commenter', '#6bd3ff'], ['Sam Lee', 'Editor', '#b48bff'], ['Lena Park', 'Owner', '#5fe0a1']];
+    return (
+      <>
+        <FDoc band={0} style={{ opacity: 0.55, filter: 'blur(1px)' }} />
+        <FTerm top={250} cmd={cmd} typed={ty(cmd, 300, 30)} lines={lines} shown={after(2400) ? Math.min(lines.length, Math.floor((t - 2400) / 420) + 1) : 0} style={show(!after(5200), { transform: after(5200) ? 'translateX(-30px)' : 'none' })} />
+        <div className="fx facc" style={show(after(5200), { transform: after(5200) ? 'none' : 'translateY(20px)' })}>
+          <h5>People with access</h5>
+          {people.map(([name, role, col], k) => <div key={name} className={`pp ${after(5400 + k * 260) ? '' : 'off'}`}><i style={{ background: col }} /><span>{name}</span><em>{role}</em></div>)}
+        </div>
+      </>
+    );
+  }
+  if (i === 2) {
+    const text = 'Can we add the target line here?';
+    const n = ty(text, 2600, 26);
+    return (
+      <>
+        <FDoc band={0} sel={after(800) && !after(2200) ? true : false} pins={after(4600) ? [[420, 30, 1]] : []} />
+        <div className="fx fcom" style={show(after(1900), { left: 'calc(360 * var(--u))', top: 'calc(300 * var(--u))', transform: after(1900) ? 'none' : 'translateY(10px)' })}>
+          {after(4600) ? <><div className="w">You<time>now</time></div>{text}</> : n ? <span>{text.slice(0, n)}<i className="caret" style={{ width: 1 }} /></span> : <span className="ph">Add a comment…</span>}
+          {!after(4600) && <span className="snd" />}
+        </div>
+        <div className="fx fcom" style={show(after(6600), { left: 'calc(330 * var(--u))', top: 'calc(500 * var(--u))', transform: after(6600) ? 'none' : 'translateY(10px)' })}>
+          <div className="w">Dev<time>now</time></div>Split this by region?
+        </div>
+      </>
+    );
+  }
+  return (
+    <>
+      <FDoc band={sdClamp((t - 4200) / 900)} title={after(6200) ? 'One view for how the money moves' : 'One view for the business'} sel={after(6200) && !after(7600)} pins={[[420, 30, 1]]} />
+      <div className="fx fcom" style={{ left: 'calc(380 * var(--u))', top: 'calc(110 * var(--u))', width: 'calc(270 * var(--u))' }}>
+        <div className="w">You<time>14:02</time></div>Can we add the target line here?
+        <div className="r" style={show(after(1200))}><span className="av">✦</span><div><div className="w">Lena’s agent</div>{after(4600) ? 'Done — added a target band.' : <span style={{ opacity: 0.7 }}>Working on it…</span>}</div></div>
+        {after(5000) && <div className="fres">✓ Resolved</div>}
+      </div>
+    </>
+  );
+};
+
+export const Features = () => {
+  const ref = useRef(null);
+  const visible = useSdVisible(ref);
+  const [active, setActive] = useState(0);
+  const [prev, setPrev] = useState(null);
+  const [t, reset] = useSdClock(visible, 30);
+  const step = FEAT_STEPS[active];
+  const open = (n) => {
+    if (n === active) return;
+    setPrev(active);
+    setActive(n);
+    reset();
+    setTimeout(() => setPrev(null), 450);
+  };
+  useEffect(() => {
+    if (t >= step.dur) open((active + 1) % FEAT_STEPS.length);
+  }, [t]);
+  return (
+    <Sec id="sd-features" className="sd-feat" threshold={0.2}>
+      <div ref={ref} style={{ position: 'absolute', inset: 0 }}>
+        <div className="sd-dots" />
+        <Rise className="sd-ftitle tasa" lines={['Real-time review', 'for the agent era']} />
+        <a className="sd-btn blue sd-rv" style={{ '--d': '0.25s' }}>Try Now</a>
+        <div className="sd-steps sd-rv" style={{ '--d': '0.35s' }}>
+          {FEAT_STEPS.map((s, i) => (
+            <div key={s.title} className={`sd-step ${i === active ? 'on' : ''}`}>
+              <button onClick={() => open(i)}>{s.title}</button>
+              <div className="bdy"><div><p>{s.body}</p></div></div>
+              <div className="pl"><i style={{ '--p': i === active ? sdClamp(t / s.dur) : 0 }} /></div>
+            </div>
+          ))}
+        </div>
+        <div className="sd-fpanel sd-rv" style={{ '--d': '0.2s' }}>
+          {FEAT_STEPS.map((s, i) => (i === active || i === prev ? <div key={i} className={`fl ${i === active ? '' : 'off'}`}><FeatScene i={i} t={i === active ? t : FEAT_STEPS[i].dur} /></div> : null))}
+        </div>
+      </div>
+    </Sec>
+  );
+};
+
+export const Cta = () => (
+  <Sec className="sd-ctaw" threshold={0.3}>
+    <div className="sd-cta">
+      <i className="bl a" /><i className="bl b" />
+      <i className="fig f0" /><i className="fig f1" /><i className="fig f2" />
+      <Rise className="ttl2 tasa" lines={['Ready to bring your', 'agents into review?']} base={0.2} />
+      <a className="gh"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 015.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z" /></svg>GitHub</a>
+    </div>
+  </Sec>
+);
+
+export const FAQ_ITEMS = [
+  ['What is Workspace and how does it work?', 'Workspace gives the pages your agents write a real URL inside Mintlify. Your team and your agents can read the page, comment on it, and have the agent revise it from that feedback, all in one place.'],
+  ['Who is Workspace for?', 'Anyone whose team already asks agents for specs, reviews and reports, plus everyone downstream who has to review that work, whether or not they use an agent themselves.'],
+  ['How does Workspace work end to end?', 'Your agent publishes with one command and gets back a durable link. Reviewers comment on the exact line, cell or chart that needs work. The agent reads those comments, revises the page in place, and replies in the same thread.'],
+  ['Do I need to be a developer to use Workspace?', 'Publishing runs from an agent that speaks MCP, so that side is technical. Reviewing, commenting and reading replies only needs a browser, like any other doc.'],
+  ['Which AI agents work with Workspace?', 'Any MCP client: Claude Code, Cursor, and the tools your team already uses. Switching agents never means moving your documents.'],
+  ['Where does Workspace data live, and is it secure?', 'Pages live in your Mintlify organization and follow the roles and groups you already manage, so there is no second permission system to keep in sync.'],
+  ['How does Workspace handle revisions and version history?', 'Revisions land on the same page and link. History keeps a record of what changed and which comment it answered, so nobody hunts for “final_v2_FINAL”.'],
+  ['Can AI agents make document changes automatically?', 'Agents respond to feedback your team leaves. They read the comments on the page and revise based on them, the same way a person would.'],
+];
+
+export const boldBrand = (text) => text.split(/(Workspace)/).map((part, i) => (i % 2 ? <b key={i}>{part}</b> : part));
+
+export const Faq = () => {
+  const [open, setOpen] = useState(null);
+  return (
+    <Sec id="sd-faq" className="sd-faq" threshold={0.2}>
+      <h3><Rise className="tasa" lines={['Frequently Asked', 'Questions']} /></h3>
+      <div className="sd-qs sd-rv" style={{ '--d': '0.2s' }}>
+        {FAQ_ITEMS.map(([q, a], i) => (
+          <div key={q} className={`sd-q ${open === i ? 'open' : ''}`}>
+            <button aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}><span>{boldBrand(q)}</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></button>
+            <div className="a"><div><p>{boldBrand(a)}</p></div></div>
+          </div>
+        ))}
+      </div>
+    </Sec>
+  );
+};
+
+export const Footer = ({ onReplay }) => {
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
+  return (
+    <Sec as="footer" className="sd-foot" threshold={0.2} onPointerMove={onMove}>
+      <div className="px" />
+      <div className="glow" />
+      <div className="word tasa">Workspace</div>
+      <div className="meta">
+        <b>Mintlify</b>
+        <div>© 2026 Mintlify. All rights reserved.</div>
+        <div><a>X</a> | <a>LinkedIn</a> | <a>GitHub</a> | <a>mintlify.com</a></div>
+        <button className="sd-replay" onClick={onReplay}>Replay intro</button>
+      </div>
+    </Sec>
+  );
+};
+
+export const SlashPage = () => {
+  const [run, setRun] = useState(0);
+  const [live, setLive] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const rootRef = useRef(null);
+  useEffect(() => {
+    const root = rootRef.current;
+    let raf = 0;
+    let top0 = null;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const top = root.getBoundingClientRect().top;
+        if (top0 === null) top0 = top;
+        sdBus.emit('sky:scroll', Math.max(0, top0 - top));
+      });
+    };
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    onScroll();
+    return () => { cancelAnimationFrame(raf); document.removeEventListener('scroll', onScroll, { capture: true }); };
+  }, []);
+  const replay = () => {
+    const el = document.getElementById('sd-top');
+    if (el) el.scrollIntoView({ block: 'start' });
+    setLive(false);
+    setLoading(true);
+    setRun((n) => n + 1);
+  };
+  return (
+    <div ref={rootRef} className={`sd sd-u not-prose ${live ? 'live' : ''}`}>
+      <style>{SD_CSS}</style>
+      {loading && <Loader key={run} onReveal={() => { setLive(true); sdBus.emit('loader:done'); }} onOff={() => setLoading(false)} />}
+      <Nav live={live} />
+      <div className="sd-light">
+        <Sky key={`sky-${run}`} />
+        <Storyboard key={`sb-${run}`} live={live} />
+        <Fold />
+      </div>
+      <Values />
+      <Stats />
+      <Features />
+      <Cta />
+      <Faq />
+      <Footer onReplay={replay} />
+    </div>
+  );
+};
+
+<SlashPage />

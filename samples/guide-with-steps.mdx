@@ -1,0 +1,70 @@
+---
+title: "Sample Setup Guide With Steps and Code Groups"
+sidebarTitle: "Guide With Steps"
+description: "Filler how-to guide showcasing the Steps component alongside multi-language code groups, tips, and inline images."
+---
+
+This sample guide walks through a fictional setup flow using Steps, CodeGroup, and callouts so you can see how procedural pages render.
+
+## Before you begin
+
+<Info>You need a placeholder account and a fake API key to follow along. Nothing here talks to a real service.</Info>
+
+## Install and configure
+
+<Steps>
+  <Step title="Install the package">
+    Pick your package manager of choice.
+
+    <CodeGroup>
+    ```bash npm
+    npm install @acme/sample
+    ```
+    ```bash pnpm
+    pnpm add @acme/sample
+    ```
+    ```bash yarn
+    yarn add @acme/sample
+    ```
+    </CodeGroup>
+  </Step>
+  <Step title="Add your API key">
+    Store the key in an environment variable and load it at runtime.
+
+    ```bash .env
+    ACME_API_KEY=sk_test_placeholder_123
+    ```
+  </Step>
+  <Step title="Initialize the client">
+    Create a client instance and confirm the connection.
+
+    ```ts client.ts lines icon="square-js"
+    import { Acme } from "@acme/sample";
+
+    const acme = new Acme({ apiKey: process.env.ACME_API_KEY });
+    const ping = await acme.health.check();
+    console.log(ping.status);
+    ```
+
+    <Tip>Wrap the client in a singleton if you plan to reuse it across requests.</Tip>
+  </Step>
+  <Step title="Send your first request">
+    Trigger a sample action and inspect the response.
+
+    ```ts
+    const result = await acme.widgets.create({ name: "hello" });
+    console.log(result.id);
+    ```
+  </Step>
+</Steps>
+
+## What to try next
+
+<CardGroup cols={2}>
+  <Card title="Explore the API" icon="code" href="/samples/api-endpoint">
+    See how endpoint reference pages are laid out.
+  </Card>
+  <Card title="Read a concept" icon="book" href="/samples/concept-overview">
+    Longer-form prose with tables and images.
+  </Card>
+</CardGroup>
