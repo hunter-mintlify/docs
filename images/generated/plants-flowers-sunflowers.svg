@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#fffde7"/>
+  
+  
+  <text x="400" y="32" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="#f57f17">Sunflower Structure and Heliotropism</text>
+  
+  
+  <g transform="translate(80, 60)">
+    
+    <line x1="200" y1="200" x2="200" y2="310" stroke="#388e3c" stroke-width="8" stroke-linecap="round"/>
+    
+    
+    <ellipse cx="160" cy="250" rx="35" ry="12" fill="#4caf50" transform="rotate(-25 160 250)"/>
+    <ellipse cx="245" cy="270" rx="35" ry="12" fill="#66bb6a" transform="rotate(25 245 270)"/>
+    <ellipse cx="150" cy="285" rx="30" ry="10" fill="#4caf50" transform="rotate(-15 150 285)"/>
+    
+    
+    <g transform="translate(200, 130)">
+      
+      <g fill="#ffca28" opacity="0.9">
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(30)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(60)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(120)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(150)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(210)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(240)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(300)"/>
+        <ellipse cx="0" cy="-55" rx="10" ry="28" transform="rotate(330)"/>
+      </g>
+      
+      
+      <circle cx="0" cy="0" r="32" fill="#5d4037"/>
+      <circle cx="0" cy="0" r="26" fill="#6d4c41"/>
+      
+      
+      <g fill="#8d6e63">
+        <circle cx="-8" cy="-8" r="3"/>
+        <circle cx="8" cy="-8" r="3"/>
+        <circle cx="-8" cy="8" r="3"/>
+        <circle cx="8" cy="8" r="3"/>
+        <circle cx="0" cy="-12" r="3"/>
+        <circle cx="0" cy="12" r="3"/>
+        <circle cx="-12" cy="0" r="3"/>
+        <circle cx="12" cy="0" r="3"/>
+        <circle cx="0" cy="0" r="3"/>
+      </g>
+    </g>
+  </g>
+  
+  
+  <line x1="330" y1="130" x2="400" y2="110" stroke="#555" stroke-width="1.5"/>
+  <text x="410" y="115" font-family="sans-serif" font-size="13" fill="#333">Ray florets - petal-like, attract pollinators</text>
+  
+  <line x1="310" y1="180" x2="400" y2="165" stroke="#555" stroke-width="1.5"/>
+  <text x="410" y="170" font-family="sans-serif" font-size="13" fill="#333">Disk florets - each develops into a seed</text>
+  
+  <line x1="290" y1="260" x2="400" y2="245" stroke="#555" stroke-width="1.5"/>
+  <text x="410" y="250" font-family="sans-serif" font-size="13" fill="#333">Sturdy stem supports heavy seed head</text>
+  
+  
+  <rect x="420" y="55" width="340" height="160" rx="8" fill="#fff8e1" stroke="#ffa000" stroke-width="1.5"/>
+  <text x="590" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Heliotropism: Tracking the Sun</text>
+  
+  
+  <g transform="translate(460, 110)">
+    <circle cx="0" cy="-25" r="12" fill="#ffca28"/>
+    <line x1="0" y1="0" x2="0" y2="45" stroke="#388e3c" stroke-width="4"/>
+    <ellipse cx="0" cy="-5" rx="18" ry="6" fill="#ffca28" opacity="0.6" transform="rotate(-30)"/>
+    <text x="0" y="65" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">Morning</text>
+    <text x="0" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#777">(faces east)</text>
+  </g>
+  
+  
+  <g transform="translate(550, 110)">
+    <circle cx="0" cy="-35" r="12" fill="#ffca28"/>
+    <line x1="0" y1="0" x2="0" y2="45" stroke="#388e3c" stroke-width="4"/>
+    <ellipse cx="0" cy="-5" rx="18" ry="6" fill="#ffca28" opacity="0.6" transform="rotate(0)"/>
+    <text x="0" y="65" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">Noon</text>
+    <text x="0" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#777">(faces up)</text>
+  </g>
+  
+  
+  <g transform="translate(640, 110)">
+    <circle cx="0" cy="-25" r="12" fill="#ffca28"/>
+    <line x1="0" y1="0" x2="0" y2="45" stroke="#388e3c" stroke-width="4"/>
+    <ellipse cx="0" cy="-5" rx="18" ry="6" fill="#ffca28" opacity="0.6" transform="rotate(30)"/>
+    <text x="0" y="65" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">Afternoon</text>
+    <text x="0" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#777">(faces west)</text>
+  </g>
+  
+  
+  <rect x="420" y="230" width="340" height="140" rx="8" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="590" y="255" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Sunflower Seed Uses</text>
+  
+  <rect x="440" y="270" width="90" height="80" rx="5" fill="#e8f5e9" stroke="#4caf50" stroke-width="1"/>
+  <text x="485" y="295" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32">Oil</text>
+  <text x="485" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">Pressed for</text>
+  <text x="485" y="330" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">cooking oil</text>
+  
+  <rect x="545" y="270" width="90" height="80" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="590" y="295" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Snack</text>
+  <text x="590" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">Roasted and</text>
+  <text x="590" y="330" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">salted seeds</text>
+  
+  <rect x="650" y="270" width="90" height="80" rx="5" fill="#e3f2fd" stroke="#2196f3" stroke-width="1"/>
+  <text x="695" y="295" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0">Bird Feed</text>
+  <text x="695" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">Wildlife and</text>
+  <text x="695" y="330" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">pet bird food</text>
+</svg>

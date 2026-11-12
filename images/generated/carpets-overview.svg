@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  
+  
+  <text x="400" y="40" font-family="sans-serif" font-size="22" font-weight="bold" fill="#1e293b" text-anchor="middle">Carpet Construction Types</text>
+  
+  
+  <rect x="40" y="70" width="350" height="280" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="215" y="100" font-family="sans-serif" font-size="16" font-weight="bold" fill="#16A34A" text-anchor="middle">Cut Pile</text>
+  <text x="215" y="122" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Sheared yarn tips create a soft surface</text>
+  
+  
+  <rect x="80" y="200" width="270" height="20" fill="#cbd5e1"/>
+  <text x="215" y="240" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">Primary &amp; secondary backing</text>
+  
+  
+  <g id="cut-tufts">
+    <rect x="95" y="130" width="8" height="70" fill="#16A34A" rx="2"/>
+    <rect x="115" y="125" width="8" height="75" fill="#22c55e" rx="2"/>
+    <rect x="135" y="135" width="8" height="65" fill="#16A34A" rx="2"/>
+    <rect x="155" y="128" width="8" height="72" fill="#22c55e" rx="2"/>
+    <rect x="175" y="132" width="8" height="68" fill="#16A34A" rx="2"/>
+    <rect x="195" y="126" width="8" height="74" fill="#22c55e" rx="2"/>
+    <rect x="215" y="134" width="8" height="66" fill="#16A34A" rx="2"/>
+    <rect x="235" y="129" width="8" height="71" fill="#22c55e" rx="2"/>
+    <rect x="255" y="133" width="8" height="67" fill="#16A34A" rx="2"/>
+    <rect x="275" y="127" width="8" height="73" fill="#22c55e" rx="2"/>
+    <rect x="295" y="131" width="8" height="69" fill="#16A34A" rx="2"/>
+    <rect x="315" y="136" width="8" height="64" fill="#22c55e" rx="2"/>
+  </g>
+  
+  
+  <line x1="90" y1="140" x2="330" y2="140" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="340" y="144" font-family="sans-serif" font-size="11" fill="#ef4444">Cut</text>
+  
+  
+  <rect x="410" y="70" width="350" height="280" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="585" y="100" font-family="sans-serif" font-size="16" font-weight="bold" fill="#16A34A" text-anchor="middle">Loop Pile</text>
+  <text x="585" y="122" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Uncut loops form a durable surface</text>
+  
+  
+  <rect x="450" y="200" width="270" height="20" fill="#cbd5e1"/>
+  <text x="585" y="240" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">Primary &amp; secondary backing</text>
+  
+  
+  <g id="loop-tufts" fill="none" stroke-width="5" stroke-linecap="round">
+    <path d="M 99 200 L 99 150 Q 99 135 107 135 Q 115 135 115 150 L 115 200" stroke="#16A34A"/>
+    <path d="M 127 200 L 127 145 Q 127 130 135 130 Q 143 130 143 145 L 143 200" stroke="#22c55e"/>
+    <path d="M 155 200 L 155 152 Q 155 137 163 137 Q 171 137 171 152 L 171 200" stroke="#16A34A"/>
+    <path d="M 183 200 L 183 148 Q 183 133 191 133 Q 199 133 199 148 L 199 200" stroke="#22c55e"/>
+    <path d="M 211 200 L 211 155 Q 211 140 219 140 Q 227 140 227 155 L 227 200" stroke="#16A34A"/>
+    <path d="M 239 200 L 239 147 Q 239 132 247 132 Q 255 132 255 147 L 255 200" stroke="#22c55e"/>
+    <path d="M 267 200 L 267 153 Q 267 138 275 138 Q 283 138 283 153 L 283 200" stroke="#16A34A"/>
+    <path d="M 295 200 L 295 149 Q 295 134 303 134 Q 311 134 311 149 L 311 200" stroke="#22c55e"/>
+    <path d="M 323 200 L 323 151 Q 323 136 331 136 Q 339 136 339 151 L 339 200" stroke="#16A34A"/>
+    <path d="M 351 200 L 351 146 Q 351 131 359 131 Q 367 131 367 146 L 367 200" stroke="#22c55e"/>
+    <path d="M 379 200 L 379 154 Q 379 139 387 139 Q 395 139 395 154 L 395 200" stroke="#16A34A"/>
+    <path d="M 407 200 L 407 150 Q 407 135 415 135 Q 423 135 423 150 L 423 200" stroke="#22c55e"/>
+  </g>
+  
+  
+  <text x="95" y="280" font-family="sans-serif" font-size="12" fill="#475569">Soft, plush feel</text>
+  <text x="450" y="280" font-family="sans-serif" font-size="12" fill="#475569">Resilient, hard-wearing</text>
+  
+  
+  <circle cx="95" cy="300" r="10" fill="#dcfce7"/>
+  <text x="95" y="304" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="115" y="304" font-family="sans-serif" font-size="11" fill="#64748b">Bedrooms, living rooms</text>
+  
+  <circle cx="450" cy="300" r="10" fill="#dcfce7"/>
+  <text x="450" y="304" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="470" y="304" font-family="sans-serif" font-size="11" fill="#64748b">Hallways, offices, stairs</text>
+</svg>

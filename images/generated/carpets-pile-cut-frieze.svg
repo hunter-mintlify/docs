@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  
+  <text x="400" y="40" font-family="sans-serif" font-size="22" font-weight="bold" fill="#1e293b" text-anchor="middle">Frieze Carpet Fiber Structure</text>
+  
+  
+  <rect x="50" y="70" width="400" height="280" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  
+  
+  <rect x="80" y="290" width="340" height="25" fill="#94a3b8"/>
+  <text x="250" y="307" font-family="sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">Primary backing</text>
+  <rect x="80" y="315" width="340" height="20" fill="#cbd5e1"/>
+  <text x="250" y="329" font-family="sans-serif" font-size="10" fill="#475569" text-anchor="middle">Secondary backing</text>
+  
+  
+  <g id="frieze-fibers" fill="none" stroke-width="4" stroke-linecap="round">
+    <path d="M 90 290 Q 85 250 100 230 Q 115 210 95 190 Q 75 170 105 150 Q 135 130 110 100" stroke="#16A34A"/>
+    <path d="M 115 290 Q 110 240 130 220 Q 150 200 125 175 Q 100 150 130 130 Q 160 110 140 85" stroke="#22c55e"/>
+    <path d="M 140 290 Q 135 255 120 235 Q 105 215 130 195 Q 155 175 125 155 Q 95 135 120 110" stroke="#16A34A"/>
+    <path d="M 165 290 Q 170 245 150 225 Q 130 205 155 185 Q 180 165 145 140 Q 110 115 140 95" stroke="#22c55e"/>
+    <path d="M 190 290 Q 185 250 205 230 Q 225 210 195 185 Q 165 160 195 140 Q 225 120 200 90" stroke="#16A34A"/>
+    <path d="M 215 290 Q 220 240 195 220 Q 170 200 200 180 Q 230 160 195 135 Q 160 110 190 88" stroke="#22c55e"/>
+    <path d="M 240 290 Q 235 255 255 235 Q 275 215 245 190 Q 215 165 250 145 Q 285 125 260 95" stroke="#16A34A"/>
+    <path d="M 265 290 Q 270 245 245 225 Q 220 205 250 185 Q 280 165 245 140 Q 210 115 240 92" stroke="#22c55e"/>
+    <path d="M 290 290 Q 285 250 310 230 Q 335 210 300 185 Q 265 160 300 140 Q 335 120 310 88" stroke="#16A34A"/>
+    <path d="M 315 290 Q 320 240 295 220 Q 270 200 305 180 Q 340 160 300 130 Q 260 100 290 85" stroke="#22c55e"/>
+    <path d="M 340 290 Q 335 255 360 235 Q 385 215 350 190 Q 315 165 355 145 Q 395 125 370 95" stroke="#16A34A"/>
+    <path d="M 365 290 Q 370 245 345 225 Q 320 205 355 185 Q 390 165 350 135 Q 310 105 340 88" stroke="#22c55e"/>
+    <path d="M 390 290 Q 385 250 415 230 Q 445 210 405 185 Q 365 160 410 140 Q 455 120 425 90" stroke="#16A34A"/>
+  </g>
+  
+  
+  <circle cx="205" cy="140" r="50" fill="none" stroke="#16A34A" stroke-width="2" stroke-dasharray="4,2"/>
+  <line x1="205" y1="190" x2="205" y2="210" stroke="#16A34A" stroke-width="1"/>
+  <text x="205" y="225" font-family="sans-serif" font-size="11" fill="#16A34A" text-anchor="middle">Highly twisted curls</text>
+  
+  
+  <path d="M 230 110 Q 250 100 240 130" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444"/>
+    </marker>
+  </defs>
+  <text x="265" y="120" font-family="sans-serif" font-size="10" fill="#ef4444">Twist rebound</text>
+  
+  
+  <rect x="480" y="70" width="270" height="280" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="615" y="100" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">Key Properties</text>
+  
+  <circle cx="510" cy="135" r="8" fill="#dcfce7"/>
+  <text x="510" y="139" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="530" y="139" font-family="sans-serif" font-size="13" fill="#334155">Knobby, textured surface</text>
+  
+  <circle cx="510" cy="170" r="8" fill="#dcfce7"/>
+  <text x="510" y="174" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="530" y="174" font-family="sans-serif" font-size="13" fill="#334155">Hides wear &amp; dirt well</text>
+  
+  <circle cx="510" cy="205" r="8" fill="#dcfce7"/>
+  <text x="510" y="209" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="530" y="209" font-family="sans-serif" font-size="13" fill="#334155">Springs back underfoot</text>
+  
+  <circle cx="510" cy="240" r="8" fill="#dcfce7"/>
+  <text x="510" y="244" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="530" y="244" font-family="sans-serif" font-size="13" fill="#334155">Great for high-traffic</text>
+  
+  <circle cx="510" cy="275" r="8" fill="#dcfce7"/>
+  <text x="510" y="279" font-family="sans-serif" font-size="12" fill="#16A34A" text-anchor="middle">✓</text>
+  <text x="530" y="279" font-family="sans-serif" font-size="13" fill="#334155">Casual, informal look</text>
+  
+  
+  <line x1="435" y1="85" x2="455" y2="85" stroke="#64748b" stroke-width="1"/>
+  <line x1="435" y1="290" x2="455" y2="290" stroke="#64748b" stroke-width="1"/>
+  <line x1="445" y1="85" x2="445" y2="290" stroke="#64748b" stroke-width="1"/>
+  <text x="460" y="190" font-family="sans-serif" font-size="11" fill="#64748b" transform="rotate(90 460 190)">Long pile fibers</text>
+</svg>

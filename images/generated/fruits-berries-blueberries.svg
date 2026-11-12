@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <text x="400" y="36" font-family="sans-serif" font-size="20" font-weight="bold" fill="#1e293b" text-anchor="middle">Blueberry Varieties and Size Comparison</text>
+
+  
+  <circle cx="200" cy="160" r="35" fill="#3b82f6"/>
+  <circle cx="200" cy="160" r="28" fill="#60a5fa"/>
+  <circle cx="200" cy="160" r="18" fill="#3b82f6"/>
+  <ellipse cx="200" cy="125" rx="4" ry="2" fill="#16a34a"/>
+  <text x="200" y="230" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Highbush</text>
+  <text x="200" y="250" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">~12-20 mm</text>
+  <text x="200" y="268" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">Most common commercial</text>
+
+  
+  <circle cx="400" cy="170" r="22" fill="#2563eb"/>
+  <circle cx="400" cy="170" r="17" fill="#3b82f6"/>
+  <circle cx="400" cy="170" r="10" fill="#60a5fa"/>
+  <ellipse cx="400" cy="148" rx="3" ry="2" fill="#16a34a"/>
+  <text x="400" y="230" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Lowbush (wild)</text>
+  <text x="400" y="250" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">~6-10 mm</text>
+  <text x="400" y="268" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">Smaller, intense flavor</text>
+
+  
+  <circle cx="600" cy="155" r="40" fill="#3b82f6"/>
+  <circle cx="600" cy="155" r="32" fill="#60a5fa"/>
+  <circle cx="600" cy="155" r="20" fill="#3b82f6"/>
+  <ellipse cx="600" cy="115" rx="5" ry="2" fill="#16a34a"/>
+  <text x="600" y="230" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Rabbiteye</text>
+  <text x="600" y="250" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">~15-25 mm</text>
+  <text x="600" y="268" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">Warm southern climates</text>
+
+  
+  <line x1="150" y1="320" x2="650" y2="320" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="150" y1="315" x2="150" y2="325" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="650" y1="315" x2="650" y2="325" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="400" y="345" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Relative size comparison (not to exact scale)</text>
+
+  
+  <rect x="280" y="80" width="240" height="50" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="105" font-family="sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Ericaceae family, genus Vaccinium</text>
+  <text x="400" y="122" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">All native to North America</text>
+</svg>

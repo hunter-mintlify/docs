@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f0f4f0"/>
+  
+  
+  <text x="400" y="32" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="#1b3d1b">Redwood Height Comparison</text>
+  
+  
+  <line x1="80" y1="350" x2="720" y2="350" stroke="#333" stroke-width="2"/>
+  <text x="400" y="380" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">Relative height scale (not to exact proportion)</text>
+  
+  
+  <g transform="translate(120, 310)">
+    <circle cx="15" cy="8" r="6" fill="#795548"/>
+    <line x1="15" y1="14" x2="15" y2="30" stroke="#795548" stroke-width="4" stroke-linecap="round"/>
+    <line x1="15" y1="18" x2="5" y2="26" stroke="#795548" stroke-width="3" stroke-linecap="round"/>
+    <line x1="15" y1="18" x2="25" y2="26" stroke="#795548" stroke-width="3" stroke-linecap="round"/>
+    <line x1="15" y1="30" x2="8" y2="40" stroke="#795548" stroke-width="3" stroke-linecap="round"/>
+    <line x1="15" y1="30" x2="22" y2="40" stroke="#795548" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="135" y="365" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#333">Human</text>
+  <text x="135" y="378" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">(~1.7m)</text>
+  
+  
+  <g transform="translate(220, 210)">
+    <rect x="35" y="90" width="20" height="50" fill="#5d4037"/>
+    <ellipse cx="45" cy="60" rx="45" ry="55" fill="#4caf50" opacity="0.85"/>
+  </g>
+  <text x="255" y="365" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#333">Oak</text>
+  <text x="255" y="378" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">(~25m)</text>
+  
+  
+  <g transform="translate(340, 150)">
+    <rect x="40" y="140" width="18" height="60" fill="#5d4037"/>
+    <polygon points="49,20 10,180 88,180" fill="#2e7d32" opacity="0.9"/>
+    <polygon points="49,60 20,140 78,140" fill="#388e3c" opacity="0.85"/>
+  </g>
+  <text x="395" y="365" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#333">Pine</text>
+  <text x="395" y="378" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">(~50m)</text>
+  
+  
+  <g transform="translate(500, 30)">
+    <rect x="55" y="280" width="30" height="40" fill="#4e342e"/>
+    <rect x="50" y="270" width="40" height="15" rx="3" fill="#5d4037"/>
+    <polygon points="70,10 20,280 120,280" fill="#1b5e20" opacity="0.9"/>
+    <polygon points="70,50 30,230 110,230" fill="#2e7d32" opacity="0.85"/>
+    <polygon points="70,90 40,180 100,180" fill="#388e3c" opacity="0.8"/>
+  </g>
+  <text x="570" y="365" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#333" font-weight="bold">Coast Redwood</text>
+  <text x="570" y="378" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">(~115m)</text>
+  
+  
+  <g transform="translate(660, 140)">
+    <rect x="35" y="200" width="16" height="10" fill="#78909c"/>
+    <line x1="43" y1="200" x2="43" y2="120" stroke="#90a4ae" stroke-width="10"/>
+    <line x1="43" y1="120" x2="43" y2="80" stroke="#b0bec5" stroke-width="6"/>
+    <circle cx="43" cy="70" r="8" fill="#cfd8dc"/>
+    <line x1="43" y1="62" x2="35" y2="50" stroke="#cfd8dc" stroke-width="3"/>
+  </g>
+  <text x="685" y="365" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#333">Statue of Liberty</text>
+  <text x="685" y="378" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555">(~93m)</text>
+  
+  
+  <rect x="490" y="42" width="160" height="30" rx="5" fill="none" stroke="#16A34A" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="570" y="62" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#16A34A">Tallest living species</text>
+</svg>

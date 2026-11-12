@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "hunterchen7",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#9269F7",
+    "light": "#FF008E",
+    "dark": "#32C5C5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -17,7 +17,15 @@
         "pages": [
           "wow-new-page",
           "making-a-new-page",
-          "a-nwe-page"
+          "samples/components-showcase-2",
+          "a-nwe-page",
+          {
+            "group": "Some other kinda things",
+            "pages": [
+              "samples/concept-overview",
+              "i-need-help"
+            ]
+          }
         ]
       },
       {
@@ -25,12 +33,10 @@
         "pages": [
           "samples/components-showcase",
           "samples/guide-with-steps-2",
-          "samples/components-showcase-2",
           "mermaid-stuff",
           "samples/components-showcase-2-2",
           "samples/guide-with-steps",
           "samples/api-endpoint",
-          "samples/concept-overview",
           "samples/oranges",
           "joij",
           "title-workspace-landing-description-a-slash-docs-style-landing-page-built-with-custom-css-react-components-and-a-custom-layout-mode-custom-export-const-sd-css-import-url-https-fonts-googleapis-com",
@@ -45,6 +51,118 @@
           "fun/dice-roller",
           "fun/docs-trivia",
           "fun/coffee-calculator"
+        ]
+      },
+      {
+        "group": "Animals",
+        "pages": [
+          "animals/overview",
+          {
+            "group": "Mammals",
+            "pages": [
+              "animals/mammals/overview",
+              "animals/mammals/elephants",
+              {
+                "group": "Big cats",
+                "pages": [
+                  "animals/mammals/big-cats/lions",
+                  "animals/mammals/big-cats/tigers"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Birds",
+            "pages": [
+              "animals/birds/penguins",
+              "animals/birds/owls"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Plants",
+        "pages": [
+          "plants/overview",
+          {
+            "group": "Trees",
+            "pages": [
+              "plants/trees/oak",
+              {
+                "group": "Conifers",
+                "pages": [
+                  "plants/trees/conifers/pine",
+                  "plants/trees/conifers/redwood"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Flowers",
+            "pages": [
+              "plants/flowers/roses",
+              "plants/flowers/sunflowers"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Fruits",
+        "pages": [
+          "fruits/overview",
+          {
+            "group": "Citrus",
+            "pages": [
+              "fruits/citrus/lemons",
+              "fruits/citrus/limes"
+            ]
+          },
+          {
+            "group": "Tropical",
+            "pages": [
+              "fruits/tropical/mangoes",
+              "fruits/tropical/pineapples"
+            ]
+          },
+          {
+            "group": "Berries",
+            "pages": [
+              "fruits/berries/strawberries",
+              "fruits/berries/blueberries"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Carpets",
+        "pages": [
+          "carpets/overview",
+          {
+            "group": "Pile types",
+            "pages": [
+              {
+                "group": "Cut pile",
+                "pages": [
+                  "carpets/pile/cut/saxony",
+                  "carpets/pile/cut/frieze"
+                ]
+              },
+              {
+                "group": "Loop pile",
+                "pages": [
+                  "carpets/pile/loop/berber",
+                  "carpets/pile/loop/level-loop"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Rugs by origin",
+            "pages": [
+              "carpets/rugs/persian",
+              "carpets/rugs/moroccan"
+            ]
+          }
         ]
       },
       {
@@ -66,8 +184,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/favicon.svg",
+    "dark": "/images/man-holding-nuke-tight.png"
   },
   "navbar": {
     "links": [
@@ -90,9 +208,9 @@
       "claude",
       "perplexity",
       "mcp",
-      "cursor",
-      "vscode"
-    ]
+      "download-pdf"
+    ],
+    "display": "toc"
   },
   "footer": {
     "socials": {
@@ -100,5 +218,53 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
+  },
+  "styling": {
+    "codeblocks": "dark"
+  },
+  "integrations": {
+    "hotjar": {
+      "hjid": "zxcvzxcvzxcv",
+      "hjsv": "wefwaefawfawef"
+    },
+    "intercom": {
+      "appId": "zxv2awewafwef"
+    },
+    "mixpanel": {
+      "projectToken": "89zhxcv9h9a8hw98f9a8wehf"
+    },
+    "telemetry": {
+      "enabled": true
+    }
+  },
+  "thumbnails": {
+    "preset": "classic",
+    "appearance": "light",
+    "surface": "neutral",
+    "background": "/images/pet-greptile.gif"
+  },
+  "description": "this is my personal docs!",
+  "background": {
+    "image": "/images/generated/fruits-citrus-lemons.svg",
+    "color": {
+      "light": "#833939",
+      "dark": "#971A1A"
+    }
+  },
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "Guh",
+      "description": "this page not here :("
+    }
+  },
+  "banner": {
+    "content": "hi :)",
+    "dismissible": true,
+    "type": "warning"
+  },
+  "fonts": {
+    "family": "Montserrat",
+    "weight": 600
   }
 }

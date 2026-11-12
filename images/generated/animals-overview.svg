@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+  <text x="400" y="44" font-family="sans-serif" font-size="22" font-weight="700" fill="#1f2937" text-anchor="middle">The Animal Kingdom: Major Classes</text>
+
+  
+  <rect x="40" y="68" width="220" height="128" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+  <ellipse cx="150" cy="110" rx="30" ry="18" fill="#16A34A" opacity="0.15"/>
+  <circle cx="135" cy="108" r="5" fill="#16A34A"/>
+  <circle cx="160" cy="108" r="5" fill="#16A34A"/>
+  <path d="M125 125 Q150 140 175 125" stroke="#16A34A" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <ellipse cx="140" cy="120" rx="6" ry="4" fill="#16A34A"/>
+  <ellipse cx="160" cy="120" rx="6" ry="4" fill="#16A34A"/>
+  <text x="150" y="152" font-family="sans-serif" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">Mammals</text>
+  <text x="150" y="176" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Hair, live birth, milk</text>
+
+  
+  <rect x="290" y="68" width="220" height="128" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+  <ellipse cx="400" cy="110" rx="30" ry="18" fill="#16A34A" opacity="0.15"/>
+  <path d="M385 115 Q380 100 400 95 Q420 100 415 115" fill="#16A34A"/>
+  <path d="M390 112 Q400 105 410 112" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <text x="400" y="152" font-family="sans-serif" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">Birds</text>
+  <text x="400" y="176" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Feathers, beaks, eggs</text>
+
+  
+  <rect x="540" y="68" width="220" height="128" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+  <ellipse cx="650" cy="110" rx="30" ry="18" fill="#16A34A" opacity="0.15"/>
+  <path d="M630 120 Q640 100 660 105 Q670 110 665 120" fill="#16A34A"/>
+  <circle cx="635" cy="112" r="3" fill="#ffffff"/>
+  <text x="650" y="152" font-family="sans-serif" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">Reptiles</text>
+  <text x="650" y="176" font-family="sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Scales, cold-blooded</text>
+
+  
+  <path d="M140 210 Q150 240 200 240 L600 240 Q650 240 660 210" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="400" y="260" font-family="sans-serif" font-size="13" fill="#64748b" text-anchor="middle">All animals share DNA, cells, and the drive to survive</text>
+
+  
+  <rect x="40" y="290" width="340" height="80" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+  <text x="60" y="318" font-family="sans-serif" font-size="13" font-weight="600" fill="#1f2937">Traits of all animals</text>
+  <text x="60" y="342" font-family="sans-serif" font-size="12" fill="#64748b">Multicellular, heterotrophic, no cell walls</text>
+  <text x="60" y="360" font-family="sans-serif" font-size="12" fill="#64748b">Capable of movement at some life stage</text>
+
+  <rect x="400" y="290" width="360" height="80" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+  <text x="420" y="318" font-family="sans-serif" font-size="13" font-weight="600" fill="#1f2937">Estimated species count</text>
+  <text x="420" y="342" font-family="sans-serif" font-size="12" fill="#64748b">Over 1.5 million described animal species</text>
+  <text x="420" y="360" font-family="sans-serif" font-size="12" fill="#64748b">Insects make up more than half of known species</text>
+</svg>

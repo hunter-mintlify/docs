@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <text x="400" y="36" font-family="sans-serif" font-size="20" font-weight="bold" fill="#1e293b" text-anchor="middle">Strawberry Aggregate Fruit Structure</text>
+
+  
+  <path d="M180 140 Q140 180 160 230 Q180 260 220 260 Q260 260 280 230 Q300 180 260 140 Q240 120 220 120 Q200 120 180 140" fill="#ef4444"/>
+  <path d="M180 140 Q170 160 175 180 Q185 200 205 210 Q225 220 245 210 Q265 200 270 180 Q275 160 260 140" fill="#f87171"/>
+  
+  <ellipse cx="170" cy="170" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="185" cy="155" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="205" cy="145" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="230" cy="142" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="255" cy="150" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="270" cy="165" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="275" cy="185" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="270" cy="205" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="255" cy="225" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="235" cy="240" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="210" cy="248" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="185" cy="245" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="165" cy="230" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="155" cy="210" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="155" cy="190" rx="3" ry="4" fill="#fef08a"/>
+  
+  <path d="M200 120 L190 100 L210 115 L220 95 L230 115 L250 100 L240 120" fill="#16a34a"/>
+  <text x="220" y="290" font-family="sans-serif" font-size="13" fill="#1e293b" text-anchor="middle">Whole strawberry</text>
+
+  
+  <path d="M450 140 Q410 180 430 230 Q450 260 490 260 Q530 260 550 230 Q570 180 530 140 Q510 120 490 120 Q470 120 450 140" fill="#ef4444"/>
+  <path d="M450 140 Q440 160 445 180 Q455 200 475 210 Q495 220 515 210 Q535 200 540 180 Q545 160 530 140" fill="#fca5a5"/>
+  
+  <ellipse cx="440" cy="170" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="455" cy="155" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="475" cy="145" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="500" cy="142" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="525" cy="150" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="540" cy="165" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="545" cy="185" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="540" cy="205" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="525" cy="225" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="505" cy="240" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="480" cy="248" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="455" cy="245" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="435" cy="230" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="425" cy="210" rx="3" ry="4" fill="#fef08a"/>
+  <ellipse cx="425" cy="190" rx="3" ry="4" fill="#fef08a"/>
+  
+  <ellipse cx="490" cy="190" rx="25" ry="35" fill="#fecaca" opacity="0.5"/>
+  <ellipse cx="490" cy="190" rx="15" ry="25" fill="#fca5a5" opacity="0.5"/>
+
+  
+  <line x1="555" y1="150" x2="620" y2="130" stroke="#64748b" stroke-width="1"/>
+  <text x="630" y="134" font-family="sans-serif" font-size="12" fill="#1e293b">Achenes (seeds)</text>
+
+  <line x1="555" y1="190" x2="620" y2="170" stroke="#64748b" stroke-width="1"/>
+  <text x="630" y="174" font-family="sans-serif" font-size="12" fill="#1e293b">Fleshy receptacle</text>
+
+  <line x1="490" y1="118" x2="620" y2="110" stroke="#64748b" stroke-width="1"/>
+  <text x="630" y="114" font-family="sans-serif" font-size="12" fill="#1e293b">Calyx (green cap)</text>
+
+  
+  <rect x="580" y="230" width="180" height="100" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="670" y="255" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Not a true berry</text>
+  <text x="670" y="278" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Aggregate accessory fruit</text>
+  <text x="670" y="296" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Rosaceae family</text>
+  <text x="670" y="314" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Each achene = 1 fruit</text>
+</svg>
