@@ -171,6 +171,12 @@
           "index",
           "quickstart"
         ]
+      },
+      {
+        "group": "royce other group",
+        "pages": [
+          "hey-ethan"
+        ]
       }
     ],
     "global": {
