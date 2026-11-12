@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  
+  <text x="400" y="35" font-family="sans-serif" font-size="22" font-weight="bold" fill="#1e293b" text-anchor="middle">Moroccan Rug Styles: From Traditional to Contemporary</text>
+  
+  
+  <rect x="40" y="60" width="230" height="280" rx="4" fill="#fdfcf8" stroke="#d4c4a8" stroke-width="2"/>
+  <text x="155" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#5c4a3d" text-anchor="middle">Beni Ourain</text>
+  <text x="155" y="102" font-family="sans-serif" font-size="10" fill="#8b7355" text-anchor="middle">Atlas Mountains</text>
+  
+  
+  <rect x="55" y="115" width="200" height="180" fill="#fdfcf8" stroke="#e8dfd0" stroke-width="1"/>
+  
+  
+  <line x1="90" y1="130" x2="220" y2="140" stroke="#3e2f22" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="160" x2="200" y2="170" stroke="#3e2f22" stroke-width="3" stroke-linecap="round"/>
+  <line x1="95" y1="190" x2="215" y2="185" stroke="#3e2f22" stroke-width="5" stroke-linecap="round"/>
+  <line x1="80" y1="220" x2="190" y2="230" stroke="#3e2f22" stroke-width="3" stroke-linecap="round"/>
+  <line x1="100" y1="250" x2="210" y2="260" stroke="#3e2f22" stroke-width="4" stroke-linecap="round"/>
+  
+  
+  <polygon points="155,175 175,200 155,225 135,200" fill="none" stroke="#3e2f22" stroke-width="3"/>
+  
+  
+  <rect x="290" y="60" width="230" height="280" rx="4" fill="#fdfcf8" stroke="#d4c4a8" stroke-width="2"/>
+  <text x="405" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#5c4a3d" text-anchor="middle">Azilal</text>
+  <text x="405" y="102" font-family="sans-serif" font-size="10" fill="#8b7355" text-anchor="middle">High Atlas region</text>
+  
+  
+  <rect x="305" y="115" width="200" height="180" fill="#fdfcf8" stroke="#e8dfd0" stroke-width="1"/>
+  
+  <polygon points="405,140 425,170 405,200 385,170" fill="#16A34A" opacity="0.8"/>
+  <polygon points="360,190 380,210 360,230 340,210" fill="#ef4444" opacity="0.7"/>
+  <polygon points="440,210 455,225 440,240 425,225" fill="#3b82f6" opacity="0.7"/>
+  <line x1="320" y1="160" x2="350" y2="150" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="460" y1="170" x2="430" y2="180" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="330" y1="260" x2="370" y2="250" stroke="#ec4899" stroke-width="3" stroke-linecap="round"/>
+  <line x1="450" y1="270" x2="410" y2="260" stroke="#06b6d4" stroke-width="3" stroke-linecap="round"/>
+  
+  
+  <rect x="540" y="60" width="230" height="280" rx="4" fill="#fdfcf8" stroke="#d4c4a8" stroke-width="2"/>
+  <text x="655" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#5c4a3d" text-anchor="middle">Boucherouite</text>
+  <text x="655" y="102" font-family="sans-serif" font-size="10" fill="#8b7355" text-anchor="middle">Mixed fiber scraps</text>
+  
+  
+  <rect x="555" y="115" width="200" height="180" fill="#fdfcf8" stroke="#e8dfd0" stroke-width="1"/>
+  
+  
+  <rect x="555" y="115" width="200" height="25" fill="#ef4444" opacity="0.6"/>
+  <rect x="555" y="140" width="200" height="22" fill="#f59e0b" opacity="0.6"/>
+  <rect x="555" y="162" width="200" height="28" fill="#16A34A" opacity="0.5"/>
+  <rect x="555" y="190" width="200" height="20" fill="#3b82f6" opacity="0.6"/>
+  <rect x="555" y="210" width="200" height="26" fill="#8b5cf6" opacity="0.5"/>
+  <rect x="555" y="236" width="200" height="24" fill="#ec4899" opacity="0.6"/>
+  <rect x="555" y="260" width="200" height="15" fill="#06b6d4" opacity="0.6"/>
+  <rect x="555" y="275" width="200" height="20" fill="#64748b" opacity="0.5"/>
+  
+  
+  <circle cx="570" cy="127" r="3" fill="#ffffff" opacity="0.4"/>
+  <circle cx="600" cy="150" r="2" fill="#ffffff" opacity="0.4"/>
+  <circle cx="650" cy="175" r="3" fill="#ffffff" opacity="0.4"/>
+  <circle cx="700" cy="200" r="2" fill="#ffffff" opacity="0.4"/>
+  <circle cx="620" cy="222" r="3" fill="#ffffff" opacity="0.4"/>
+  <circle cx="680" cy="248" r="2" fill="#ffffff" opacity="0.4"/>
+  <circle cx="590" cy="268" r="3" fill="#ffffff" opacity="0.4"/>
+  <circle cx="730" cy="282" r="2" fill="#ffffff" opacity="0.4"/>
+  
+  
+  <rect x="40" y="360" width="730" height="30" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="60" y="380" font-family="sans-serif" font-size="12" fill="#475569">Shared traits:</text>
+  
+  <circle cx="170" cy="375" r="6" fill="#16A34A"/>
+  <text x="185" y="380" font-family="sans-serif" font-size="11" fill="#334155">Hand-spun wool</text>
+  
+  <circle cx="310" cy="375" r="6" fill="#16A34A"/>
+  <text x="325" y="380" font-family="sans-serif" font-size="11" fill="#334155">High pile</text>
+  
+  <circle cx="420" cy="375" r="6" fill="#16A34A"/>
+  <text x="435" y="380" font-family="sans-serif" font-size="11" fill="#334155">Berber tribal origin</text>
+  
+  <circle cx="570" cy="375" r="6" fill="#16A34A"/>
+  <text x="585" y="380" font-family="sans-serif" font-size="11" fill="#334155">Asymmetrical designs</text>
+  
+  <circle cx="710" cy="375" r="6" fill="#16A34A"/>
+  <text x="725" y="380" font-family="sans-serif" font-size="11" fill="#334155">No formal training</text>
+</svg>
