@@ -10,6 +10,7 @@
   "favicon": "/favicon.svg",
   "navigation": {
     "pages": [
+      "trevors-page",
       "neha-test-deactivate",
       "paowejfpoiwafj",
       {
