@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+  <text x="400" y="36" font-family="sans-serif" font-size="20" font-weight="700" fill="#1f2937" text-anchor="middle">Penguin Size Comparison</text>
+
+  
+  <g transform="translate(60, 60)">
+    <rect x="0" y="0" width="160" height="280" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+    <text x="80" y="24" font-family="sans-serif" font-size="13" font-weight="600" fill="#1f2937" text-anchor="middle">Emperor Penguin</text>
+    <text x="80" y="42" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">1.1 m / 45 kg</text>
+    
+    <ellipse cx="80" cy="150" rx="35" ry="70" fill="#1f2937"/>
+    <ellipse cx="80" cy="150" rx="20" ry="60" fill="#ffffff"/>
+    <circle cx="80" cy="95" r="18" fill="#1f2937"/>
+    <circle cx="80" cy="95" r="12" fill="#ffffff"/>
+    <circle cx="80" cy="92" r="3" fill="#1f2937"/>
+    <polygon points="80,102 74,112 86,112" fill="#f59e0b"/>
+    
+    <ellipse cx="48" cy="150" rx="8" ry="45" fill="#1f2937"/>
+    <ellipse cx="112" cy="150" rx="8" ry="45" fill="#1f2937"/>
+    
+    <ellipse cx="70" cy="225" rx="12" ry="5" fill="#f59e0b"/>
+    <ellipse cx="90" cy="225" rx="12" ry="5" fill="#f59e0b"/>
+  </g>
+
+  
+  <g transform="translate(240, 80)">
+    <rect x="0" y="0" width="140" height="260" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+    <text x="70" y="24" font-family="sans-serif" font-size="13" font-weight="600" fill="#1f2937" text-anchor="middle">Gentoo Penguin</text>
+    <text x="70" y="42" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">0.9 m / 8 kg</text>
+    
+    <ellipse cx="70" cy="140" rx="28" ry="55" fill="#1f2937"/>
+    <ellipse cx="70" cy="140" rx="16" ry="48" fill="#ffffff"/>
+    <circle cx="70" cy="95" r="14" fill="#1f2937"/>
+    <circle cx="70" cy="95" r="10" fill="#ffffff"/>
+    <circle cx="70" cy="93" r="2.5" fill="#1f2937"/>
+    <polygon points="70,101 65,109 75,109" fill="#f59e0b"/>
+    
+    <ellipse cx="44" cy="140" rx="6" ry="35" fill="#1f2937"/>
+    <ellipse cx="96" cy="140" rx="6" ry="35" fill="#1f2937"/>
+    
+    <ellipse cx="62" cy="198" rx="10" ry="4" fill="#f59e0b"/>
+    <ellipse cx="78" cy="198" rx="10" ry="4" fill="#f59e0b"/>
+  </g>
+
+  
+  <g transform="translate(400, 100)">
+    <rect x="0" y="0" width="130" height="240" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+    <text x="65" y="24" font-family="sans-serif" font-size="13" font-weight="600" fill="#1f2937" text-anchor="middle">Adelie Penguin</text>
+    <text x="65" y="42" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">0.7 m / 5 kg</text>
+    
+    <ellipse cx="65" cy="130" rx="24" ry="48" fill="#1f2937"/>
+    <ellipse cx="65" cy="130" rx="14" ry="42" fill="#ffffff"/>
+    <circle cx="65" cy="92" r="12" fill="#1f2937"/>
+    <circle cx="65" cy="92" r="8" fill="#ffffff"/>
+    <circle cx="65" cy="90" r="2" fill="#1f2937"/>
+    <polygon points="65,97 61,104 69,104" fill="#f59e0b"/>
+    
+    <ellipse cx="42" cy="130" rx="5" ry="30" fill="#1f2937"/>
+    <ellipse cx="88" cy="130" rx="5" ry="30" fill="#1f2937"/>
+    
+    <ellipse cx="58" cy="180" rx="8" ry="3.5" fill="#f59e0b"/>
+    <ellipse cx="72" cy="180" rx="8" ry="3.5" fill="#f59e0b"/>
+  </g>
+
+  
+  <g transform="translate(550, 130)">
+    <rect x="0" y="0" width="130" height="210" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+    <text x="65" y="24" font-family="sans-serif" font-size="13" font-weight="600" fill="#1f2937" text-anchor="middle">Little Blue</text>
+    <text x="65" y="42" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">0.33 m / 1 kg</text>
+    
+    <ellipse cx="65" cy="115" rx="18" ry="36" fill="#1e3a8a"/>
+    <ellipse cx="65" cy="115" rx="11" ry="30" fill="#ffffff"/>
+    <circle cx="65" cy="85" r="9" fill="#1e3a8a"/>
+    <circle cx="65" cy="85" r="6" fill="#ffffff"/>
+    <circle cx="65" cy="83.5" r="1.5" fill="#1e3a8a"/>
+    <polygon points="65,89 62,94 68,94" fill="#f59e0b"/>
+    
+    <ellipse cx="48" cy="115" rx="4" ry="22" fill="#1e3a8a"/>
+    <ellipse cx="82" cy="115" rx="4" ry="22" fill="#1e3a8a"/>
+    
+    <ellipse cx="60" cy="153" rx="6" ry="2.5" fill="#f59e0b"/>
+    <ellipse cx="70" cy="153" rx="6" ry="2.5" fill="#f59e0b"/>
+  </g>
+
+  
+  <rect x="60" y="355" width="700" height="30" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="6"/>
+  <line x1="80" y1="370" x2="740" y2="370" stroke="#64748b" stroke-width="2"/>
+  <line x1="80" y1="362" x2="80" y2="378" stroke="#64748b" stroke-width="2"/>
+  <line x1="740" y1="362" x2="740" y2="378" stroke="#64748b" stroke-width="2"/>
+  <text x="80" y="390" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">0 m</text>
+  <text x="410" y="390" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">0.5 m</text>
+  <text x="740" y="390" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle">1.1 m</text>
+</svg>
