@@ -250,5 +250,17 @@
       "light": "#833939",
       "dark": "#971A1A"
     }
+  },
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "Guh",
+      "description": "this page not here :("
+    }
+  },
+  "banner": {
+    "content": "hi :)",
+    "dismissible": true,
+    "type": "warning"
   }
 }
