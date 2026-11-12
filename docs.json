@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "linden",
   "name": "hunterchen7",
   "colors": {
-    "primary": "#9269F7",
-    "light": "#FF008E",
-    "dark": "#32C5C5"
+    "primary": "#4D1DC4",
+    "light": "#FFC000",
+    "dark": "#0E1414"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -171,6 +171,13 @@
           "index",
           "quickstart"
         ]
+      },
+      {
+        "group": "Royce",
+        "pages": [
+          "hey-guys",
+          "am-i-going-too-crazy"
+        ]
       }
     ],
     "global": {
@@ -220,7 +227,7 @@
     }
   },
   "styling": {
-    "codeblocks": "dark"
+    "codeblocks": "system"
   },
   "integrations": {
     "hotjar": {
@@ -245,11 +252,8 @@
   },
   "description": "this is my personal docs!",
   "background": {
-    "image": "/images/generated/fruits-citrus-lemons.svg",
-    "color": {
-      "light": "#833939",
-      "dark": "#971A1A"
-    }
+    "image": "/images/monday.jpg",
+    "decoration": "grid"
   },
   "errors": {
     "404": {
@@ -259,12 +263,15 @@
     }
   },
   "banner": {
-    "content": "hi :)",
+    "content": "woof woof woof woof",
     "dismissible": true,
     "type": "warning"
   },
   "fonts": {
-    "family": "Montserrat",
+    "family": "Raleway",
     "weight": 600
+  },
+  "icons": {
+    "library": "lucide"
   }
 }
