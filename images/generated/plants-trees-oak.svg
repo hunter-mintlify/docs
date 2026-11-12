@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#faf8f5"/>
+  
+  
+  <text x="400" y="32" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="#3e2723">Oak Tree Anatomy</text>
+  
+  
+  <g transform="translate(100, 60)">
+    
+    <rect x="220" y="180" width="60" height="140" rx="4" fill="#5d4037"/>
+    <rect x="215" y="170" width="70" height="20" rx="3" fill="#6d4c41"/>
+    
+    
+    <line x1="250" y1="180" x2="180" y2="120" stroke="#5d4037" stroke-width="12" stroke-linecap="round"/>
+    <line x1="250" y1="180" x2="320" y2="110" stroke="#5d4037" stroke-width="10" stroke-linecap="round"/>
+    <line x1="250" y1="150" x2="210" y2="90" stroke="#5d4037" stroke-width="8" stroke-linecap="round"/>
+    <line x1="250" y1="150" x2="290" y2="80" stroke="#5d4037" stroke-width="8" stroke-linecap="round"/>
+    
+    
+    <ellipse cx="180" cy="100" rx="70" ry="60" fill="#16A34A" opacity="0.85"/>
+    <ellipse cx="320" cy="90" rx="75" ry="65" fill="#16A34A" opacity="0.85"/>
+    <ellipse cx="250" cy="60" rx="90" ry="70" fill="#2e7d32" opacity="0.8"/>
+    <ellipse cx="210" cy="80" rx="60" ry="50" fill="#4caf50" opacity="0.7"/>
+    <ellipse cx="290" cy="75" rx="65" ry="55" fill="#4caf50" opacity="0.7"/>
+  </g>
+  
+  
+  <line x1="410" y1="120" x2="470" y2="100" stroke="#555" stroke-width="1.5"/>
+  <text x="480" y="105" font-family="sans-serif" font-size="13" fill="#333">Canopy - broad crown provides shade and habitat</text>
+  
+  <line x1="390" y1="240" x2="470" y2="220" stroke="#555" stroke-width="1.5"/>
+  <text x="480" y="225" font-family="sans-serif" font-size="13" fill="#333">Trunk - hardwood used for timber and barrels</text>
+  
+  <line x1="370" y1="300" x2="470" y2="280" stroke="#555" stroke-width="1.5"/>
+  <text x="480" y="285" font-family="sans-serif" font-size="13" fill="#333">Root system - deep roots stabilize soil</text>
+  
+  
+  <rect x="520" y="150" width="220" height="120" rx="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="630" y="172" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Acorn Structure</text>
+  
+  
+  <g transform="translate(560, 195)">
+    <ellipse cx="30" cy="45" rx="18" ry="24" fill="#8d6e63"/>
+    <path d="M 12,28 Q 30,8 48,28" fill="#5d4037"/>
+    <rect x="27" y="5" width="6" height="15" fill="#5d4037"/>
+  </g>
+  
+  
+  <text x="610" y="230" font-family="sans-serif" font-size="12" fill="#333">Cupule (cap)</text>
+  <line x1="600" y1="225" x2="580" y2="215" stroke="#777" stroke-width="1"/>
+  
+  <text x="610" y="260" font-family="sans-serif" font-size="12" fill="#333">Nut (seed)</text>
+  <line x1="600" y1="255" x2="585" y2="245" stroke="#777" stroke-width="1"/>
+  
+  
+  <rect x="520" y="290" width="220" height="80" rx="8" fill="#e8f5e9" stroke="#16A34A" stroke-width="1.5"/>
+  <text x="630" y="312" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Lobed Leaf</text>
+  
+  <g transform="translate(570, 330)">
+    <path d="M 0,15 Q 10,0 20,10 Q 30,-5 40,10 Q 50,0 60,15 Q 70,5 80,20 Q 70,35 60,25 Q 50,40 40,25 Q 30,35 20,25 Q 10,40 0,25 Z" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
+    <line x1="40" y1="12" x2="40" y2="28" stroke="#2e7d32" stroke-width="1"/>
+  </g>
+  
+  <text x="660" y="350" font-family="sans-serif" font-size="12" fill="#333">Deep lobes with pointed tips</text>
+</svg>

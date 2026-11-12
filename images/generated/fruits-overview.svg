@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <text x="400" y="36" font-family="sans-serif" font-size="20" font-weight="bold" fill="#1e293b" text-anchor="middle">Fruit Categories Overview</text>
+
+  
+  <circle cx="160" cy="120" r="50" fill="#fef08a"/>
+  <circle cx="160" cy="120" r="42" fill="#facc15"/>
+  <path d="M160 78 L160 70" stroke="#16a34a" stroke-width="3"/>
+  <ellipse cx="160" cy="68" rx="8" ry="4" fill="#16a34a"/>
+  <text x="160" y="200" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Citrus</text>
+  <text x="160" y="218" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Lemons, Limes</text>
+
+  
+  <ellipse cx="400" cy="120" rx="55" ry="45" fill="#fde047"/>
+  <ellipse cx="400" cy="120" rx="48" ry="38" fill="#facc15"/>
+  <path d="M400 75 L400 55" stroke="#16a34a" stroke-width="3"/>
+  <path d="M400 55 Q420 45 430 60 Q410 50 400 55" fill="#16a34a"/>
+  <text x="400" y="200" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Tropical</text>
+  <text x="400" y="218" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Mangoes, Pineapples</text>
+
+  
+  <circle cx="620" cy="110" r="14" fill="#3b82f6"/>
+  <circle cx="650" cy="125" r="12" fill="#60a5fa"/>
+  <circle cx="635" cy="140" r="13" fill="#2563eb"/>
+  <circle cx="610" cy="130" r="11" fill="#3b82f6"/>
+  <circle cx="625" cy="120" r="10" fill="#60a5fa"/>
+  <text x="630" y="200" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">Berries</text>
+  <text x="630" y="218" font-family="sans-serif" font-size="11" fill="#475569" text-anchor="middle">Strawberries, Blueberries</text>
+
+  
+  <line x1="210" y1="120" x2="290" y2="120" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4"/>
+  <line x1="510" y1="120" x2="570" y2="120" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4"/>
+
+  
+  <rect x="200" y="260" width="400" height="100" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="290" font-family="sans-serif" font-size="13" fill="#1e293b" text-anchor="middle">Fruits are grouped by botanical family and culinary use.</text>
+  <text x="400" y="312" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">Citrus: Rutaceae family | Tropical: diverse families</text>
+  <text x="400" y="334" font-family="sans-serif" font-size="12" fill="#475569" text-anchor="middle">Berries: Rosaceae, Ericaceae, and others</text>
+</svg>

@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "hunterchen7",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#9269F7",
+    "light": "#FF008E",
+    "dark": "#32C5C5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -208,15 +208,47 @@
       "claude",
       "perplexity",
       "mcp",
-      "cursor",
-      "vscode"
-    ]
+      "download-pdf"
+    ],
+    "display": "toc"
   },
   "footer": {
     "socials": {
       "x": "https://x.com/mintlify",
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  },
+  "styling": {
+    "codeblocks": "dark"
+  },
+  "integrations": {
+    "hotjar": {
+      "hjid": "zxcvzxcvzxcv",
+      "hjsv": "wefwaefawfawef"
+    },
+    "intercom": {
+      "appId": "zxv2awewafwef"
+    },
+    "mixpanel": {
+      "projectToken": "89zhxcv9h9a8hw98f9a8wehf"
+    },
+    "telemetry": {
+      "enabled": true
+    }
+  },
+  "thumbnails": {
+    "preset": "classic",
+    "appearance": "light",
+    "surface": "neutral",
+    "background": "/images/pet-greptile.gif"
+  },
+  "description": "this is my personal docs!",
+  "background": {
+    "image": "/images/generated/fruits-citrus-lemons.svg",
+    "color": {
+      "light": "#833939",
+      "dark": "#971A1A"
     }
   }
 }
