@@ -48,6 +48,118 @@
         ]
       },
       {
+        "group": "Animals",
+        "pages": [
+          "animals/overview",
+          {
+            "group": "Mammals",
+            "pages": [
+              "animals/mammals/overview",
+              "animals/mammals/elephants",
+              {
+                "group": "Big cats",
+                "pages": [
+                  "animals/mammals/big-cats/lions",
+                  "animals/mammals/big-cats/tigers"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Birds",
+            "pages": [
+              "animals/birds/penguins",
+              "animals/birds/owls"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Plants",
+        "pages": [
+          "plants/overview",
+          {
+            "group": "Trees",
+            "pages": [
+              "plants/trees/oak",
+              {
+                "group": "Conifers",
+                "pages": [
+                  "plants/trees/conifers/pine",
+                  "plants/trees/conifers/redwood"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Flowers",
+            "pages": [
+              "plants/flowers/roses",
+              "plants/flowers/sunflowers"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Fruits",
+        "pages": [
+          "fruits/overview",
+          {
+            "group": "Citrus",
+            "pages": [
+              "fruits/citrus/lemons",
+              "fruits/citrus/limes"
+            ]
+          },
+          {
+            "group": "Tropical",
+            "pages": [
+              "fruits/tropical/mangoes",
+              "fruits/tropical/pineapples"
+            ]
+          },
+          {
+            "group": "Berries",
+            "pages": [
+              "fruits/berries/strawberries",
+              "fruits/berries/blueberries"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Carpets",
+        "pages": [
+          "carpets/overview",
+          {
+            "group": "Pile types",
+            "pages": [
+              {
+                "group": "Cut pile",
+                "pages": [
+                  "carpets/pile/cut/saxony",
+                  "carpets/pile/cut/frieze"
+                ]
+              },
+              {
+                "group": "Loop pile",
+                "pages": [
+                  "carpets/pile/loop/berber",
+                  "carpets/pile/loop/level-loop"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Rugs by origin",
+            "pages": [
+              "carpets/rugs/persian",
+              "carpets/rugs/moroccan"
+            ]
+          }
+        ]
+      },
+      {
         "group": "Getting Started",
         "pages": [
           "index",
