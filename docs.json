@@ -10,6 +10,9 @@
   "favicon": "/favicon.svg",
   "navigation": {
     "pages": [
+      "this-is-a-new-page",
+      "dahlias-amazing-page",
+      "sophias-apgea",
       "untitled-page",
       "a-new-page-for-main",
       "testing-page",
