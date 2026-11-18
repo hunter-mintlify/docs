@@ -10,6 +10,7 @@
   "favicon": "/favicon.svg",
   "navigation": {
     "pages": [
+      "sophias-apgea",
       "untitled-page",
       "a-new-page-for-main",
       "testing-page",
