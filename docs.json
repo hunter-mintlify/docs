@@ -27,6 +27,7 @@
             "group": "Some other kinda things",
             "pages": [
               "samples/concept-overview",
+              "samples/concept-overview-2",
               "i-need-help"
             ]
           }
@@ -254,7 +255,7 @@
     "surface": "neutral",
     "background": "/images/pet-greptile.gif"
   },
-  "description": "this is my personal docs!",
+  "description": "this is my personal docs! and also some other things.",
   "background": {
     "image": "/images/monday.jpg",
     "decoration": "grid"
@@ -267,7 +268,7 @@
     }
   },
   "banner": {
-    "content": "woof woof woof woof",
+    "content": "woof woof woof woof meow",
     "dismissible": true,
     "type": "warning"
   },
@@ -277,5 +278,11 @@
   },
   "icons": {
     "library": "lucide"
+  },
+  "metadata": {
+    "timestamp": true
+  },
+  "seo": {
+    "trailingSlash": true
   }
 }
