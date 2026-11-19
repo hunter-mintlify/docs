@@ -82,6 +82,15 @@
               "animals/birds/penguins",
               "animals/birds/owls"
             ]
+          },
+          {
+            "group": "Fish",
+            "pages": [
+              "animals/fish/overview",
+              "animals/fish/salmon",
+              "animals/fish/clownfish",
+              "animals/fish/sharks"
+            ]
           }
         ]
       },
