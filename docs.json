@@ -40,6 +40,7 @@
           "mermaid-stuff",
           "samples/components-showcase-2-2",
           "samples/guide-with-steps",
+          "samples/guide-with-steps-3",
           "samples/api-endpoint",
           "samples/oranges",
           "joij",
@@ -203,6 +204,10 @@
       {
         "label": "Support",
         "href": "mailto:hi@mintlify.com"
+      },
+      {
+        "href": "/path",
+        "label": "Hi"
       }
     ],
     "primary": {
@@ -246,6 +251,9 @@
     },
     "telemetry": {
       "enabled": true
+    },
+    "clearbit": {
+      "publicApiKey": "fuaw9eifjaw9ejf9awejf"
     }
   },
   "thumbnails": {
@@ -254,7 +262,7 @@
     "surface": "neutral",
     "background": "/images/pet-greptile.gif"
   },
-  "description": "this is my personal docs!",
+  "description": "this is my personal docs! and also has some other changes.",
   "background": {
     "image": "/images/monday.jpg",
     "decoration": "grid"
@@ -273,9 +281,12 @@
   },
   "fonts": {
     "family": "Raleway",
-    "weight": 600
+    "weight": 500
   },
   "icons": {
     "library": "lucide"
+  },
+  "metadata": {
+    "timestamp": true
   }
 }
