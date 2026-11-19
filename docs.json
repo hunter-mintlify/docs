@@ -14,13 +14,13 @@
       "a-new-page-for-main",
       "testing-page",
       "trevors-page",
+      "making-a-new-page",
       "neha-test-deactivate",
       "paowejfpoiwafj",
       {
         "group": "folder",
         "pages": [
           "wow-new-page",
-          "making-a-new-page",
           "samples/components-showcase-2",
           "a-nwe-page",
           {
@@ -52,36 +52,36 @@
       {
         "group": "Fun",
         "pages": [
-          "fun/dice-roller",
-          "fun/docs-trivia",
-          "fun/coffee-calculator"
-        ]
-      },
-      {
-        "group": "Animals",
-        "pages": [
-          "animals/overview",
           {
-            "group": "Mammals",
+            "group": "Animals",
             "pages": [
-              "animals/mammals/overview",
-              "animals/mammals/elephants",
+              "animals/overview",
               {
-                "group": "Big cats",
+                "group": "Mammals",
                 "pages": [
-                  "animals/mammals/big-cats/lions",
-                  "animals/mammals/big-cats/tigers"
+                  "animals/mammals/overview",
+                  "animals/mammals/elephants",
+                  {
+                    "group": "Big cats",
+                    "pages": [
+                      "animals/mammals/big-cats/lions",
+                      "animals/mammals/big-cats/tigers"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Birds",
+                "pages": [
+                  "animals/birds/penguins",
+                  "animals/birds/owls"
                 ]
               }
             ]
           },
-          {
-            "group": "Birds",
-            "pages": [
-              "animals/birds/penguins",
-              "animals/birds/owls"
-            ]
-          }
+          "fun/dice-roller",
+          "fun/docs-trivia",
+          "fun/coffee-calculator"
         ]
       },
       {
@@ -203,6 +203,10 @@
       {
         "label": "Support",
         "href": "mailto:hi@mintlify.com"
+      },
+      {
+        "href": "/quickstart",
+        "label": "Hi"
       }
     ],
     "primary": {
@@ -252,9 +256,12 @@
     "preset": "classic",
     "appearance": "light",
     "surface": "neutral",
-    "background": "/images/pet-greptile.gif"
+    "background": "/images/pet-greptile.gif",
+    "fonts": {
+      "family": "Inter"
+    }
   },
-  "description": "this is my personal docs!",
+  "description": "this is my personal docs! and also some other stuff.",
   "background": {
     "image": "/images/monday.jpg",
     "decoration": "grid"
@@ -273,9 +280,12 @@
   },
   "fonts": {
     "family": "Raleway",
-    "weight": 600
+    "weight": 500
   },
   "icons": {
     "library": "lucide"
+  },
+  "metadata": {
+    "timestamp": true
   }
 }
