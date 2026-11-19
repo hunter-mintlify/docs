@@ -16,7 +16,6 @@
       "testing-page",
       "trevors-page",
       "neha-test-deactivate",
-      "paowejfpoiwafj",
       {
         "group": "folder",
         "pages": [
@@ -89,7 +88,9 @@
               "animals/fish/overview",
               "animals/fish/salmon",
               "animals/fish/clownfish",
-              "animals/fish/sharks"
+              "animals/fish/sharks",
+              "animals/fish/seahorses",
+              "animals/fish/tuna"
             ]
           }
         ]
@@ -235,7 +236,7 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
+      "x": "https://x.com/hunterchen_7",
       "github": "https://github.com/hunterchen7",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
@@ -264,10 +265,13 @@
     "surface": "neutral",
     "background": "/images/pet-greptile.gif"
   },
-  "description": "this is my personal docs! and also other stuff!",
+  "description": "this is my personal docs!",
   "background": {
     "image": "/images/monday.jpg",
-    "decoration": "grid"
+    "decoration": "grid",
+    "color": {
+      "light": "#B93131"
+    }
   },
   "errors": {
     "404": {
@@ -283,7 +287,7 @@
   },
   "fonts": {
     "family": "Raleway",
-    "weight": 600
+    "weight": 500
   },
   "icons": {
     "library": "lucide"
