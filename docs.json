@@ -196,14 +196,15 @@
               "hey-guys",
               "am-i-going-too-crazy"
             ]
+          },
+          {
+            "group": "Snippet playground",
+            "pages": [
+              "snippet-playground/imported-snippets",
+              "snippet-playground/inline-components",
+              "snippet-playground/mixed-and-edge-cases"
+            ]
           }
-        ]
-      },
-      {
-        "group": "Snippet Playground",
-        "pages": [
-          "snippet-playground/imported-snippets",
-          "snippet-playground/inline-components"
         ]
       }
     ],
