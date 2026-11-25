@@ -1,0 +1,69 @@
+---
+title: "Imported snippets"
+description: "Test page for every kind of imported snippet: text, props, variables, nested, components, JSX, and JS data."
+---
+
+import PlainText from "/snippets/plain-text.mdx";
+import WithProps from "/snippets/with-props.mdx";
+import { myName, myObject, releaseList } from "/snippets/variables.mdx";
+import NestedParent from "/snippets/nested-parent.mdx";
+import ComponentsSnippet from "/snippets/components.mdx";
+import { ImportedCounter } from "/snippets/counter.jsx";
+import { fruitData } from "/snippets/fruit-data.js";
+import { FruitTable } from "/snippets/fruit-table.jsx";
+
+Each section imports a different snippet type. The expected result is written above each one so you can compare.
+
+## 1. Plain text snippet
+
+**Expected:** a sentence with bold, italic, a link, and a two-item list.
+
+<PlainText />
+
+## 2. Snippet with props
+
+**Expected:** keyword is **bananas**, and the code block installs `@hunter/sdk`.
+
+<WithProps word="bananas" packageName="@hunter/sdk" />
+
+Same snippet, different props. **Expected:** keyword is **mangoes**, package is `left-pad`.
+
+<WithProps word="mangoes" packageName="left-pad" />
+
+## 3. Imported variables
+
+**Expected:** "Hello, my name is Hunter and I like 3 strawberries. Latest release: v2.0."
+
+Hello, my name is {myName} and I like {myObject.count} {myObject.fruit}. Latest release: {releaseList[releaseList.length - 1]}.
+
+## 4. Nested snippets
+
+**Expected:** a line from the parent snippet, followed by an Info callout from the child snippet.
+
+<NestedParent />
+
+## 5. Mintlify components inside a snippet
+
+**Expected:** a Note, two tabs, one accordion, and a JavaScript/Python code group.
+
+<ComponentsSnippet />
+
+## 6. Imported React component (.jsx)
+
+**Expected:** a working counter. The second one starts at 10.
+
+<ImportedCounter />
+
+<ImportedCounter label="Starts at ten" start={10} />
+
+## 7. JS data rendered by a JSX snippet
+
+**Expected:** a table with 4 fruits, then a filtered table with only the 2 Citrus fruits.
+
+There are {fruitData.length} fruits in the data file.
+
+<FruitTable rows={fruitData} />
+
+### Citrus only
+
+<FruitTable rows={fruitData.filter((row) => row.family === "Citrus")} />

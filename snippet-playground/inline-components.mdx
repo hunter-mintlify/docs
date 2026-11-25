@@ -1,0 +1,114 @@
+---
+title: "Inline components"
+description: "Test page for components, variables, and widgets defined directly in the page with export const."
+---
+
+Everything on this page is defined at the bottom of this file with `export const`. Nothing is imported.
+
+## 1. Inline variable
+
+**Expected:** "The current version is 4.2.0."
+
+The current version is {inlineVersion}.
+
+## 2. Static inline component
+
+**Expected:** a purple badge that says "Inline badge".
+
+<InlineBadge text="Inline badge" />
+
+## 3. Component with children
+
+**Expected:** a bordered box titled "Wrapper" containing a sentence and a Tip callout.
+
+<InlineWrapper title="Wrapper">
+  This text is passed as children into an inline component.
+
+  <Tip>
+    A Mintlify Tip nested inside an inline component.
+  </Tip>
+</InlineWrapper>
+
+## 4. Stateful widget
+
+**Expected:** typing in the box updates the preview, and the character count changes.
+
+<InlineMirror />
+
+## 5. Toggle widget
+
+**Expected:** clicking the button shows and hides the panel.
+
+<InlineToggle />
+
+## 6. Inline list from data
+
+**Expected:** three planets with their moon counts.
+
+<InlinePlanetList />
+
+export const inlineVersion = "4.2.0";
+
+export const InlineBadge = ({ text }) => (
+  <span className="inline-block rounded-full bg-[#4D1DC4] px-3 py-1 text-xs font-semibold text-white">
+    {text}
+  </span>
+);
+
+export const InlineWrapper = ({ title, children }) => (
+  <div className="rounded-xl border border-zinc-300 dark:border-zinc-700 p-4 my-4">
+    <div className="text-sm font-semibold mb-2">{title}</div>
+    {children}
+  </div>
+);
+
+export const InlineMirror = () => {
+  const [text, setText] = useState("Hello snippets");
+  return (
+    <div className="not-prose rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 my-4 space-y-2">
+      <input
+        className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 bg-transparent px-3 py-2 text-sm"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <div className="text-lg font-semibold">{text || "(empty)"}</div>
+      <div className="text-xs text-zinc-500">{text.length} characters</div>
+    </div>
+  );
+};
+
+export const InlineToggle = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="not-prose my-4">
+      <button
+        className="rounded-lg bg-[#4D1DC4] px-3 py-1 text-sm text-white"
+        onClick={() => setOpen(!open)}
+      >
+        {open ? "Hide panel" : "Show panel"}
+      </button>
+      {open && (
+        <div className="mt-3 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 text-sm">
+          The panel is open.
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const InlinePlanetList = () => {
+  const planets = [
+    { name: "Earth", moons: 1 },
+    { name: "Mars", moons: 2 },
+    { name: "Jupiter", moons: 95 }
+  ];
+  return (
+    <ul>
+      {planets.map((p) => (
+        <li key={p.name}>
+          {p.name}: {p.moons} moon{p.moons === 1 ? "" : "s"}
+        </li>
+      ))}
+    </ul>
+  );
+};

@@ -198,6 +198,13 @@
             ]
           }
         ]
+      },
+      {
+        "group": "Snippet Playground",
+        "pages": [
+          "snippet-playground/imported-snippets",
+          "snippet-playground/inline-components"
+        ]
       }
     ],
     "global": {
