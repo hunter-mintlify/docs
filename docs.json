@@ -10,43 +10,33 @@
   "favicon": "/favicon.svg",
   "navigation": {
     "pages": [
-      "this-is-a-new-testing-page",
-      "untitled-page",
-      "a-new-page-for-main",
-      "testing-page",
-      "trevors-page",
-      "neha-test-deactivate",
       {
-        "group": "folder",
+        "group": "Getting Started",
         "pages": [
-          "wow-new-page",
-          "making-a-new-page",
-          "samples/components-showcase-2",
-          {
-            "group": "Some other kinda things",
-            "pages": [
-              "a-nwe-page",
-              "samples/concept-overview",
-              "i-need-help"
-            ]
-          }
+          "index",
+          "quickstart"
         ]
       },
       {
         "group": "Samples",
         "pages": [
-          "samples/components-showcase",
-          "samples/guide-with-steps-2",
-          "mermaid-stuff",
-          "samples/components-showcase-2-2",
+          "samples/concept-overview",
           "samples/guide-with-steps",
           "samples/api-endpoint",
-          "samples/oranges",
-          "joij",
-          "title-workspace-landing-description-a-slash-docs-style-landing-page-built-with-custom-css-react-components-and-a-custom-layout-mode-custom-export-const-sd-css-import-url-https-fonts-googleapis-com",
+          "samples/components-showcase",
+          "mermaid-stuff",
           "doom",
-          "hihoi",
-          "bananas"
+          "samples/oranges",
+          "bananas",
+          "title-workspace-landing-description-a-slash-docs-style-landing-page-built-with-custom-css-react-components-and-a-custom-layout-mode-custom-export-const-sd-css-import-url-https-fonts-googleapis-com",
+          {
+            "group": "Copies",
+            "pages": [
+              "samples/components-showcase-2",
+              "samples/components-showcase-2-2",
+              "samples/guide-with-steps-2"
+            ]
+          }
         ]
       },
       {
@@ -181,17 +171,40 @@
         ]
       },
       {
-        "group": "Getting Started",
+        "group": "Sandbox",
         "pages": [
-          "index",
-          "quickstart"
-        ]
-      },
-      {
-        "group": "Royce",
-        "pages": [
-          "hey-guys",
-          "am-i-going-too-crazy"
+          {
+            "group": "Test pages",
+            "pages": [
+              "this-is-a-new-testing-page",
+              "testing-page",
+              "joij",
+              "untitled-page",
+              "a-new-page-for-main",
+              "wow-new-page",
+              "making-a-new-page",
+              "a-nwe-page",
+              "hihoi",
+              "i-need-help"
+            ]
+          },
+          {
+            "group": "Team scratch",
+            "pages": [
+              "trevors-page",
+              "neha-test-deactivate",
+              "hey-guys",
+              "am-i-going-too-crazy"
+            ]
+          },
+          {
+            "group": "Snippet playground",
+            "pages": [
+              "snippet-playground/imported-snippets",
+              "snippet-playground/inline-components",
+              "snippet-playground/mixed-and-edge-cases"
+            ]
+          }
         ]
       }
     ],

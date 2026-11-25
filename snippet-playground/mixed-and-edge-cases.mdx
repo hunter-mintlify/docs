@@ -1,0 +1,90 @@
+---
+title: "Mixed and edge cases"
+description: "Imported and inline snippets on the same page, plus edge cases likely to break."
+---
+
+import PlainText from "/snippets/plain-text.mdx";
+import WithProps from "/snippets/with-props.mdx";
+import { ImportedCounter } from "/snippets/counter.jsx";
+import { myName } from "/snippets/variables.mdx";
+
+## 1. Imported and inline side by side
+
+**Expected:** the imported counter, then the inline counter. Each keeps its own count.
+
+<ImportedCounter label="Imported counter" />
+
+<InlineCounter />
+
+## 2. Same snippet used twice
+
+**Expected:** the plain text snippet appears twice, identically.
+
+<PlainText />
+
+<PlainText />
+
+## 3. Snippet inside Mintlify components
+
+**Expected:** the props snippet renders inside a Tab and inside an Accordion.
+
+<Tabs>
+  <Tab title="In a tab">
+    <WithProps word="tabs" packageName="tab-pkg" />
+  </Tab>
+  <Tab title="Other tab">
+    Nothing here.
+  </Tab>
+</Tabs>
+
+<Accordion title="Snippet in an accordion">
+  <WithProps word="accordions" packageName="accordion-pkg" />
+</Accordion>
+
+## 4. Snippet with a missing prop
+
+**Expected (unclear):** `word` is not passed. Check whether it renders blank, as the literal `{word}`, or errors.
+
+<WithProps packageName="only-package" />
+
+## 5. Imported variable inside inline component
+
+**Expected:** "Greeting for Hunter" inside a bordered box. The page imports `myName` and passes it into an inline component.
+
+<InlineGreeting name={myName} />
+
+## 6. Imported variable inside a callout and a table
+
+<Note>
+  Hello from {myName}, inside a Note.
+</Note>
+
+| Field | Value |
+| --- | --- |
+| Name | {myName} |
+| Static | plain text |
+
+## 7. Inline expression
+
+**Expected:** "2 + 2 = 4".
+
+2 + 2 = {2 + 2}
+
+export const InlineCounter = () => {
+  const [n, setN] = useState(0);
+  return (
+    <div className="not-prose flex items-center gap-3 rounded-xl border border-dashed border-zinc-300 dark:border-zinc-700 p-4 my-4">
+      <span className="text-sm text-zinc-600 dark:text-zinc-400">Inline counter:</span>
+      <span className="text-lg font-semibold">{n}</span>
+      <button className="ml-auto rounded-lg bg-[#4D1DC4] px-3 py-1 text-sm text-white" onClick={() => setN(n + 1)}>
+        +1
+      </button>
+    </div>
+  );
+};
+
+export const InlineGreeting = ({ name }) => (
+  <div className="rounded-xl border border-zinc-300 dark:border-zinc-700 p-4 my-4">
+    Greeting for {name}
+  </div>
+);
